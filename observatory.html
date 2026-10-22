@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Evidence-grounded governance observatory for Gem Quota's bot swarm. Static documentary catalogue; no live runtime feed is connected.">
+<title>Swarm Observatory · Gem Quota</title>
+<style>
+:root{color-scheme:light dark;--bg:#f5f7fb;--panel:#fff;--ink:#1d2638;--muted:#5d687c;--line:#dce2ec;--accent:#4c5fd5;--soft:#e9edff;--green:#16794b;--amber:#9a5b00;--red:#b42336;--violet:#7048e8;--shadow:0 8px 24px #17213a0b}
+@media(prefers-color-scheme:dark){:root{--bg:#10131c;--panel:#191e2b;--ink:#e8ebf4;--muted:#a2abc0;--line:#30374a;--accent:#9baaff;--soft:#252d4a;--green:#66d9a2;--amber:#ffcc80;--red:#ff8795;--violet:#c3a5ff;--shadow:0 8px 24px #0003}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif}a{color:var(--accent)}button,input,select{font:inherit}button{cursor:pointer}.shell{max-width:1280px;margin:auto;padding:0 20px}
+.hero{padding:26px 0 18px;background:linear-gradient(130deg,#252d65,#5141a2);color:#fff}.hero a{color:#fff}.eyebrow{text-transform:uppercase;letter-spacing:.12em;font-size:.74rem;font-weight:800;opacity:.8}.hero h1{margin:.3rem 0;font-size:clamp(1.8rem,4vw,2.6rem);line-height:1.1}.hero p{max-width:70ch;margin:.7rem 0 0;color:#e5e7ff}.warning{margin:18px 0;padding:12px 15px;border:1px solid #e0a23b;background:color-mix(in srgb,var(--amber) 10%,var(--panel));border-radius:12px}.warning strong{color:var(--amber)}
+nav{display:flex;gap:6px;overflow-x:auto;padding:12px 0 0}.navbtn{white-space:nowrap;border:1px solid transparent;border-bottom:0;border-radius:9px 9px 0 0;padding:10px 14px;background:#ffffff12;color:#fff}.navbtn[aria-selected=true]{background:var(--bg);color:var(--ink);font-weight:750}.navbtn:focus-visible,button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid #f0c44f;outline-offset:2px}
+main{padding:22px 0 48px}.view[hidden]{display:none}.view h2{margin:0 0 4px;font-size:1.65rem}.lede{margin:0 0 18px;color:var(--muted);max-width:78ch}.grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:14px}.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px;box-shadow:var(--shadow);min-width:0}.span-3{grid-column:span 3}.span-4{grid-column:span 4}.span-5{grid-column:span 5}.span-6{grid-column:span 6}.span-7{grid-column:span 7}.span-8{grid-column:span 8}.span-12{grid-column:span 12}.metric{font-size:1.9rem;font-weight:800;letter-spacing:-.04em;line-height:1.2}.muted{color:var(--muted)}.small{font-size:.86rem}.status{display:inline-flex;align-items:center;gap:5px;border:1px solid var(--line);border-radius:999px;padding:2px 8px;font-size:.72rem;font-weight:800;letter-spacing:.025em;white-space:nowrap}.status.DOCUMENTED{color:var(--accent)}.status.UNKNOWN{color:var(--amber)}.status.CONTRADICTED{color:var(--red)}.status.INDEPENDENTLY_VERIFIED{color:var(--green)}.status.INFERRED,.status.DERIVED{color:var(--violet)}.status.STALE{color:var(--amber)}.status.EXCLUDED_FROM_SNAPSHOT{color:var(--muted)}.pill{display:inline-block;border-radius:6px;background:var(--soft);padding:2px 7px;font-size:.8rem}.card h3{font-size:1.08rem;margin:0 0 8px}.card h4{margin:0 0 6px}.card p{margin:.35rem 0}.kvs{display:grid;grid-template-columns:140px 1fr;gap:6px 12px}.kvs dt{font-size:.86rem;color:var(--muted)}.kvs dd{margin:0;overflow-wrap:anywhere}.toolbar{display:flex;gap:9px;flex-wrap:wrap;margin:12px 0 16px}.toolbar input,.toolbar select{background:var(--panel);color:var(--ink);border:1px solid var(--line);border-radius:9px;padding:9px 11px;min-width:160px}.toolbar input{flex:1;min-width:220px}.btn{border:1px solid var(--line);border-radius:9px;background:var(--panel);color:var(--ink);padding:8px 11px}.btn.primary{background:var(--accent);color:white;border-color:var(--accent)}.list{display:grid;gap:10px}.record{padding:13px;border:1px solid var(--line);border-radius:11px;background:var(--panel)}.record-head{display:flex;gap:8px;justify-content:space-between;align-items:flex-start;flex-wrap:wrap}.record p{margin:6px 0}.source{font-size:.86rem;overflow-wrap:anywhere}.empty{padding:24px;text-align:center;border:1px dashed var(--line);border-radius:12px;color:var(--muted)}.notice{border-left:4px solid var(--accent);padding:10px 13px;background:var(--soft);border-radius:0 9px 9px 0;margin:12px 0}.risk{border-left-color:var(--amber)}.bad{border-left-color:var(--red)}.good{border-left-color:var(--green)}.tablewrap{overflow:auto;border:1px solid var(--line);border-radius:10px}table{border-collapse:collapse;width:100%;min-width:620px;background:var(--panel)}th,td{text-align:left;padding:10px 12px;vertical-align:top;border-bottom:1px solid var(--line)}th{background:var(--soft);font-size:.83rem}tr:last-child td{border-bottom:0}.edges{display:grid;gap:8px}.edge{display:grid;grid-template-columns:minmax(90px,1fr) minmax(100px,1fr) minmax(90px,1fr);gap:8px;align-items:center;padding:10px;border:1px solid var(--line);border-radius:9px}.edge button{border:0;background:transparent;color:var(--accent);text-align:left;font-weight:700;overflow-wrap:anywhere}.edge .rel{text-align:center;font-size:.76rem;font-weight:800;color:var(--muted);overflow-wrap:anywhere}.foot{border-top:1px solid var(--line);padding:16px 0 28px;color:var(--muted);font-size:.83rem}.section-title{margin:20px 0 8px}
+@media(max-width:850px){.span-3,.span-4,.span-5,.span-6,.span-7,.span-8{grid-column:span 6}.kvs{grid-template-columns:110px 1fr}}
+@media(max-width:560px){.shell{padding:0 12px}.hero{padding-top:20px}.span-3,.span-4,.span-5,.span-6,.span-7,.span-8,.span-12{grid-column:span 12}.edge{grid-template-columns:1fr}.edge .rel{text-align:left}.kvs{grid-template-columns:1fr;gap:2px}.kvs dd{margin-bottom:8px}.navbtn{padding:9px 11px}}
+</style>
+</head>
+<body>
+<header class="hero"><div class="shell">
+<div class="eyebrow">Gem Quota · Governance systems</div><h1>Swarm Observatory</h1>
+<p>Inspect documented rules, provenance, authority requirements, event-ledger contracts, and relationships across the swarm.</p>
+<div class="warning"><strong>STATIC DOCUMENTARY VIEW · NOT LIVE MONITORING</strong><br>This page reads curated records bundled with the site. No trusted runtime telemetry, live approval feed, or event ledger is connected. A missing record is not proof that an event did not happen.</div>
+<nav role="tablist" aria-label="Observatory views">
+<button class="navbtn" role="tab" id="tab-overview" aria-controls="overview" aria-selected="true">Overview</button>
+<button class="navbtn" role="tab" id="tab-evidence" aria-controls="evidence" aria-selected="false">Evidence</button>
+<button class="navbtn" role="tab" id="tab-authority" aria-controls="authority" aria-selected="false">Authority</button>
+<button class="navbtn" role="tab" id="tab-ledger" aria-controls="ledger" aria-selected="false">Ledger</button>
+<button class="navbtn" role="tab" id="tab-graph" aria-controls="graph" aria-selected="false">Relationships</button>
+<button class="navbtn" role="tab" id="tab-conflicts" aria-controls="conflicts" aria-selected="false">Open questions</button>
+</nav>
+</div></header>
+<main class="shell">
+<section class="view" id="overview" role="tabpanel" aria-labelledby="tab-overview" tabindex="0">
+<h2>Evidence before confidence</h2><p class="lede">The observatory separates what a governance document says from what the running system has actually done. The current release establishes the documentary model and user interface, not host-level enforcement.</p>
+<div class="grid">
+<article class="card span-3"><div class="muted small">Curated records</div><div class="metric" id="metric-records">—</div><p class="muted small">Static, source-linked entities</p></article>
+<article class="card span-3"><div class="muted small">Runtime observations</div><div class="metric">UNKNOWN</div><p class="muted small">No trusted runtime feed</p></article>
+<article class="card span-3"><div class="muted small">Live ledger events</div><div class="metric">UNKNOWN</div><p class="muted small">Not connected, not zero</p></article>
+<article class="card span-3"><div class="muted small">Authority verdicts</div><div class="metric">NONE</div><p class="muted small">Policy lookup is informational</p></article>
+<article class="card span-7"><h3>Truth labels</h3><div class="list">
+<div><span class="status DOCUMENTED">DOCUMENTED</span> A source says this. Not proof of execution.</div>
+<div><span class="status OBSERVED">OBSERVED</span> Collected from a named source at a stated time.</div>
+<div><span class="status INDEPENDENTLY_VERIFIED">INDEPENDENTLY VERIFIED</span> Checked by a distinct verifier with evidence.</div>
+<div><span class="status DERIVED">DERIVED</span> Computed deterministically from cited inputs.</div>
+<div><span class="status INFERRED">INFERRED</span> Interpretive relationship; challengeable.</div>
+<div><span class="status CONTRADICTED">CONTRADICTED</span> Evidence conflicts with this claim.</div>
+<div><span class="status STALE">STALE</span> Too old or superseded for current-state use.</div>
+<div><span class="status UNKNOWN">UNKNOWN</span> Available evidence does not establish the answer.</div>
+<div><span class="status EXCLUDED_FROM_SNAPSHOT">EXCLUDED FROM SNAPSHOT</span> Known to be omitted from a collection.</div>
+</div></article>
+<article class="card span-5"><h3>Data coverage</h3><dl class="kvs">
+<dt>Governance sources</dt><dd><span class="status DOCUMENTED">DOCUMENTED</span> Curated public files</dd>
+<dt>Runtime process state</dt><dd><span class="status UNKNOWN">UNKNOWN</span> Not connected</dd>
+<dt>Approval records</dt><dd><span class="status UNKNOWN">UNKNOWN</span> No authenticated feed</dd>
+<dt>Event history</dt><dd><span class="status UNKNOWN">UNKNOWN</span> No trusted ledger feed</dd>
+<dt>Workspace snapshot</dt><dd><span class="status DOCUMENTED">PARTIAL</span> Repository view only</dd>
+<dt>Enforcement</dt><dd><span class="status UNKNOWN">UNVERIFIED</span> UI is not a control plane</dd>
+</dl><p class="muted small">The source set is the public repository. It is not a complete view of the shared machine or private bot state.</p></article>
+<article class="card span-12"><h3>Start an investigation</h3><div class="grid">
+<div class="card span-4"><h4>1 · Find the source</h4><p class="muted">Search documented assertions and open the original ruling or reference.</p><button class="btn" data-go="evidence">Browse evidence →</button></div>
+<div class="card span-4"><h4>2 · Inspect the rule</h4><p class="muted">Look up documented preconditions for a GitHub push or public post.</p><button class="btn" data-go="authority">Inspect authority →</button></div>
+<div class="card span-4"><h4>3 · Follow relationships</h4><p class="muted">Traverse source-backed links between actors, rulings, and actions.</p><button class="btn" data-go="graph">Explore graph →</button></div>
+</div></article>
+</div>
+</section>
+<section class="view" id="evidence" role="tabpanel" aria-labelledby="tab-evidence" tabindex="0" hidden>
+<h2>Evidence catalogue</h2><p class="lede">Curated documentary assertions with direct source links. These records inherit the source's documentary status; they are not independent observations of the runtime.</p>
+<div class="toolbar"><input id="evidence-search" type="search" placeholder="Search labels, claims, sources…" aria-label="Search evidence"><select id="evidence-status" aria-label="Filter by epistemic status"><option value="">All statuses</option><option>DOCUMENTED</option><option>UNKNOWN</option><option>CONTRADICTED</option></select></div>
+<div id="evidence-list" class="list"></div>
+</section>
+<section class="view" id="authority" role="tabpanel" aria-labelledby="tab-authority" tabindex="0" hidden>
+<h2>Authority policy explorer</h2><p class="lede">This is a source-backed policy lookup, not an authorisation service. It identifies documented requirements; it cannot authenticate an actor, validate a real approval, or block an action.</p>
+<div class="grid">
+<article class="card span-5"><h3>Describe an action</h3><div class="toolbar"><label class="span-12" for="actor">Actor<select id="actor" style="display:block;width:100%;margin-top:4px"><option>Engineer</option><option>Emissary</option><option>Archivist</option><option>Imitator</option><option>Arbiter</option><option>Other bot</option></select></label>
+<label class="span-12" for="action">Action<select id="action" style="display:block;width:100%;margin-top:4px"><option value="github-push">Push to GitHub</option><option value="public-post">Publish a social post</option><option value="deploy">Deploy a version</option><option value="public-repo">Make an approved project public</option></select></label>
+<label class="span-12" for="target">Target<select id="target" style="display:block;width:100%;margin-top:4px"><option value="other">Other public/shared repository</option><option value="gvmw">gemquota/gvmw</option><option value="swarm">gemquota/swarm</option><option value="vepa">VEPA</option><option value="medb">MedB</option><option value="slapred">SLAP.RED / Golf</option></select></label></div><button class="btn primary" id="check-policy">Show documented requirements</button></article>
+<article class="card span-7"><h3>Policy result</h3><div id="policy-result" aria-live="polite" class="notice">Choose an action and inspect its documented requirements. The result will never say that a real action is authorised.</div></article>
+<article class="card span-12"><h3>Authority chain model</h3><div class="flow" aria-label="Authority chain"><span class="pill">Principal / identity</span> → <span class="pill">Role</span> → <span class="pill">Capability</span> → <span class="pill">Policy authority</span> → <span class="pill">Approval</span> → <span class="pill">Preflight</span> → <span class="pill">Action</span> → <span class="pill">Result</span> → <span class="pill">Independent verifier</span></div><p class="muted small">A missing link must stay visible. The UI does not validate identities or signatures. R-054 is the source for documented approval requirements.</p></article>
+</div>
+</section>
+<section class="view" id="ledger" role="tabpanel" aria-labelledby="tab-ledger" tabindex="0" hidden>
+<h2>Event ledger</h2><p class="lede">A future event-feed interface backed by a versioned event envelope. No live runtime ledger is connected to this static site.</p>
+<div class="notice risk"><strong>Feed status: NOT CONNECTED.</strong> There are no live events available to display. This does not mean no events occurred. No synthetic action history is presented as real.</div>
+<div class="grid">
+<article class="card span-4"><h3>Expected event types</h3><p>Proposal · Approval · Rejection · Ruling · Preflight · Action attempt · Execution · Verification · Incident · Revocation · Restore · Publication</p></article>
+<article class="card span-4"><h3>Integrity checks</h3><p>Future validator: event ID uniqueness, previous-hash continuity, canonical event hash, source revision, timestamps, producer identity, and independent verifier evidence.</p></article>
+<article class="card span-4"><h3>Integrity caveat</h3><p>A hash chain can expose certain changes. It does not authenticate the creator or prevent a privileged actor from rewriting every copy.</p></article>
+<article class="card span-12"><h3>Event envelope schema</h3><p class="muted">Contract for a future trusted runtime feed, not a claim that the feed exists.</p><p><a href="docs/schemas/event.schema.json">View event.schema.json</a> · <a href="docs/development/DATA_PROVENANCE.md">Provenance contract</a></p><pre style="white-space:pre-wrap;overflow-wrap:anywhere;background:var(--bg);padding:12px;border-radius:9px">Required: id, type, eventTime, producer, source, status
+Optional: observedAt, taskId, approvalIds, evidenceIds, action,
+          result, verifier, previousEventHash, eventHash</pre></article>
+</div>
+</section>
+<section class="view" id="graph" role="tabpanel" aria-labelledby="tab-graph" tabindex="0" hidden>
+<h2>Semantic relationships</h2><p class="lede">Edges below are curated from explicit public documents. Clicking an entity filters the graph to its immediate documented relationships. This is a small source-backed graph, not the full swarm knowledge base.</p>
+<div class="toolbar"><input id="graph-search" type="search" placeholder="Filter entities or relationships…" aria-label="Search graph"><select id="graph-entity" aria-label="Focus graph entity"><option value="">All entities</option></select></div>
+<div id="graph-summary" class="muted small"></div><div id="graph-list" class="edges"></div>
+</section>
+<section class="view" id="conflicts" role="tabpanel" aria-labelledby="tab-conflicts" tabindex="0" hidden>
+<h2>Open questions and consistency checks</h2><p class="lede">These are explicitly documented unresolved questions, kept separate from automated data-integrity checks. An open question is not automatically a proven contradiction.</p>
+<div class="grid">
+<article class="card span-12"><h3>Open questions recorded in R-054</h3><div id="open-questions" class="list"></div></article>
+<article class="card span-12"><h3>Deterministic catalogue checks</h3><div id="check-summary" class="notice"></div><div id="check-list" class="list"></div><p class="muted small">Checks only cover the small bundled catalogue. They do not inspect the host, private workspace, live permissions, or the complete governance corpus.</p></article>
+</div>
+</section>
+</main>
+<footer class="foot"><div class="shell">Swarm Observatory · Static documentary interface · <a href="index.html">Return to swarm hub</a> · Sources and limitations are part of the data, not decorative footnotes.</div></footer>
+<script>
+(function(){
+'use strict';
+var sources={
+ r054:{label:'R-054: Who approves what',url:'governance/rulings/R-054-approval-authority.md',locator:'Rules 10, 14–17 and Open items'},
+ inforce:{label:'Rulings in force',url:'governance/rulings/in-force.md',locator:'Verification and deployment; pushes and publishing'},
+ r053:{label:'Rulings in force',url:'governance/rulings/in-force.md',locator:'R-053: run evidence'}
+};
+var entities=[
+{id:'person.gem',type:'person',label:'Gem',status:'DOCUMENTED',summary:'Human authority identified by the public governance documents.',source:'r054',locator:'Rule 1',limitations:'Documentary identity only; no authentication integration.'},
+{id:'bot.engineer',type:'bot',label:'Engineer',status:'DOCUMENTED',summary:'Bot with broad GitHub write freedom under the documented exception.',source:'r054',locator:'Rule 16',limitations:'Policy text does not reveal actual credentials or current process state.'},
+{id:'bot.emissary',type:'bot',label:'Emissary',status:'DOCUMENTED',summary:'Only poster for the documented social-channel workflow.',source:'r054',locator:'Rule 14',limitations:'No live publishing feed or execution evidence.'},
+{id:'bot.imitator',type:'bot',label:'Imitator',status:'DOCUMENTED',summary:'Delegated approver within documented limits; several classes remain Gem-only.',source:'r054',locator:'Rules 2–4',limitations:'No current approval record or authenticated identity feed.'},
+{id:'bot.archivist',type:'bot',label:'Archivist',status:'DOCUMENTED',summary:'Records approved versions and deploys within the documented process.',source:'inforce',locator:'R-010, R-023, R-029, R-035',limitations:'No deployment telemetry connected.'},
+{id:'bot.arbiter',type:'bot',label:'Arbiter',status:'DOCUMENTED',summary:'Rules on conflicts and precedence; does not approve actions.',source:'r054',locator:'Rule 18',limitations:'Ruling text does not prove that every runtime action follows it.'},
+{id:'bot.safekeeper',type:'bot',label:'Safekeeper',status:'DOCUMENTED',summary:'Performs secrets scans where required by the documented policy.',source:'r054',locator:'Rule 15–16',limitations:'No scan-result feed connected.'},
+{id:'bot.safeguard',type:'bot',label:'Safeguard',status:'DOCUMENTED',summary:'Provides dry runs; dry runs inform but do not grant approval.',source:'inforce',locator:'Short codes; R-010, R-037',limitations:'No live dry-run result feed connected.'},
+{id:'rule.r054',type:'rule',label:'R-054 approval authority',status:'DOCUMENTED',summary:'Consolidated approval requirements and exceptions.',source:'r054',locator:'Rules 1–18',limitations:'Some open items remain in the source itself.'},
+{id:'rule.r053',type:'rule',label:'R-053 run evidence',status:'DOCUMENTED',summary:'A bot claim that a routine runs is insufficient without run evidence or an independent check.',source:'r053',locator:'R-053',limitations:'Documented requirement; enforcement is not observed here.'},
+{id:'repo.gvmw',type:'repository',label:'gemquota/gvmw',status:'DOCUMENTED',summary:'Public repository with a documented exception for Engineer pushes and separate data-sharing constraints.',source:'r054',locator:'Rule 16; R-031 and R-042 in rulings in force',limitations:'Repository snapshot is not the complete live machine.'},
+{id:'action.github-push',type:'capability',label:'GitHub push',status:'DOCUMENTED',summary:'A technical capability whose policy requirements depend on actor and target.',source:'r054',locator:'Rule 16',limitations:'Actual credentials and branch protections are not queried.'},
+{id:'action.publication',type:'capability',label:'Public posting',status:'DOCUMENTED',summary:'Social posting is assigned to Emissary under the documented rule.',source:'r054',locator:'Rule 14',limitations:'Actual channel access and publication history are unknown.'},
+{id:'event.runtime',type:'event',label:'Runtime event feed',status:'UNKNOWN',summary:'No authenticated event feed is connected to this static site.',source:'inforce',locator:'Not present in source snapshot',limitations:'UNKNOWN means unobserved here, not absent in the runtime.'}
+];
+var edges=[
+{from:'person.gem',rel:'holds_human_authority',to:'rule.r054',source:'r054',locator:'Rule 1'},
+{from:'rule.r054',rel:'defines_approval_scope_for',to:'bot.imitator',source:'r054',locator:'Rules 2–4'},
+{from:'bot.engineer',rel:'has_documented_exception_for',to:'action.github-push',source:'r054',locator:'Rule 16'},
+{from:'action.github-push',rel:'has_target_exception',to:'repo.gvmw',source:'r054',locator:'Rule 16'},
+{from:'bot.emissary',rel:'is_documented_publisher_for',to:'action.publication',source:'r054',locator:'Rule 14'},
+{from:'bot.safekeeper',rel:'scans_before_required_pushes',to:'action.github-push',source:'r054',locator:'Rules 15–16'},
+{from:'bot.safeguard',rel:'provides_non_authorising_preflight_for',to:'action.publication',source:'inforce',locator:'Short codes; R-037'},
+{from:'bot.archivist',rel:'deploys_within_documented_rules',to:'rule.r054',source:'inforce',locator:'R-010, R-029'},
+{from:'bot.arbiter',rel:'interprets_conflicts_under',to:'rule.r054',source:'r054',locator:'Rule 18'},
+{from:'rule.r053',rel:'requires_evidence_for_claims_about',to:'event.runtime',source:'r053',locator:'R-053'}
+];
+var openQuestions=[
+{title:'Imitator and checkers’ schedules',detail:'R-054 describes the checker-schedule limit as Arbiter’s reading; Gem has not ruled on it.',source:'r054',locator:'Open item 2'},
+{title:'Are social posts “big or irreversible”?',detail:'R-054 records a tension between the social-post rule and the general limit on irreversible decisions. Arbiter’s reading is documented; confirmation is still requested.',source:'r054',locator:'Open item 4'},
+{title:'R-045 versus the R-031 data hold',detail:'Engineer has broad GitHub freedom, but the documented hold on bonus_scores_AU.xlsx and new BIE/personal data going to other destinations remains.',source:'r054',locator:'Open item 5; see also R-031 and R-045 in rulings in force'},
+{title:'Connector-limits v002 rule 6',detail:'R-054 says the proposed gambling/BIE outward-content change is not drafted, approved, and deployed; the existing ban remains.',source:'r054',locator:'Open item 3; Rules 14–15'}
+];
+function el(id){return document.getElementById(id)}
+function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
+function status(s){return '<span class="status '+esc(s)+'">'+esc(s.replace(/_/g,' '))+'</span>'}
+function sourceLink(key,locator){var s=sources[key];return '<a href="'+esc(s.url)+'">'+esc(s.label)+'</a> <span class="muted">· '+esc(locator||s.locator)+'</span>'}
+function byId(id){return entities.find(function(e){return e.id===id})}
+function entityButton(id){var e=byId(id);return '<button data-entity="'+esc(id)+'" title="Focus relationships for '+esc(e?e.label:id)+'">'+esc(e?e.label:id)+'</button>'}
+function renderEvidence(){
+ var q=el('evidence-search').value.toLowerCase().trim(), st=el('evidence-status').value;
+ var rows=entities.filter(function(e){return (!st||e.status===st)&&(!q||[e.label,e.type,e.summary,e.limitations,e.locator].join(' ').toLowerCase().includes(q))});
+ el('evidence-list').innerHTML=rows.length?rows.map(function(e){return '<article class="record"><div class="record-head"><h3>'+esc(e.label)+' <span class="muted small">· '+esc(e.type)+'</span></h3>'+status(e.status)+'</div><p>'+esc(e.summary)+'</p><p class="source">'+sourceLink(e.source,e.locator)+'</p><p class="muted small">Limitation: '+esc(e.limitations)+'</p><button class="btn" data-entity="'+esc(e.id)+'" data-go="graph">Explore relationships</button></article>'}).join(''):'<div class="empty">No records match these filters.</div>';
+ el('metric-records').textContent=String(entities.length);
+}
+function renderGraph(){
+ var q=el('graph-search').value.toLowerCase().trim(), focus=el('graph-entity').value;
+ var visible=edges.filter(function(edge){var a=byId(edge.from),b=byId(edge.to);return (!focus||edge.from===focus||edge.to===focus)&&(!q||[edge.rel,a.label,b.label,edge.locator].join(' ').toLowerCase().includes(q))});
+ el('graph-summary').textContent=visible.length+' documented relationship(s) shown of '+edges.length+' curated edges. All listed edges link to documentary sources.';
+ el('graph-list').innerHTML=visible.length?visible.map(function(edge){return '<div class="edge"><div>'+entityButton(edge.from)+'</div><div class="rel">'+esc(edge.rel.replace(/_/g,' '))+'</div><div>'+entityButton(edge.to)+'</div><div class="source" style="grid-column:1/-1">'+sourceLink(edge.source,edge.locator)+'</div></div>'}).join(''):'<div class="empty">No relationships match this filter.</div>';
+}
+function renderQuestions(){
+ el('open-questions').innerHTML=openQuestions.map(function(q){return '<article class="record"><div class="record-head"><h4>'+esc(q.title)+'</h4><span class="status UNKNOWN">OPEN IN SOURCE</span></div><p>'+esc(q.detail)+'</p><p class="source">'+sourceLink(q.source,q.locator)+'</p></article>'}).join('');
+ var issues=[];
+ var ids=new Set();entities.forEach(function(e){if(ids.has(e.id))issues.push('Duplicate entity ID: '+e.id);ids.add(e.id);if(!e.source||!sources[e.source])issues.push('Missing source mapping: '+e.id);if(e.status==='INDEPENDENTLY_VERIFIED'&&!e.verificationEvidence)issues.push('Verification status without evidence: '+e.id)});
+ edges.forEach(function(edge){if(!byId(edge.from)||!byId(edge.to))issues.push('Dangling relationship: '+edge.from+' → '+edge.to);if(!sources[edge.source])issues.push('Relationship without source mapping: '+edge.rel)});
+ el('check-summary').innerHTML=issues.length?'<strong>'+issues.length+' structural issue(s) detected.</strong> These checks are deterministic over the bundled catalogue only.':'<strong>0 structural issues detected in the bundled catalogue.</strong> This is not a governance-wide contradiction verdict or a runtime health check.';
+ el('check-list').innerHTML=issues.length?issues.map(function(x){return '<div class="record">'+esc(x)+'</div>'}).join(''):'<div class="record"><span class="status INDEPENDENTLY_VERIFIED">CHECK RESULT</span><p>All bundled entities have unique IDs and mapped source keys; all bundled edges resolve both endpoints and a source mapping.</p><p class="muted small">This is a derived check result on the static data shipped with this page. It does not verify the truth or currency of source claims.</p></div>';
+}
+function policyLookup(){
+ var actor=el('actor').value, action=el('action').value, target=el('target').value;
+ var requirements=[],refs=[];
+ function add(t,ref){requirements.push(t);refs.push(ref)}
+ if(action==='github-push'){
+  if(actor==='Engineer'){
+   add('Documented policy gives Engineer broad GitHub push freedom; the per-push approval/scan rule has an exception for this actor.','r054');
+   if(target==='gvmw')add('The gvmw-specific exception is documented, but the separate data-sharing hold still applies to protected data and other destinations.','inforce');
+   else add('No secrets or personal data may be pushed. Actual credentials, branch protections, content, and repository visibility are not checked here.','r054');
+  }else{
+   add('The documented rule requires Gem’s words for this specific push to public/shared repositories. A relayed approval is not enough until confirmed under the ruling.','r054');
+   add('Safekeeper secrets scan is required before the push; the documented Safeguard dry run is not a go-ahead.','r054');
+  }
+ }else if(action==='public-post'){
+  add('The documented social-post workflow names Emissary as the only poster. A static lookup cannot confirm the actor’s real identity or channel access.','r054');
+  add('No money promises; the gambling/BIE outward-content ban remains until the required rule change is approved and deployed.','r054');
+  if(actor!=='Emissary')add('This actor does not match the documented publisher role. That is a policy mismatch to resolve, not a live permission-denied result.','r054');
+ }else if(action==='deploy'){
+  add('Archivist deploys on Gem’s request in its own chat, or on an in-scope Imitator approval after 1:1 confirmation and a Safeguard dry run. Gem-only cases still require Gem.','inforce');
+  add('A dry run does not approve the deployment; the deployed content must be checked against the approved version and recorded.','inforce');
+ }else{
+  add('Only the named projects are documented as eligible for publication. Imitator may approve each within scope after a clear Safekeeper secrets scan; MedB has additional clean-clone exclusions.','r054');
+  if(target==='medb')add('MedB must be published from a clean clone without data/, runs/, or experiment/envelopes/. This interface cannot inspect the clone.','r054');
+  if(target==='slapred')add('SLAP.RED/Golf gambling or BIE material remains prohibited until the rule change is deployed.','r054');
+  if(!['vepa','medb','slapred','swarm'].includes(target))add('The selected target is not one of the five projects explicitly listed in the ruling. Do not infer permission from this UI.','r054');
+ }
+ el('policy-result').className='notice risk';
+ el('policy-result').innerHTML='<strong>DOCUMENTED REQUIREMENTS ONLY · NO AUTHORISATION VERDICT</strong><ul>'+requirements.map(function(x){return '<li>'+esc(x)+'</li>'}).join('')+'</ul><p class="source"><strong>Sources:</strong> '+Array.from(new Set(refs)).map(function(k){return sourceLink(k)}).join(' · ')+'</p><p class="muted small">Live identity, approval authenticity, current effective policy, scans, preflight, repository state, and execution results are not available here. A real action must be checked by the trusted execution path.</p>';
+}
+function show(id,focus){
+ var tabs=[].slice.call(document.querySelectorAll('[role=tab]'));if(!document.getElementById(id)||!document.getElementById(id).classList.contains('view'))id='overview';
+ tabs.forEach(function(t){var on=t.getAttribute('aria-controls')===id;t.setAttribute('aria-selected',String(on));t.tabIndex=on?0:-1;document.getElementById(t.getAttribute('aria-controls')).hidden=!on;if(on&&focus)t.focus()});
+}
+document.querySelectorAll('[role=tab]').forEach(function(t,i,all){t.addEventListener('click',function(){history.replaceState(null,'','#'+t.getAttribute('aria-controls'));show(t.getAttribute('aria-controls'))});t.addEventListener('keydown',function(e){var n=e.key==='ArrowRight'?(i+1)%all.length:e.key==='ArrowLeft'?(i-1+all.length)%all.length:e.key==='Home'?0:e.key==='End'?all.length-1:null;if(n!==null){e.preventDefault();history.replaceState(null,'','#'+all[n].getAttribute('aria-controls'));show(all[n].getAttribute('aria-controls'),true)}})});
+document.querySelectorAll('[data-go]').forEach(function(b){b.addEventListener('click',function(){var id=b.getAttribute('data-go');history.replaceState(null,'','#'+id);show(id);if(b.dataset.entity){el('graph-entity').value=b.dataset.entity;renderGraph()}})});
+document.addEventListener('click',function(e){var b=e.target.closest('[data-entity]');if(b){var id=b.getAttribute('data-entity');if(b.dataset.go){show(b.dataset.go);history.replaceState(null,'','#'+b.dataset.go)}el('graph-entity').value=id;renderGraph();if(!b.dataset.go){show('graph');history.replaceState(null,'','#graph')} }});
+el('evidence-search').addEventListener('input',renderEvidence);el('evidence-status').addEventListener('change',renderEvidence);
+el('graph-search').addEventListener('input',renderGraph);el('graph-entity').addEventListener('change',renderGraph);
+el('check-policy').addEventListener('click',policyLookup);
+window.addEventListener('hashchange',function(){show(location.hash.slice(1))});
+entities.forEach(function(e){var o=document.createElement('option');o.value=e.id;o.textContent=e.label;el('graph-entity').appendChild(o)});
+renderEvidence();renderGraph();renderQuestions();show(location.hash.slice(1));
+})();
+</script>
+</body></html>
