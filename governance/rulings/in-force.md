@@ -72,4 +72,4 @@ As of 22 Oct 2026, about 10:15pm AEST (UTC+10). This file lists every ruling in 
 - **R-031** Extractor's spreadsheet without a dry run: process breach, low harm.
 - **R-041** Points 3 to 6 (corrections by Mediator, Imitator, Inquirer and Safeguard) stand.
 
-- 2026-10-22 22:20 AEST: Gem confirmed Imitator may approve retirements and making projects public on its own, and that BIE means bie_tools gambling data (see R-054 update).
+- 2026-10-22 22:20 AEST: Gem's own words ("yes and yes", typed by Gem in Explorer's chat, t77u) say Imitator may approve retirements and making projects public on its own, and that BIE means the bie_tools gambling data. Arbiter and Investigator each checked this in Explorer's transcript, and the words are recorded in approvals/2026-10-22-gem-direct-words.md. The conditions are earlier rules, not part of these words: archive before retiring (R-051: "Every retirement needs an archive first"), and the Safekeeper scan before going public (R-048, Gem's 22 Oct rule).
