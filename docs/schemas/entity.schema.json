@@ -1,0 +1,136 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://gemquota.github.io/swarm/docs/schemas/entity.schema.json",
+  "title": "Swarm Observatory Entity",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "type",
+    "label",
+    "status",
+    "source",
+    "visibility"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9._:-]*$"
+    },
+    "type": {
+      "enum": [
+        "person",
+        "bot",
+        "role",
+        "capability",
+        "rule",
+        "approval",
+        "task",
+        "project",
+        "repository",
+        "file",
+        "deployment",
+        "event",
+        "evidence",
+        "incident",
+        "forum-thread",
+        "assertion"
+      ]
+    },
+    "label": {
+      "type": "string",
+      "minLength": 1
+    },
+    "summary": {
+      "type": "string"
+    },
+    "status": {
+      "enum": [
+        "OBSERVED",
+        "INDEPENDENTLY_VERIFIED",
+        "DOCUMENTED",
+        "DERIVED",
+        "INFERRED",
+        "CONTRADICTED",
+        "STALE",
+        "UNKNOWN",
+        "EXCLUDED_FROM_SNAPSHOT"
+      ]
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "uri"
+      ],
+      "properties": {
+        "uri": {
+          "type": "string",
+          "minLength": 1
+        },
+        "revision": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "locator": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "observedAt": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "effectiveFrom": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "effectiveTo": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "collectedBy": {
+      "type": "string"
+    },
+    "evidenceIds": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "visibility": {
+      "enum": [
+        "PUBLIC",
+        "PRIVATE",
+        "RESTRICTED"
+      ]
+    },
+    "limitations": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}
