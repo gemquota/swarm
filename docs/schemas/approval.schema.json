@@ -1,0 +1,145 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://gemquota.github.io/swarm/docs/schemas/approval.schema.json",
+  "title": "Swarm Action Approval Record",
+  "description": "A record contract only. A conforming record is not proof of authenticity or sufficient authority without runtime validation.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "principal",
+    "source",
+    "issuedAt",
+    "action",
+    "validationStatus"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "principal": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "kind"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "HUMAN",
+            "BOT",
+            "SERVICE",
+            "UNKNOWN"
+          ]
+        }
+      }
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "uri"
+      ],
+      "properties": {
+        "kind": {
+          "enum": [
+            "DIRECT_CHAT",
+            "VOICE_RECORDING",
+            "CONFIRMED_RELAY",
+            "UNCONFIRMED_RELAY",
+            "SIGNED_RECORD",
+            "OTHER",
+            "UNKNOWN"
+          ]
+        },
+        "uri": {
+          "type": "string"
+        },
+        "relayChain": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "issuedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "expiresAt": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "action": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "verb",
+        "target",
+        "canonicalHash"
+      ],
+      "properties": {
+        "verb": {
+          "type": "string"
+        },
+        "target": {
+          "type": "string"
+        },
+        "parameters": {
+          "type": "object"
+        },
+        "scope": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "canonicalHash": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "policyRefs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "validationStatus": {
+      "enum": [
+        "UNVALIDATED",
+        "VALID",
+        "INVALID",
+        "EXPIRED",
+        "REVOKED",
+        "SCOPE_MISMATCH",
+        "UNKNOWN"
+      ]
+    },
+    "validatedBy": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "validationEvidence": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}
