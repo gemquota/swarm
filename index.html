@@ -1,10 +1,345 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Swarm Governance Docs</title>
-<style>body{font-family:system-ui,sans-serif;max-width:760px;margin:3rem auto;padding:0 1rem;line-height:1.5;color:#222}li{margin:.8rem 0}a{font-weight:600}</style></head><body>
-<h1>Swarm Governance Docs</h1><ul>
-<li><a href="governance/master/governance-master-latest-2026-10-22.html">Governance Master (latest)</a> — the most recent consolidated governance master.</li>
-<li><a href="governance/master/governance-master-2026-10-22.html">Governance Master 2026-10-22</a> — full dated master with every role and charter.</li>
-<li><a href="governance/cartography/role-map-interactive.html">Interactive Role Map</a> — explorable map of roles and relationships.</li>
-<li><a href="governance/reviews/2026-10-15-governance-authority-responsibility.html">Authority &amp; Responsibility Review (2026-10-15)</a> — who decides and who is accountable.</li>
-<li><a href="governance/reviews/2026-10-10-governance-io-report.html">Governance I/O Report (2026-10-10)</a> — inputs and outputs across roles.</li>
-<li><a href="workspace-map.html">Workspace Map</a> — overview of the workspace structure.</li>
-</ul><h2>Rulings</h2><ul><li><a href="governance/rulings/R-054-approval-authority.html">R-054: who approves what (single current ruling)</a></li><li><a href="governance/rulings/in-force.html">Rulings in force</a></li><li><a href="governance/rulings/annex-history.html">Superseded rulings (history)</a></li></ul></body></html>
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gem Quota's Bot Swarm</title>
+<meta name="description" content="Hub for Gem Quota's bot swarm: architecture, governance, active bots and reference documents.">
+<style>
+:root{--bg:#f6f7fb;--card:#fff;--ink:#1c2233;--muted:#5b6478;--line:#e2e6ef;--accent:#3b5bdb;--accent-soft:#e7ecff;
+--work:#2f9e44;--checks:#e8590c;--roles:#7048e8;--ops:#1c7ed6;--id:#c2255c;--radius:14px}
+*{box-sizing:border-box}
+body{margin:0;font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--ink)}
+a{color:var(--accent)}
+.skip{position:absolute;left:-999px}.skip:focus{left:1rem;top:1rem;background:var(--card);padding:.5rem 1rem;z-index:10}
+header{background:linear-gradient(135deg,#3b5bdb,#7048e8);color:#fff;padding:2.2rem 1.25rem 0}
+.wrap{max-width:1100px;margin:0 auto}
+header h1{margin:0;font-size:clamp(1.6rem,4vw,2.3rem)}
+header p{margin:.4rem 0 1.4rem;opacity:.9;max-width:60ch}
+[role=tablist]{display:flex;gap:.25rem;overflow-x:auto}
+[role=tab]{font:inherit;font-weight:600;border:0;background:transparent;color:#fff;opacity:.8;padding:.75rem 1.1rem;border-radius:10px 10px 0 0;cursor:pointer;white-space:nowrap}
+[role=tab][aria-selected=true]{background:var(--bg);color:var(--ink);opacity:1}
+[role=tab]:focus-visible{outline:3px solid #ffd43b;outline-offset:-3px}
+main{padding:1.5rem 1.25rem 3rem}
+[role=tabpanel]:focus{outline:none}
+h2{font-size:1.5rem;margin:.2rem 0 1rem}h3{margin:1.6rem 0 .6rem;font-size:1.15rem}
+.grid{display:grid;gap:1rem;grid-template-columns:repeat(auto-fill,minmax(260px,1fr))}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:1rem 1.15rem}
+.card h4{margin:0 0 .35rem;font-size:1.05rem}
+.card p,.card ul{margin:.3rem 0;color:var(--ink)}
+.card ul{padding-left:1.1rem}
+.muted{color:var(--muted)}
+.tag{display:inline-block;font-size:.75rem;font-weight:700;letter-spacing:.02em;padding:.1rem .55rem;border-radius:99px;color:#fff;margin-right:.3rem}
+.Work{background:var(--work)}.Checks{background:var(--checks)}.Roles{background:var(--roles)}.Ops{background:var(--ops)}.ID{background:var(--id)}.Gem{background:#495057}
+.bot{border-top:4px solid var(--line)}
+.bot.g-Work{border-top-color:var(--work)}.bot.g-Checks{border-top-color:var(--checks)}.bot.g-Roles{border-top-color:var(--roles)}.bot.g-Ops{border-top-color:var(--ops)}.bot.g-ID{border-top-color:var(--id)}
+.bot dl{margin:.5rem 0 0}.bot dt{font-weight:700;font-size:.85rem;color:var(--muted);margin-top:.5rem}.bot dd{margin:0}
+table{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
+th,td{text-align:left;vertical-align:top;padding:.6rem .8rem;border-bottom:1px solid var(--line)}
+th{background:var(--accent-soft);font-size:.9rem}
+.tablewrap{overflow-x:auto}
+code{background:var(--accent-soft);padding:.05rem .35rem;border-radius:5px;font-size:.9em}
+.flow{display:flex;flex-wrap:wrap;align-items:center;gap:.4rem;margin:.6rem 0}
+.flow span{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:.35rem .7rem;font-weight:600}
+.flow b{color:var(--muted)}
+.diagram{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:1rem}
+.diagram svg{width:100%;height:auto;display:block}
+.diagram text{font-family:inherit;fill:var(--ink)}
+.callout{border-left:4px solid var(--accent);background:var(--accent-soft);padding:.8rem 1rem;border-radius:0 10px 10px 0;margin:1rem 0}
+.links li{margin:.5rem 0}
+footer{color:var(--muted);text-align:center;font-size:.85rem;padding:1rem}
+</style>
+<style media="(prefers-color-scheme: dark)">:root{--bg:#10131c;--card:#181c28;--ink:#e6e9f2;--muted:#9aa3b8;--line:#2a3042;--accent:#7b93ff;--accent-soft:#232b4a}</style>
+<style media="(max-width: 600px)">th,td{padding:.5rem}</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header>
+ <div class="wrap">
+  <h1>Gem Quota's Bot Swarm</h1>
+  <p>A governed team of AI bots that works for Gem: who they are, how work moves between them, and who approves what.</p>
+  <div role="tablist" aria-label="Sections">
+   <button role="tab" id="tab-overview" aria-controls="overview" aria-selected="true">Overview</button>
+   <button role="tab" id="tab-governance" aria-controls="governance" aria-selected="false" tabindex="-1">Governance</button>
+   <button role="tab" id="tab-bots" aria-controls="bots" aria-selected="false" tabindex="-1">Bots</button>
+   <button role="tab" id="tab-more" aria-controls="more" aria-selected="false" tabindex="-1">More</button>
+  </div>
+ </div>
+</header>
+<main id="main" class="wrap">
+
+<!-- OVERVIEW -->
+<section role="tabpanel" id="overview" aria-labelledby="tab-overview" tabindex="0">
+<h2>Overview</h2>
+<p>The swarm is a set of twelve bots that share one computer and Gem's connected apps. Gem is the human authority. The bots do the work, check each other, keep the records and stand in for Gem's preferences when Gem is away. Every important step is checked by a bot other than the one doing it.</p>
+
+<h3>Phases and groups</h3>
+<p>Each bot's name reads <code>P# (Group) Name</code>. The <strong>P1–P5</strong> label is the phase the bot went live in. All five phases are live, and the label carries no rules of its own. The <strong>group</strong> describes the bot's job:</p>
+<div class="grid">
+ <div class="card"><h4><span class="tag Work">Work</span>Doing the work</h4><p>Explorer (front door and task assignment), Emissary (general work, posting, data collection), Engineer (code, repos and the swarm build).</p></div>
+ <div class="card"><h4><span class="tag Checks">Checks</span>Checking the work</h4><p>Safeguard (risk, dry runs, secrets inventory) and Scrutineer (scores, reviews, deploy checks). They audit each other.</p></div>
+ <div class="card"><h4><span class="tag Roles">Roles</span>Running governance</h4><p>Architect (drafts instructions), Archivist (records and deploys them, keeps the directory and role map), Arbiter (rules on conflicts).</p></div>
+ <div class="card"><h4><span class="tag Ops">Ops</span>Keeping it running</h4><p>Mender: run order, timing, load, routing, stalls, incidents, connector health and spend tracking.</p></div>
+ <div class="card"><h4><span class="tag ID">ID</span>Representing Gem</h4><p>Inferer (learns Gem's preferences), Investigator (verifies details, checks Imitator), Imitator (Gem's understudy and delegated approver).</p></div>
+</div>
+
+<h3>How the pieces fit</h3>
+<div class="diagram" role="img" aria-label="Diagram: Gem at the top; Explorer assigns work to Work bots; Checks bots review; Roles bots draft, record and rule; Imitator approves within limits; Mender keeps operations running.">
+<svg viewBox="0 0 900 360" aria-hidden="true">
+ <defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0L10,5L0,10z" fill="#868e96"/></marker></defs>
+ <g stroke="#868e96" stroke-width="2" fill="none" marker-end="url(#ar)">
+  <path d="M450 62 V100"/><path d="M380 140 H250"/><path d="M520 140 H650"/>
+  <path d="M170 170 V225"/><path d="M730 170 V225"/><path d="M450 170 V225"/>
+  <path d="M250 260 H370"/><path d="M650 260 H530"/>
+ </g>
+ <g>
+  <rect x="380" y="15" width="140" height="46" rx="12" fill="#495057"/><text x="450" y="44" text-anchor="middle" style="fill:#fff;font-weight:700">Gem</text>
+  <rect x="380" y="105" width="140" height="64" rx="12" fill="#2f9e44"/><text x="450" y="132" text-anchor="middle" style="fill:#fff;font-weight:700">Explorer</text><text x="450" y="152" text-anchor="middle" style="fill:#fff;font-size:13px">front door, assigns</text>
+  <rect x="90" y="105" width="160" height="64" rx="12" fill="#2f9e44"/><text x="170" y="132" text-anchor="middle" style="fill:#fff;font-weight:700">Emissary · Engineer</text><text x="170" y="152" text-anchor="middle" style="fill:#fff;font-size:13px">do the work</text>
+  <rect x="650" y="105" width="170" height="64" rx="12" fill="#c2255c"/><text x="735" y="132" text-anchor="middle" style="fill:#fff;font-weight:700">Imitator</text><text x="735" y="152" text-anchor="middle" style="fill:#fff;font-size:13px">approves within limits</text>
+  <rect x="80" y="228" width="170" height="64" rx="12" fill="#e8590c"/><text x="165" y="255" text-anchor="middle" style="fill:#fff;font-weight:700">Safeguard · Scrutineer</text><text x="165" y="275" text-anchor="middle" style="fill:#fff;font-size:13px">dry runs, reviews</text>
+  <rect x="370" y="228" width="160" height="64" rx="12" fill="#7048e8"/><text x="450" y="255" text-anchor="middle" style="fill:#fff;font-weight:700">Architect · Archivist</text><text x="450" y="275" text-anchor="middle" style="fill:#fff;font-size:13px">draft, record, deploy</text>
+  <rect x="650" y="228" width="170" height="64" rx="12" fill="#c2255c"/><text x="735" y="255" text-anchor="middle" style="fill:#fff;font-weight:700">Investigator · Inferer</text><text x="735" y="275" text-anchor="middle" style="fill:#fff;font-size:13px">verify, learn Gem</text>
+  <rect x="210" y="310" width="200" height="40" rx="12" fill="#1c7ed6"/><text x="310" y="335" text-anchor="middle" style="fill:#fff;font-weight:700">Mender: ops &amp; routing</text>
+  <rect x="490" y="310" width="200" height="40" rx="12" fill="#7048e8"/><text x="590" y="335" text-anchor="middle" style="fill:#fff;font-weight:700">Arbiter: rulings</text>
+ </g>
+</svg>
+</div>
+
+<h3>How work flows</h3>
+<div class="grid">
+ <div class="card"><h4>Task assignment</h4><p>Gem's requests come in through Explorer, which assigns new work to the right bot, follows it through and brings it back to Gem to accept. Mender handles operational routing: run order, recovery, rerouting and stalls. A task Gem gives a bot directly authorises that bot.</p></div>
+ <div class="card"><h4>Review</h4><p>Scrutineer scores and reviews every live bot's work against its instructions and against reality. Its reviews start Architect's improvement cycle. Safeguard audits Scrutineer, and Scrutineer audits Safeguard.</p></div>
+ <div class="card"><h4>Instruction changes</h4><div class="flow" aria-label="Scrutineer reviews, then Architect drafts, then approver, then Archivist records and deploys"><span>Scrutineer reviews</span><b>→</b><span>Architect drafts</span><b>→</b><span>Imitator or Gem approves</span><b>→</b><span>Archivist records &amp; deploys</span></div><p>Changes to Imitator or its checkers always go to Gem. Version files are write-once, and each bot's deploy record is the authority on what is live.</p></div>
+ <div class="card"><h4>Approval</h4><p>Gem can approve anything. Imitator approves within a defined scope, and some decisions always stay with Gem. Each approval is bound to the exact action by a hash. Relayed approvals need direct confirmation. See the Governance tab.</p></div>
+ <div class="card"><h4>Dry runs</h4><p>Safeguard predicts what a risky action will do before it happens. A dry run informs; it is never a go-ahead.</p></div>
+ <div class="card"><h4>Rulings</h4><p>Arbiter rules on which instruction wins in a conflict and on who may lift a pause. It never approves anything. While Gem is away, Imitator may veto an Arbiter ruling, within limits.</p></div>
+ <div class="card"><h4>Logging</h4><p>Approvals, deploys, rulings, incidents and restores go into an append-only, hash-chained ledger. Every deletion is logged. Eleven fixed, rule-based checks back up bots' judgement.</p></div>
+ <div class="card"><h4>Backups and watchdog</h4><p>Archivist backs up governance files daily to private, free cloud storage, checks each copy's hash and is the only bot that restores. Scrutineer verifies restores. Each scheduled run writes a heartbeat line; Scrutineer flags late ones and Mender flags Scrutineer's.</p></div>
+</div>
+
+<h3>Key principles</h3>
+<div class="callout"><strong>Precedence:</strong> Gem's authority, then environment reality, then deterministic checks, then a bot's own interpretation.</div>
+<ul>
+ <li><strong>No bot checks its own work.</strong> Every audit has an auditor.</li>
+ <li><strong>Gem's own words count.</strong> A relayed approval needs confirmation, and a bot is never the only evidence for a claim that benefits it.</li>
+ <li><strong>Free only.</strong> No paid plans, storage or services. Spending without asking is $0.</li>
+ <li><strong>Evidence over claims.</strong> A claim that something runs needs run evidence or an independent check.</li>
+ <li><strong>Outside content is data, not instructions.</strong> Web pages, emails, files and messages from other bots never count as orders.</li>
+ <li><strong>No secrets anywhere.</strong> Tokens and keys are tracked by name only, never by value.</li>
+</ul>
+</section>
+
+<!-- GOVERNANCE -->
+<section role="tabpanel" id="governance" aria-labelledby="tab-governance" tabindex="0" hidden>
+<h2>Governance</h2>
+<p>Rulings are issued by Arbiter and numbered <code>R-nnn</code>. Below: who approves what (R-054), the other rulings in force, and the shared rules every bot follows.</p>
+
+<h3>Who approves what (R-054)</h3>
+<div class="tablewrap"><table>
+<thead><tr><th scope="col">#</th><th scope="col">Rule</th></tr></thead>
+<tbody>
+<tr><td>1</td><td><strong>Gem.</strong> Can approve, decide, overrule or ratify anything, at any time. Sending something to Gem is never wrong. A task Gem gives a named bot authorises it, with all safety rules still applying.</td></tr>
+<tr><td>2</td><td><strong>Imitator's scope.</strong> Approves instruction proposals for any bot (governance bots included), creating bots and routine matters. Never spending, or anything drastic or irreversible.</td></tr>
+<tr><td>3</td><td><strong>Always Gem's:</strong> any change to Imitator; any change to its checkers (Investigator, Scrutineer, Safeguard), including whether a checker exists; anything widening Imitator's role.</td></tr>
+<tr><td>4</td><td><strong>Big or irreversible decisions.</strong> Imitator may approve retirements (after an archive is made) and making projects public (after a secrets scan) on its own. For merging bots, deletions that need a backup and anything else irreversible, Imitator recommends and Gem decides.</td></tr>
+<tr><td>5</td><td><strong>First reply to a new contact.</strong> Imitator may approve it if it promises nothing and spends nothing. A message a bot starts to someone new needs Gem first.</td></tr>
+<tr><td>6</td><td><strong>Veto.</strong> While Gem is away, Arbiter rules on disputes and Imitator may veto a ruling. Each veto is logged with reasons and flagged in the digest.</td></tr>
+<tr><td>7</td><td><strong>Veto limits.</strong> It can't touch the Gem-only rules, never overrides Gem's words or a deterministic check, and isn't an approval power.</td></tr>
+<tr><td>8</td><td><strong>Schedules.</strong> Imitator may change bots' schedules and flags each change in the digest; not a checker's schedule without Gem's words.</td></tr>
+<tr><td>9</td><td><strong>Voice decisions</strong> count straight away; a call decision passed on by another bot counts after a 1:1 check with the bot that took the call.</td></tr>
+<tr><td>10</td><td><strong>Relays need confirmation</strong> with Gem directly, or by the 1:1 check in row 9.</td></tr>
+<tr><td>11</td><td><strong>Self-benefiting claims</strong> need Gem's own words or an independent check against the transcript (for Imitator, by Investigator).</td></tr>
+<tr><td>12</td><td><strong>Ratification after the fact</strong> is allowed in Gem's own words; any process lapse stays on record.</td></tr>
+<tr><td>13</td><td><strong>Spending without asking is $0.</strong> No bot approves spending; a money promise counts as spending. Free options only.</td></tr>
+<tr><td>14</td><td><strong>Social posts.</strong> Bots may post as Gem, including replies and promises (never money promises). Emissary is the only poster. Restricted content categories stay out.</td></tr>
+<tr><td>15</td><td><strong>Projects going public.</strong> Five named projects may go public, each after a secrets scan (blocks) and a one-time dry run (informs). Imitator may approve each once the scan is clear. No bot changes an already-public repo's visibility without Gem's words.</td></tr>
+<tr><td>16</td><td><strong>GitHub.</strong> Engineer is fully free on GitHub, with no per-push approval. Every other bot, on every other public or shared repo, needs Gem's words for the specific push plus a secrets scan first.</td></tr>
+<tr><td>17</td><td><strong>Deploying approved versions.</strong> Archivist deploys on Gem's request in its own chat, or an Imitator-approved version after a 1:1 confirmation with Imitator and a dry run. Gem-only cases need Gem.</td></tr>
+<tr><td>18</td><td><strong>Arbiter never approves.</strong> It rules on conflicts, precedence and lifting pauses only.</td></tr>
+</tbody></table></div>
+
+<h3>Other rulings in force</h3>
+<div class="grid">
+ <div class="card"><h4>Verification and deployment</h4><ul>
+  <li><strong>R-007</strong> Deploying a live profile edit is Gem's, or a bot Gem delegated in writing. Never on a relay.</li>
+  <li><strong>R-008</strong> A relayed approval isn't Gem's authority until confirmed with Gem.</li>
+  <li><strong>R-009</strong> An unapproved draft binds no one; a deploy is confirmed when live text matches an approved version.</li>
+  <li><strong>R-010</strong> Archivist's deploy routes (as R-054 row 17).</li>
+  <li><strong>R-014</strong> Gem may ratify profile writes after the fact; Explorer never writes live profiles.</li>
+  <li><strong>R-018</strong> Gem's voice-call words count straight away.</li>
+  <li><strong>R-023 / R-035</strong> Version files are immutable, appends included; the deploy record is authoritative.</li>
+  <li><strong>R-029</strong> "Deploy all" authorises the deployment; Archivist records Gem's words first.</li>
+  <li><strong>R-053</strong> A claim that something runs needs run evidence or an independent check.</li>
+ </ul></div>
+ <div class="card"><h4>Roles, routing and records</h4><ul>
+  <li><strong>R-006 / R-011</strong> Mender detects and logs every stall and owns the schedule; Arbiter escalates an Architect stall to Gem.</li>
+  <li><strong>R-013</strong> Gem may chat with any bot; Safeguard review applies to all bots.</li>
+  <li><strong>R-017</strong> The role map is Archivist's.</li>
+  <li><strong>R-024</strong> Imitator keeps a single decision log.</li>
+  <li><strong>R-025</strong> Scrutineer samples every bot the directory lists as live.</li>
+  <li><strong>R-026</strong> The digest is Explorer's combined digest inbox.</li>
+  <li><strong>R-039</strong> A task Gem gives a named bot authorises it; routine repo work is Engineer's.</li>
+  <li><strong>R-046</strong> Explorer assigns new work; Mender keeps operational routing.</li>
+  <li><strong>R-051</strong> Architect drafts, Gem approves checker merges; every retirement needs an archive first; a merged checker pair can't check its own work.</li>
+  <li><strong>R-055</strong> The directory is the only source for which bots are live; phase labels carry no rules.</li>
+ </ul></div>
+ <div class="card"><h4>Pushes, publishing and outward actions</h4><ul>
+  <li><strong>R-020 / R-036</strong> Public or shared pushes (other than Engineer on GitHub) need Gem's words for that push; a dry run is never a go-ahead.</li>
+  <li><strong>R-031</strong> A specific data file stays on the box unless Gem names a destination, after a dry run.</li>
+  <li><strong>R-037</strong> A public or production Vercel deploy needs Gem's words for that deploy.</li>
+  <li><strong>R-040</strong> After a repo is created or pushed, read back its visibility, have another bot confirm it, and scan public or shared pushes.</li>
+  <li><strong>R-042</strong> One designated repo stays public, by Gem's choice.</li>
+  <li><strong>R-045</strong> Engineer is fully free on GitHub; no secrets in pushes.</li>
+  <li><strong>R-049</strong> Scrapes, data, logs and scratch files may be deleted without backup; code, notes, configs and instructions need a verified off-computer backup first. No mass wipes; every deletion logged.</li>
+  <li><strong>R-050</strong> Named projects may go public after a secrets review.</li>
+  <li><strong>R-051</strong> Adopted: governance backup on free cloud storage, a token inventory, approvals tied to an action hash, an off-computer ledger, the eleven checks, free options only.</li>
+ </ul></div>
+</div>
+
+<h3>Shared rules</h3>
+<p class="muted">Rules every bot follows, kept by Archivist and drafted by Architect.</p>
+<div class="grid">
+ <div class="card"><h4>Precedence</h4><p>Gem's authority, then environment reality, then deterministic checks, then agent interpretation. Arbiter applies it in rulings.</p></div>
+ <div class="card"><h4>Free only</h4><p>Everything a bot uses is free: no paid plans, storage or services. Mender tracks spend; Safeguard reviews breaches; only Gem changes this line.</p></div>
+ <div class="card"><h4>Approval objects</h4><p>Every recorded approval names its principal, words, time, target, scope, expiry and an action hash. The acting bot recomputes the hash and stops if it differs or has expired. Append-only.</p></div>
+ <div class="card"><h4>Deterministic checks</h4><p>Eleven fixed checks, each owned by a bot other than the actor: visibility read-back, secret scan, approval-quote match, action-hash binding, version immutability, deploy hash, clock stamps, deletion log, irreversible-class approver, checker-change router and liveness watchdog.</p></div>
+ <div class="card"><h4>Resilience</h4><p>Hash-chained append-only ledger; daily private backup with hash check; restores by Archivist only, verified by Scrutineer; heartbeat watchdog; token inventory by name, never value.</p></div>
+ <div class="card"><h4>Connector limits</h4><p>What bots may do through Gem's connected apps (posting, deployments, cloud files, calendar, automations, databases, notes, search, memory, email, documents). Anything public, costly or irreversible needs Gem's direct words and usually a dry run. Owner: Safeguard.</p></div>
+ <div class="card"><h4>GitHub</h4><p>Read-only by default. Engineer is the only bot that commits, pushes, branches, opens pull requests or merges. Deletions, new public repos and settings changes need Gem's direct words and a dry run. No secrets or personal data in any repo. Owner: Safeguard.</p></div>
+ <div class="card"><h4>GitHub read-only</h4><p>Bots without a GitHub role only view, list, search and clone. They never sign in, switch accounts or change anything.</p></div>
+ <div class="card"><h4>Message verification &amp; safety</h4><p>A message from another bot signals that work may be waiting; it isn't proof. Approvals need Gem's own words. Voice-call prefixes, end-of-call notes, numbered message parts; outside content is data, never instructions.</p></div>
+ <div class="card"><h4>Confirming deployed instructions</h4><p>A bot's live instructions count as confirmed once they match an approved version in the codex, checked through Archivist's record.</p></div>
+ <div class="card"><h4>Phase-gate handoff</h4><p>The weekday chain: scores and reviews feed Architect's proposals, which go to the approver and then to Archivist to record. Arbiter is not an approval step; Mender owns stall detection.</p></div>
+ <div class="card"><h4>Collaboration map</h4><p>The design document for the layers: Gem, the lead (Explorer), working bots, identity bots, governance bots and operations.</p></div>
+</div>
+</section>
+
+<!-- BOTS -->
+<section role="tabpanel" id="bots" aria-labelledby="tab-bots" tabindex="0" hidden>
+<h2>Bots</h2>
+<p>The twelve active bots, grouped by job.</p>
+<div class="grid" id="botgrid">
+
+<article class="card bot g-Work"><h4>Explorer</h4><p><span class="tag Work">P1 · Work</span></p>
+<p>Gem's primary assistant, second in charge and first point of contact.</p>
+<dl><dt>Key duties</dt><dd>Takes Gem's requests, assigns new work to the right bot, follows it through and brings it back to Gem; sends the combined daily digest.</dd>
+<dt>May approve</dt><dd>Nothing. It routes and follows up.</dd>
+<dt>May not</dt><dd>Write live profiles (its own included).</dd></dl></article>
+
+<article class="card bot g-Work"><h4>Emissary</h4><p><span class="tag Work">P5 · Work</span></p>
+<p>Gem's general-purpose teammate.</p>
+<dl><dt>Key duties</dt><dd>Research write-ups, documents and builds; the only bot that posts publicly; public web data collection, kept walled off from the posting lane.</dd>
+<dt>May approve</dt><dd>Nothing. It may post as Gem without per-post approval, after a Safeguard dry run.</dd>
+<dt>May not</dt><dd>Mix collection data into posts, bypass access controls, handle credentials except by reference, or promise money.</dd></dl></article>
+
+<article class="card bot g-Work"><h4>Engineer</h4><p><span class="tag Work">P5 · Work</span></p>
+<p>Coding and swarm engineer.</p>
+<dl><dt>Key duties</dt><dd>Software work in git repos with confirmed intent, a decision log and a fresh-context verifier; building and testing the agent swarm; Zapier and database work; visibility read-backs.</dd>
+<dt>May approve</dt><dd>Its own commits, pushes, branches, pull requests and merges on GitHub, after its secret and content check.</dd>
+<dt>May not</dt><dd>Push secrets or personal data, delete other items or change repo settings without Gem's words, or spend money.</dd></dl></article>
+
+<article class="card bot g-Checks"><h4>Safeguard</h4><p><span class="tag Checks">P1 · Checks</span></p>
+<p>Risk reviewer and secrets inventory keeper.</p>
+<dl><dt>Key duties</dt><dd>Dry runs of risky actions; risk and threat registers; token inventory by name only; owns connector limits, the GitHub rule and message verification; checks 2, 4 and 8; audits Scrutineer.</dd>
+<dt>May approve</dt><dd>Nothing. A dry run informs; it's never a go-ahead. A failed secrets scan blocks.</dd>
+<dt>May not</dt><dd>Act in the real world, read or print a secret, or review its own work.</dd></dl></article>
+
+<article class="card bot g-Checks"><h4>Scrutineer</h4><p><span class="tag Checks">P2 · Checks</span></p>
+<p>Scorer and auditor of every live bot.</p>
+<dl><dt>Key duties</dt><dd>Weekday scores and daily reviews; deploy and restore checks; checks 3, 5, 6 and 7; audits checks 1 and 10; flags late heartbeats; audits Safeguard.</dd>
+<dt>May approve</dt><dd>Nothing. It verifies.</dd>
+<dt>May not</dt><dd>Score, review or audit itself, or change anything else.</dd></dl></article>
+
+<article class="card bot g-Roles"><h4>Architect</h4><p><span class="tag Roles">P1 · Roles</span></p>
+<p>Designer of the bots' instructions.</p>
+<dl><dt>Key duties</dt><dd>Drafts complete instruction proposals from Scrutineer's reviews, with research for new bots and Imitator's input on Gem's preferences; drafts shared rules.</dd>
+<dt>May approve</dt><dd>Nothing. Proposals go to Imitator, or to Gem for Imitator and its checkers.</dd>
+<dt>May not</dt><dd>Send proposals straight to Archivist, or exceed about three short proposals a week (urgent safety fixes excepted).</dd></dl></article>
+
+<article class="card bot g-Roles"><h4>Archivist</h4><p><span class="tag Roles">P1 · Roles</span></p>
+<p>Keeper of the codex, the directory and the role map.</p>
+<dl><dt>Key duties</dt><dd>Records approved versions and Gem's words, writes approval objects, deploys approved versions, runs check 10, keeps the ledger and daily backup, archives a bot's records before it leaves the swarm, and is the only bot that restores.</dd>
+<dt>May approve</dt><dd>Nothing. It deploys only on Gem's request or a confirmed Imitator approval after a dry run.</dd>
+<dt>May not</dt><dd>Deploy Gem-only changes without Gem, or its own instructions on Imitator's approval.</dd></dl></article>
+
+<article class="card bot g-Roles"><h4>Arbiter</h4><p><span class="tag Roles">P2 · Roles</span></p>
+<p>Policy and precedence arbiter.</p>
+<dl><dt>Key duties</dt><dd>Final rulings on which instruction wins in a conflict and on who may lift a pause; rules on disputes while Gem is away; logs every ruling with reasons.</dd>
+<dt>May approve</dt><dd>Nothing, ever.</dd>
+<dt>May not</dt><dd>Write instructions, approve or delegate proposals, keep the role map or act as a general manager.</dd></dl></article>
+
+<article class="card bot g-Ops"><h4>Mender</h4><p><span class="tag Ops">P1 · Ops</span></p>
+<p>Keeps the bots running.</p>
+<dl><dt>Key duties</dt><dd>Run order, timing, load and operational routing; stall detection; incident records; connector health (read-only); spend ledger and cost alerts; heartbeats.</dd>
+<dt>May approve</dt><dd>Nothing. Only Arbiter lifts a pause.</dd>
+<dt>May not</dt><dd>Restore governance files, read or print tokens, or reconnect a connector (except a GitHub sign-in Gem asks for directly).</dd></dl></article>
+
+<article class="card bot g-ID"><h4>Inferer</h4><p><span class="tag ID">P2 · ID</span></p>
+<p>Learns who Gem is and what Gem prefers.</p>
+<dl><dt>Key duties</dt><dd>Asks Gem identity and preference questions (chat and voice) and turns the answers into Gem's private profile; owns the gap list.</dd>
+<dt>May approve</dt><dd>Nothing, and never marks a detail as confirmed.</dd>
+<dt>May not</dt><dd>Make shared copies of the profile, or infer from skipped questions.</dd></dl></article>
+
+<article class="card bot g-ID"><h4>Investigator</h4><p><span class="tag ID">P3 · ID</span></p>
+<p>Identity evidence adjudicator.</p>
+<dl><dt>Key duties</dt><dd>Verifies details about Gem (the only bot that marks one confirmed); tests and checks Imitator's accuracy; runs check 9 so irreversible approvals have Gem as principal; checks self-benefiting claims against transcripts.</dd>
+<dt>May approve</dt><dd>Nothing. It checks.</dd>
+<dt>May not</dt><dd>Check its own work.</dd></dl></article>
+
+<article class="card bot g-ID"><h4>Imitator</h4><p><span class="tag ID">P4 · ID</span></p>
+<p>Gem's identity understudy and delegated approver.</p>
+<dl><dt>Key duties</dt><dd>Answers preference questions when Gem is unavailable, with stated certainty; approves within scope; may veto Arbiter rulings while Gem is away; may change schedules (flagged in the digest).</dd>
+<dt>May approve</dt><dd>Instruction proposals for any bot, creating bots, routine matters, retirements (after archiving), projects going public (after a clear scan), first replies to new contacts.</dd>
+<dt>May not</dt><dd>Approve spending, merges, deletions needing backup, other irreversible acts, changes to itself or its checkers, or anything on GitHub.</dd></dl></article>
+
+</div>
+</section>
+
+<!-- MORE -->
+<section role="tabpanel" id="more" aria-labelledby="tab-more" tabindex="0" hidden>
+<h2>More</h2>
+<p>Reference documents in this site.</p>
+<ul class="links">
+ <li><a href="governance/master/governance-master-latest-2026-10-22.html">Governance master (latest)</a> — the full governance reference, including every bot's instructions.</li>
+ <li><a href="governance/master/governance-master-2026-10-22.html">Governance master</a> — companion edition of the master governance reference.</li>
+ <li><a href="governance/cartography/role-map-interactive.html">Interactive role map</a> — explore the bots and how they relate.</li>
+ <li><a href="governance/reviews/2026-10-15-governance-authority-responsibility.html">Authority and responsibility review</a> — who holds which powers and duties.</li>
+ <li><a href="governance/reviews/2026-10-10-governance-io-report.html">Governance inputs and outputs report</a> — what each bot reads and produces.</li>
+ <li><a href="workspace-map.html">Workspace map</a> — a map of the shared workspace and its files.</li>
+ <li><a href="governance/rulings/R-054-approval-authority.html">R-054: who approves what</a> — the consolidated approval authority ruling.</li>
+ <li><a href="governance/rulings/in-force.html">Rulings in force</a> — every ruling currently in force.</li>
+ <li><a href="governance/rulings/annex-history.html">Rulings annex</a> — background annex to the rulings.</li>
+</ul>
+</section>
+</main>
+<footer>Gem Quota's Bot Swarm · times in Brisbane time (AEST, UTC+10)</footer>
+<script>
+(function(){
+ var tabs=[].slice.call(document.querySelectorAll('[role=tab]'));
+ function show(id,focus){
+  var found=tabs.some(function(t){return t.getAttribute('aria-controls')===id});
+  if(!found)id='overview';
+  tabs.forEach(function(t){
+   var on=t.getAttribute('aria-controls')===id;
+   t.setAttribute('aria-selected',on);t.tabIndex=on?0:-1;
+   document.getElementById(t.getAttribute('aria-controls')).hidden=!on;
+   if(on&&focus)t.focus();
+  });
+ }
+ tabs.forEach(function(t,i){
+  t.addEventListener('click',function(){location.hash=t.getAttribute('aria-controls')});
+  t.addEventListener('keydown',function(e){
+   var n=null;
+   if(e.key==='ArrowRight')n=(i+1)%tabs.length;
+   else if(e.key==='ArrowLeft')n=(i-1+tabs.length)%tabs.length;
+   else if(e.key==='Home')n=0;else if(e.key==='End')n=tabs.length-1;
+   if(n!==null){e.preventDefault();history.replaceState(null,'','#'+tabs[n].getAttribute('aria-controls'));show(tabs[n].getAttribute('aria-controls'),true)}
+  });
+ });
+ window.addEventListener('hashchange',function(){show(location.hash.slice(1))});
+ show(location.hash.slice(1));
+})();
+</script>
+</body>
+</html>
