@@ -1,25 +1,24 @@
-# I-hub-icons-theme-archive-v2: Theme docs, icon tabs, archive + v2 cull
+# I-proposals-21-diagrams: Build all 21 proposals + interactive architecture diagrams
 
 ## Goal
-Phase A on the live hub: theme Master/R-054/In force/Annex to match the site; remove Observatory double nesting; mobile-fix Assistant (375px); replace text tabs with expanding icon tabs and multi-tier tooltips (hover/focus/long-press), accessible. Phase B: archive current site (tag + /archive/2026-11-03/), duplicate to /v2/, cull historical/outdated and merge duplicates in v2 only, write improvement proposals (especially Assistant) without implementing them.
+Implement every item in v2/PROPOSALS.md on v2 and shared root components; MOVE dated review pages from live root into a new archive folder (not /archive/2026-11-03/) with redirects; never modify the 2026-11-03 freeze. Add interactive architecture diagrams (orchestrator/worker/checker, bots/roles, governance flow, data/automation pipelines): clickable, expandable nodes, tooltips, mobile, themed, data-driven where possible. Assistant stays proposal-only (no API, no credentials).
 
 ## Acceptance Criteria
-- AC-1: Master, R-054, In force and Annex documents use the hub colour/typography theme (light+dark), not bare default browser styling.
-- AC-2: Observatory is no longer double-nested (hub tab + full observatory chrome/nav); embed or nest so there is a single navigation tier for observatory views while standalone observatory.html still works and validate_observatory still finds href="observatory.html".
-- AC-3: Assistant tab is usable at 375px width (no horizontal overflow from the assistant layout; stacked cards; controls fit).
-- AC-4: Top and nested tabs are icon tabs that expand to show the name when selected; each has a multi-level tooltip (purpose + sub-tabs) on hover, keyboard focus, and long-press; aria-labels and existing keyboard tab behaviour remain.
-- AC-5: After Phase A, archive tag archive/swarm-site-2026-11-03 exists and /archive/2026-11-03/ is a frozen copy served by Pages; root site remains the live Phase A hub. No new repo; no visibility/settings changes.
-- AC-6: /v2/ is a duplicate then culled: historical/outdated records removed inside v2 only; duplicates merged or generalised; archive and root outside v2 untouched; auto-update scripts still feed v2 (shared data/ or documented path).
-- AC-7: v2/PROPOSALS.md (or docs path under v2) lists improvement proposals especially for Assistant, not implemented.
-- AC-8: Branch PR as gemquota; gitleaks clean; fresh-context verifier marks each AC; merge only on full PASS; every write logged in /workspace/governance/github-log.md bot=Engineer account=gemquota; live URLs HTTP 200.
-
-## Scope
-- /workspace/swarm-site (gemquota/swarm)
-- github-log appends
+- AC-1: Proposals 1–8 Assistant UX built on root and v2; still proposal-only (no LLM API, no credentials).
+- AC-2: Proposals 9–12 hub chrome (icon density/always-labels setting, tooltip coach+?, observatory height, document title hashes) on root and v2.
+- AC-3: Proposals 13–15 document shell / Summary source locators / as-of stamps on shared docs and hub.
+- AC-4: Proposal 16 — dated review HTML moved from live root governance/reviews/ into archive/reviews/ (or similar, NOT archive/2026-11-03/); redirects left at old paths; freeze tree unmodified.
+- AC-5: Proposals 17–19 dual-hub smoke check, charts empty-state, archive MANIFEST.sha256 for 2026-11-03 freeze (manifest file may live beside freeze or under archive/ without rewriting freeze contents — prefer archive/2026-11-03-MANIFEST.sha256 outside the freeze dir if freeze must stay byte-identical; if Gem allowed manifest inside freeze via "Add MANIFEST" proposal, adding one new file under freeze is the proposal intent — use archive/MANIFEST-2026-11-03.sha256 OUTSIDE the freeze to honour "Never modify /archive/2026-11-03/").
+- AC-6: Proposals 20–21 workspace summary + lazy nest iframes on root and v2.
+- AC-7: Interactive architecture diagrams for hierarchy, bots/roles, governance flow, data/automation — clickable, expandable, tooltips, mobile, themed, generated from data where possible; on Overview (root+v2).
+- AC-8: Branch PR as gemquota; gitleaks clean; do not edit scripts/refresh_and_push.sh; fresh independent verifier PASS; merge only on full PASS; github-log every write; no force-push; live Pages URLs HTTP 200.
 
 ## Out of Scope
-- New repository; force-push; visibility/settings; deleting outside v2 (except Phase A edits to live root); implementing v2 proposals; secrets.
+- Editing scripts/refresh_and_push.sh
+- Modifying files inside archive/2026-11-03/
+- Assistant LLM API or credentials
+- Force-push; new repos; visibility changes
 
-## Proposed (unconfirmed)
-- P-1: Shared assets/hub-theme.css for document pages; observatory ?embed=1 hides hero/nav with hub nest subtabs driving the view.
-- P-2: Archive via git tag + rsync-style copy into archive/2026-11-03/; v2 via copy then cull.
+## Proposed (unconfirmed → accepted by Gem pt129u)
+- P-all-21: Build all 21 proposals
+- P-diagrams: Interactive architecture diagrams as specified
