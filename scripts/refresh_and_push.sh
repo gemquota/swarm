@@ -76,7 +76,7 @@ if [[ ! -x "$GITLEAKS_BIN" ]]; then
   abort "gitleaks binary missing at $GITLEAKS_BIN"
 fi
 GITLEAKS_OUT="$(mktemp)"
-if ! "$GITLEAKS_BIN" detect --redact --no-banner --no-git --source "$ROOT/data" -r "$GITLEAKS_OUT" >/dev/null 2>&1; then
+if ! "$GITLEAKS_BIN" detect --redact --no-banner --no-git --source "$ROOT/data" -f json -r "$GITLEAKS_OUT" >/dev/null 2>&1; then
   abort "gitleaks hit in data/ (see scan output)"
 fi
 rm -f "$GITLEAKS_OUT"
