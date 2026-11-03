@@ -42,3 +42,7 @@
 
 - Summary, Master, R-054, In force
 - Dropped: Authority review, Inputs & outputs, Annex (historical)
+
+
+## Follow-up (proposals build)
+- Live-root dated reviews moved to `archive/reviews/` with redirects; root hub nav matches v2 current-only set.

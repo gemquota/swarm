@@ -47,3 +47,13 @@ hr{border:0;border-top:1px solid var(--line);margin:2rem 0}
 .muted{color:var(--muted)}
 img{max-width:100%;height:auto}
 @media (max-width:600px){th,td{padding:.45rem .55rem;font-size:.92rem}}
+
+/* Print shell shared by Master / rulings / framed docs */
+@media print{
+  .doc-nav{background:#fff!important;color:#000!important;border-bottom:1px solid #ccc}
+  .doc-nav a{color:#000!important}
+  body{background:#fff;color:#000}
+  a{color:#000;text-decoration:underline}
+  pre,table{break-inside:avoid}
+}
+.doc-shell-footer{margin:2rem auto 1rem;max-width:960px;padding:0 1.25rem;color:var(--muted);font-size:.85rem}

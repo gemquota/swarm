@@ -1,0 +1,430 @@
+{
+  "asOf": "2026-11-04",
+  "timezone": "Australia/Brisbane",
+  "diagrams": {
+    "hierarchy": {
+      "id": "hierarchy",
+      "title": "Orchestrator \u00b7 worker \u00b7 checker hierarchy",
+      "blurb": "Gem authorises. Explorer assigns. Workers do. Checkers audit someone else. Roles draft and record. Ops keeps the machine running.",
+      "nodes": [
+        {
+          "id": "gem",
+          "label": "Gem",
+          "role": "Human authority",
+          "layer": "authority",
+          "tooltip": "Can approve, overrule or ratify anything. Words from Gem count directly.",
+          "children": [
+            "explorer",
+            "imitator"
+          ]
+        },
+        {
+          "id": "explorer",
+          "label": "Explorer",
+          "role": "Orchestrator",
+          "layer": "orchestrator",
+          "group": "Work",
+          "tooltip": "Front door and task assignment. Routes new work and brings results back.",
+          "children": [
+            "emissary",
+            "engineer"
+          ]
+        },
+        {
+          "id": "emissary",
+          "label": "Emissary",
+          "role": "Worker",
+          "layer": "worker",
+          "group": "Work",
+          "tooltip": "General work, posting, data collection.",
+          "children": []
+        },
+        {
+          "id": "engineer",
+          "label": "Engineer",
+          "role": "Worker",
+          "layer": "worker",
+          "group": "Work",
+          "tooltip": "Code, repos and the swarm build.",
+          "children": []
+        },
+        {
+          "id": "safeguard",
+          "label": "Safeguard",
+          "role": "Checker",
+          "layer": "checker",
+          "group": "Checks",
+          "tooltip": "Risk, dry runs, secrets inventory. Audits Scrutineer.",
+          "children": []
+        },
+        {
+          "id": "scrutineer",
+          "label": "Scrutineer",
+          "role": "Checker",
+          "layer": "checker",
+          "group": "Checks",
+          "tooltip": "Scores, reviews, deploy checks. Audits Safeguard.",
+          "children": []
+        },
+        {
+          "id": "architect",
+          "label": "Architect",
+          "role": "Drafter",
+          "layer": "roles",
+          "group": "Roles",
+          "tooltip": "Drafts instruction changes from Scrutineer reviews.",
+          "children": []
+        },
+        {
+          "id": "archivist",
+          "label": "Archivist",
+          "role": "Recorder",
+          "layer": "roles",
+          "group": "Roles",
+          "tooltip": "Records and deploys approved versions; directory and role map.",
+          "children": []
+        },
+        {
+          "id": "arbiter",
+          "label": "Arbiter",
+          "role": "Rulings",
+          "layer": "roles",
+          "group": "Roles",
+          "tooltip": "Rules on conflicts and pauses. Never approves.",
+          "children": []
+        },
+        {
+          "id": "mender",
+          "label": "Mender",
+          "role": "Ops",
+          "layer": "ops",
+          "group": "Ops",
+          "tooltip": "Run order, routing, stalls, incidents, connector health.",
+          "children": []
+        },
+        {
+          "id": "imitator",
+          "label": "Imitator",
+          "role": "Delegated approver",
+          "layer": "id",
+          "group": "ID",
+          "tooltip": "Gem's understudy within defined scope. Changes to Imitator stay with Gem.",
+          "children": [
+            "investigator",
+            "inferer"
+          ]
+        },
+        {
+          "id": "investigator",
+          "label": "Investigator",
+          "role": "Verifier",
+          "layer": "id",
+          "group": "ID",
+          "tooltip": "Verifies details; checks Imitator claims.",
+          "children": []
+        },
+        {
+          "id": "inferer",
+          "label": "Inferer",
+          "role": "Preferences",
+          "layer": "id",
+          "group": "ID",
+          "tooltip": "Learns Gem's preferences.",
+          "children": []
+        }
+      ],
+      "edges": [
+        {
+          "from": "gem",
+          "to": "explorer",
+          "label": "assigns / accepts"
+        },
+        {
+          "from": "gem",
+          "to": "imitator",
+          "label": "delegates within scope"
+        },
+        {
+          "from": "explorer",
+          "to": "emissary",
+          "label": "work"
+        },
+        {
+          "from": "explorer",
+          "to": "engineer",
+          "label": "work"
+        },
+        {
+          "from": "scrutineer",
+          "to": "architect",
+          "label": "reviews \u2192 drafts"
+        },
+        {
+          "from": "architect",
+          "to": "imitator",
+          "label": "proposals"
+        },
+        {
+          "from": "imitator",
+          "to": "archivist",
+          "label": "approved \u2192 deploy"
+        },
+        {
+          "from": "safeguard",
+          "to": "scrutineer",
+          "label": "mutual audit"
+        },
+        {
+          "from": "scrutineer",
+          "to": "safeguard",
+          "label": "mutual audit"
+        },
+        {
+          "from": "mender",
+          "to": "explorer",
+          "label": "ops routing"
+        }
+      ]
+    },
+    "bots": {
+      "id": "bots",
+      "title": "Bots and roles",
+      "blurb": "Twelve live bots in five groups. Expand a group to see duties.",
+      "groups": [
+        {
+          "id": "Work",
+          "label": "Work",
+          "color": "#2f9e44",
+          "bots": [
+            {
+              "id": "explorer",
+              "name": "Explorer",
+              "phase": "P1",
+              "duty": "Front door and task assignment"
+            },
+            {
+              "id": "emissary",
+              "name": "Emissary",
+              "phase": "P1",
+              "duty": "General work, posting, data collection"
+            },
+            {
+              "id": "engineer",
+              "name": "Engineer",
+              "phase": "P5",
+              "duty": "Code, repos and the swarm build"
+            }
+          ]
+        },
+        {
+          "id": "Checks",
+          "label": "Checks",
+          "color": "#e8590c",
+          "bots": [
+            {
+              "id": "safeguard",
+              "name": "Safeguard",
+              "phase": "P2",
+              "duty": "Risk, dry runs, secrets inventory"
+            },
+            {
+              "id": "scrutineer",
+              "name": "Scrutineer",
+              "phase": "P2",
+              "duty": "Scores, reviews, deploy checks"
+            }
+          ]
+        },
+        {
+          "id": "Roles",
+          "label": "Roles",
+          "color": "#7048e8",
+          "bots": [
+            {
+              "id": "architect",
+              "name": "Architect",
+              "phase": "P3",
+              "duty": "Drafts instructions"
+            },
+            {
+              "id": "archivist",
+              "name": "Archivist",
+              "phase": "P3",
+              "duty": "Records, deploys, directory, role map"
+            },
+            {
+              "id": "arbiter",
+              "name": "Arbiter",
+              "phase": "P3",
+              "duty": "Rules on conflicts; never approves"
+            }
+          ]
+        },
+        {
+          "id": "Ops",
+          "label": "Ops",
+          "color": "#1c7ed6",
+          "bots": [
+            {
+              "id": "mender",
+              "name": "Mender",
+              "phase": "P4",
+              "duty": "Run order, routing, stalls, incidents"
+            }
+          ]
+        },
+        {
+          "id": "ID",
+          "label": "ID",
+          "color": "#c2255c",
+          "bots": [
+            {
+              "id": "inferer",
+              "name": "Inferer",
+              "phase": "P4",
+              "duty": "Learns Gem's preferences"
+            },
+            {
+              "id": "investigator",
+              "name": "Investigator",
+              "phase": "P4",
+              "duty": "Verifies details; checks Imitator"
+            },
+            {
+              "id": "imitator",
+              "name": "Imitator",
+              "phase": "P4",
+              "duty": "Delegated approver within scope"
+            }
+          ]
+        }
+      ]
+    },
+    "governance": {
+      "id": "governance",
+      "title": "Governance flow",
+      "blurb": "How instruction changes and approvals move. Expand a step for the rule behind it.",
+      "steps": [
+        {
+          "id": "review",
+          "label": "Scrutineer reviews",
+          "detail": "Scores live bots against instructions and reality; starts Architect's cycle.",
+          "source": "governance/rulings/in-force.html"
+        },
+        {
+          "id": "draft",
+          "label": "Architect drafts",
+          "detail": "Complete rewritten instruction set from the review.",
+          "source": "governance/master/governance-master.html"
+        },
+        {
+          "id": "approve",
+          "label": "Imitator or Gem approves",
+          "detail": "Gem-only for Imitator and its checkers. Bound to an action hash (R-054).",
+          "source": "governance/rulings/R-054-approval-authority.html"
+        },
+        {
+          "id": "deploy",
+          "label": "Archivist records & deploys",
+          "detail": "Write-once versions; deploy record is authority on what is live.",
+          "source": "governance/master/governance-master.html"
+        },
+        {
+          "id": "check",
+          "label": "Deterministic checks",
+          "detail": "Eleven fixed checks owned by a bot other than the actor.",
+          "source": "governance/rulings/in-force.html"
+        },
+        {
+          "id": "ledger",
+          "label": "Append-only ledger",
+          "detail": "Approvals, deploys, rulings, incidents, restores; every deletion logged.",
+          "source": "governance/master/governance-master.html"
+        }
+      ]
+    },
+    "pipelines": {
+      "id": "pipelines",
+      "title": "Data and automation pipelines",
+      "blurb": "Documentary data on this site and the automation that refreshes it. Expand a node for path and owner.",
+      "nodes": [
+        {
+          "id": "ratings",
+          "label": "ratings.json",
+          "path": "data/ratings.json",
+          "owner": "Scrutineer / build_review_data",
+          "detail": "Bot rating history for Overview charts."
+        },
+        {
+          "id": "reviews",
+          "label": "reviews.json",
+          "path": "data/reviews.json",
+          "owner": "Scrutineer / build_review_data",
+          "detail": "Review outcome aggregates for Overview charts."
+        },
+        {
+          "id": "obs",
+          "label": "Observatory",
+          "path": "observatory.html",
+          "owner": "documentary catalogue",
+          "detail": "Evidence, authority model, relationships, open questions. Not a live feed."
+        },
+        {
+          "id": "validate",
+          "label": "validate_observatory",
+          "path": "scripts/validate_observatory.py",
+          "owner": "Engineer CI/local",
+          "detail": "Structural checks for observatory + dual-hub smoke."
+        },
+        {
+          "id": "sync",
+          "label": "build_site_sync",
+          "path": "scripts/build_site_sync.py",
+          "owner": "Engineer",
+          "detail": "Site sync helper (does not edit refresh_and_push.sh)."
+        },
+        {
+          "id": "pages",
+          "label": "GitHub Pages",
+          "path": ".github/workflows/pages.yml",
+          "owner": "GitHub Actions",
+          "detail": "Deploys the whole repository to gemquota.github.io/swarm."
+        },
+        {
+          "id": "archive",
+          "label": "Archives",
+          "path": "archive/",
+          "owner": "Engineer",
+          "detail": "Dated freezes and moved review snapshots; freeze trees are immutable."
+        }
+      ],
+      "edges": [
+        {
+          "from": "ratings",
+          "to": "obs",
+          "label": "feeds charts"
+        },
+        {
+          "from": "reviews",
+          "to": "obs",
+          "label": "feeds charts"
+        },
+        {
+          "from": "validate",
+          "to": "pages",
+          "label": "guards deploy"
+        },
+        {
+          "from": "sync",
+          "to": "pages",
+          "label": "content"
+        },
+        {
+          "from": "pages",
+          "to": "archive",
+          "label": "serves freezes"
+        }
+      ]
+    }
+  }
+}
