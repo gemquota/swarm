@@ -53,6 +53,18 @@ code{background:var(--accent-soft);padding:.05rem .35rem;border-radius:5px;font-
 .chart-card h4{margin:0 0 .75rem;font-size:1.05rem}
 .chart-wrap{position:relative;height:320px}
 @media (max-width:600px){.chart-wrap{height:260px}}
+
+.btn{font:inherit;font-weight:600;border:1px solid var(--line);border-radius:9px;background:var(--card);color:var(--ink);padding:.55rem .9rem;cursor:pointer}
+.btn.primary{background:var(--accent);color:#fff;border-color:var(--accent)}
+.btn:focus-visible{outline:3px solid #ffd43b;outline-offset:2px}
+.subtablist{display:flex;gap:.25rem;overflow-x:auto;margin:0 0 1rem;padding:.35rem;background:var(--card);border:1px solid var(--line);border-radius:12px}
+.subtablist[role=tablist]{/* nested */}
+.subtablist [role=tab]{font:inherit;font-weight:600;border:0;background:transparent;color:var(--muted);padding:.55rem .9rem;border-radius:9px;cursor:pointer;white-space:nowrap}
+.subtablist [role=tab][aria-selected=true]{background:var(--accent-soft);color:var(--ink)}
+.subtablist [role=tab]:focus-visible{outline:3px solid #ffd43b;outline-offset:-3px}
+.frame-wrap{margin:0;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;background:var(--card);min-height:70vh}
+.frame-wrap iframe{display:block;width:100%;height:75vh;border:0;background:var(--card)}
+.nest-panel{margin:0}
 footer{color:var(--muted);text-align:center;font-size:.85rem;padding:1rem}
 </style>
 <style media="(prefers-color-scheme: dark)">:root{--bg:#10131c;--card:#181c28;--ink:#e6e9f2;--muted:#9aa3b8;--line:#2a3042;--accent:#7b93ff;--accent-soft:#232b4a}</style>
@@ -65,12 +77,13 @@ footer{color:var(--muted);text-align:center;font-size:.85rem;padding:1rem}
  <div class="wrap">
   <h1>Gem Quota's Bot Swarm</h1>
   <p>A governed team of AI bots that works for Gem: who they are, how work moves between them, and who approves what.</p>
-  <div role="tablist" aria-label="Sections">
+  <div role="tablist" aria-label="Sections" id="top-tabs">
    <button role="tab" id="tab-overview" aria-controls="overview" aria-selected="true">Overview</button>
    <button role="tab" id="tab-governance" aria-controls="governance" aria-selected="false" tabindex="-1">Governance</button>
    <button role="tab" id="tab-bots" aria-controls="bots" aria-selected="false" tabindex="-1">Bots</button>
+   <button role="tab" id="tab-observatory" aria-controls="observatory" aria-selected="false" tabindex="-1">Observatory</button>
    <button role="tab" id="tab-assistant" aria-controls="assistant" aria-selected="false" tabindex="-1">Assistant</button>
-   <button role="tab" id="tab-more" aria-controls="more" aria-selected="false" tabindex="-1">More</button>
+   <button role="tab" id="tab-workspace" aria-controls="workspace" aria-selected="false" tabindex="-1">Workspace</button>
   </div>
  </div>
 </header>
@@ -119,7 +132,7 @@ footer{color:var(--muted);text-align:center;font-size:.85rem;padding:1rem}
  <div class="card"><h4>Task assignment</h4><p>Gem's requests come in through Explorer, which assigns new work to the right bot, follows it through and brings it back to Gem to accept. Mender handles operational routing: run order, recovery, rerouting and stalls. A task Gem gives a bot directly authorises that bot.</p></div>
  <div class="card"><h4>Review</h4><p>Scrutineer scores and reviews every live bot's work against its instructions and against reality. Its reviews start Architect's improvement cycle. Safeguard audits Scrutineer, and Scrutineer audits Safeguard.</p></div>
  <div class="card"><h4>Instruction changes</h4><div class="flow" aria-label="Scrutineer reviews, then Architect drafts, then approver, then Archivist records and deploys"><span>Scrutineer reviews</span><b>→</b><span>Architect drafts</span><b>→</b><span>Imitator or Gem approves</span><b>→</b><span>Archivist records &amp; deploys</span></div><p>Changes to Imitator or its checkers always go to Gem. Version files are write-once, and each bot's deploy record is the authority on what is live.</p></div>
- <div class="card"><h4>Approval</h4><p>Gem can approve anything. Imitator approves within a defined scope, and some decisions always stay with Gem. Each approval is bound to the exact action by a hash. Relayed approvals need direct confirmation. See the Governance tab.</p></div>
+ <div class="card"><h4>Approval</h4><p>Gem can approve anything. Imitator approves within a defined scope, and some decisions always stay with Gem. Each approval is bound to the exact action by a hash. Relayed approvals need direct confirmation. See the Governance tabs.</p></div>
  <div class="card"><h4>Dry runs</h4><p>Safeguard predicts what a risky action will do before it happens. A dry run informs; it is never a go-ahead.</p></div>
  <div class="card"><h4>Rulings</h4><p>Arbiter rules on which instruction wins in a conflict and on who may lift a pause. It never approves anything. While Gem is away, Imitator may veto an Arbiter ruling, within limits.</p></div>
  <div class="card"><h4>Logging</h4><p>Approvals, deploys, rulings, incidents and restores go into an append-only, hash-chained ledger. Every deletion is logged. Eleven fixed, rule-based checks back up bots' judgement.</p></div>
@@ -142,7 +155,17 @@ footer{color:var(--muted);text-align:center;font-size:.85rem;padding:1rem}
 <section role="tabpanel" id="governance" aria-labelledby="tab-governance" tabindex="0" hidden>
 <h2>Governance</h2>
 <p>Rulings are issued by Arbiter and numbered <code>R-nnn</code>. Below: who approves what (R-054), the other rulings in force, and the shared rules every bot follows.</p>
-
+<p class="muted">Current rules and reference documents. Nested tabs stay on this page; large documents open inside the panel.</p>
+<div class="subtablist" role="tablist" aria-label="Governance sections" data-nest="governance">
+ <button role="tab" id="tab-governance-summary" aria-controls="governance-summary" aria-selected="true">Summary</button>
+ <button role="tab" id="tab-governance-master" aria-controls="governance-master" aria-selected="false" tabindex="-1">Master</button>
+ <button role="tab" id="tab-governance-authority" aria-controls="governance-authority" aria-selected="false" tabindex="-1">Authority</button>
+ <button role="tab" id="tab-governance-io" aria-controls="governance-io" aria-selected="false" tabindex="-1">Inputs &amp; outputs</button>
+ <button role="tab" id="tab-governance-r054" aria-controls="governance-r054" aria-selected="false" tabindex="-1">R-054</button>
+ <button role="tab" id="tab-governance-rulings" aria-controls="governance-rulings" aria-selected="false" tabindex="-1">In force</button>
+ <button role="tab" id="tab-governance-annex" aria-controls="governance-annex" aria-selected="false" tabindex="-1">Annex</button>
+</div>
+<section role="tabpanel" class="nest-panel" id="governance-summary" aria-labelledby="tab-governance-summary" tabindex="0">
 <h3>Who approves what (R-054)</h3>
 <div class="tablewrap"><table>
 <thead><tr><th scope="col">#</th><th scope="col">Rule</th></tr></thead>
@@ -222,11 +245,38 @@ footer{color:var(--muted);text-align:center;font-size:.85rem;padding:1rem}
  <div class="card"><h4>Collaboration map</h4><p>The design document for the layers: Gem, the lead (Explorer), working bots, identity bots, governance bots and operations.</p></div>
 </div>
 </section>
+<section role="tabpanel" class="nest-panel" id="governance-master" aria-labelledby="tab-governance-master" tabindex="0" hidden>
+<p class="muted">Unified governance master (current active-bot versions, with a retired-bot appendix). Snapshot compiled from governance sources; where this page and a source disagree, the source wins.</p>
+<div class="frame-wrap"><iframe title="Governance master" src="governance/master/governance-master.html" loading="lazy"></iframe></div>
+</section>
+<section role="tabpanel" class="nest-panel" id="governance-authority" aria-labelledby="tab-governance-authority" tabindex="0" hidden>
+<p class="muted">Authority and responsibility review — documentary snapshot dated 15 Oct 2026. Later rulings (including R-054 deploy routes) may supersede individual rows; treat the Governance summary and R-054 tabs as current for approval rules.</p>
+<div class="frame-wrap"><iframe title="Authority and responsibility review" src="governance/reviews/2026-10-15-governance-authority-responsibility.html" loading="lazy"></iframe></div>
+</section>
+<section role="tabpanel" class="nest-panel" id="governance-io" aria-labelledby="tab-governance-io" tabindex="0" hidden>
+<p class="muted">Governance inputs and outputs report — documentary snapshot dated 10 Oct 2026. Counts are as at that date; live roster size is now 12 bots (see Bots tab).</p>
+<div class="frame-wrap"><iframe title="Governance inputs and outputs" src="governance/reviews/2026-10-10-governance-io-report.html" loading="lazy"></iframe></div>
+</section>
+<section role="tabpanel" class="nest-panel" id="governance-r054" aria-labelledby="tab-governance-r054" tabindex="0" hidden>
+<div class="frame-wrap"><iframe title="R-054 approval authority" src="governance/rulings/R-054-approval-authority.html" loading="lazy"></iframe></div>
+</section>
+<section role="tabpanel" class="nest-panel" id="governance-rulings" aria-labelledby="tab-governance-rulings" tabindex="0" hidden>
+<div class="frame-wrap"><iframe title="Rulings in force" src="governance/rulings/in-force.html" loading="lazy"></iframe></div>
+</section>
+<section role="tabpanel" class="nest-panel" id="governance-annex" aria-labelledby="tab-governance-annex" tabindex="0" hidden>
+<div class="frame-wrap"><iframe title="Rulings annex" src="governance/rulings/annex-history.html" loading="lazy"></iframe></div>
+</section>
+</section>
 
 <!-- BOTS -->
 <section role="tabpanel" id="bots" aria-labelledby="tab-bots" tabindex="0" hidden>
 <h2>Bots</h2>
 <p>The twelve active bots, grouped by job.</p>
+<div class="subtablist" role="tablist" aria-label="Bots sections" data-nest="bots">
+ <button role="tab" id="tab-bots-directory" aria-controls="bots-directory" aria-selected="true">Directory</button>
+ <button role="tab" id="tab-bots-rolemap" aria-controls="bots-rolemap" aria-selected="false" tabindex="-1">Role map</button>
+</div>
+<section role="tabpanel" class="nest-panel" id="bots-directory" aria-labelledby="tab-bots-directory" tabindex="0">
 <div class="grid" id="botgrid">
 
 <article class="card bot g-Work"><h4>Explorer</h4><p><span class="tag Work">P1 · Work</span></p>
@@ -318,6 +368,11 @@ footer{color:var(--muted);text-align:center;font-size:.85rem;padding:1rem}
  </div>
 </div>
 </section>
+<section role="tabpanel" class="nest-panel" id="bots-rolemap" aria-labelledby="tab-bots-rolemap" tabindex="0" hidden>
+<p class="muted">Interactive role map of live bots and relationships (cartography). Click a bot for details; filter by edge type.</p>
+<div class="frame-wrap"><iframe title="Interactive role map" src="governance/cartography/role-map-interactive.html" loading="lazy"></iframe></div>
+</section>
+</section>
 
 <!-- ASSISTANT -->
 <section role="tabpanel" id="assistant" aria-labelledby="tab-assistant" tabindex="0" hidden>
@@ -370,50 +425,92 @@ footer{color:var(--muted);text-align:center;font-size:.85rem;padding:1rem}
 </div>
 </section>
 
-<!-- MORE -->
-<section role="tabpanel" id="more" aria-labelledby="tab-more" tabindex="0" hidden>
-<h2>More</h2>
-<p>Reference documents in this site.</p>
-<ul class="links">
- <li><a href="governance/master/governance-master-latest-2026-10-22.html">Governance master (latest)</a> — the full governance reference, including every bot's instructions.</li>
- <li><a href="governance/master/governance-master-2026-10-22.html">Governance master</a> — companion edition of the master governance reference.</li>
- <li><a href="governance/cartography/role-map-interactive.html">Interactive role map</a> — explore the bots and how they relate.</li>
- <li><a href="governance/reviews/2026-10-15-governance-authority-responsibility.html">Authority and responsibility review</a> — who holds which powers and duties.</li>
- <li><a href="governance/reviews/2026-10-10-governance-io-report.html">Governance inputs and outputs report</a> — what each bot reads and produces.</li>
- <li><a href="workspace-map.html">Workspace map</a> — a map of the shared workspace and its files.</li>
- <li><a href="observatory.html">Swarm Observatory</a> — source-linked evidence, documented authority requirements, ledger contract, relationships and open questions. Static view; no live runtime feed.</li>
- <li><a href="governance/rulings/R-054-approval-authority.html">R-054: who approves what</a> — the consolidated approval authority ruling.</li>
- <li><a href="governance/rulings/in-force.html">Rulings in force</a> — every ruling currently in force.</li>
- <li><a href="governance/rulings/annex-history.html">Rulings annex</a> — background annex to the rulings.</li>
-</ul>
+
+<!-- OBSERVATORY -->
+<section role="tabpanel" id="observatory" aria-labelledby="tab-observatory" tabindex="0" hidden>
+<h2>Observatory</h2>
+<p class="muted">Source-linked documentary view. Not live monitoring. A missing record is not proof that an event did not happen. <a href="observatory.html">Open as a standalone page</a>.</p>
+<div class="frame-wrap"><iframe title="Swarm Observatory" src="observatory.html" loading="lazy"></iframe></div>
+</section>
+
+<!-- WORKSPACE -->
+<section role="tabpanel" id="workspace" aria-labelledby="tab-workspace" tabindex="0" hidden>
+<h2>Workspace map</h2>
+<p class="muted">Curated map of the shared workspace snapshot. Private files are named only. Missing material is not proof of absence. <a href="workspace-map.html">Open as a standalone page</a>.</p>
+<div class="frame-wrap"><iframe title="Workspace map" src="workspace-map.html" loading="lazy"></iframe></div>
 </section>
 </main>
 <footer>Gem Quota's Bot Swarm · times in Brisbane time (AEST, UTC+10)</footer>
 <script>
 (function(){
- var tabs=[].slice.call(document.querySelectorAll('[role=tab]'));
- function show(id,focus){
-  var found=tabs.some(function(t){return t.getAttribute('aria-controls')===id});
-  if(!found)id='overview';
+ var topList=document.getElementById('top-tabs');
+ var topTabs=[].slice.call(topList.querySelectorAll(':scope > [role=tab]'));
+ var nests={
+  governance:{list:document.querySelector('[data-nest=governance]'), defaultId:'governance-summary'},
+  bots:{list:document.querySelector('[data-nest=bots]'), defaultId:'bots-directory'}
+ };
+ Object.keys(nests).forEach(function(k){
+  nests[k].tabs=[].slice.call(nests[k].list.querySelectorAll(':scope > [role=tab]'));
+ });
+ function panelIds(tabs){return tabs.map(function(t){return t.getAttribute('aria-controls')});}
+ function showIn(tabs, id, focus){
+  var ids=panelIds(tabs);
+  if(ids.indexOf(id)<0)id=ids[0];
   tabs.forEach(function(t){
    var on=t.getAttribute('aria-controls')===id;
    t.setAttribute('aria-selected',on);t.tabIndex=on?0:-1;
-   document.getElementById(t.getAttribute('aria-controls')).hidden=!on;
+   var p=document.getElementById(t.getAttribute('aria-controls'));
+   if(p)p.hidden=!on;
    if(on&&focus)t.focus();
   });
+  return id;
  }
- tabs.forEach(function(t,i){
-  t.addEventListener('click',function(){location.hash=t.getAttribute('aria-controls')});
-  t.addEventListener('keydown',function(e){
-   var n=null;
-   if(e.key==='ArrowRight')n=(i+1)%tabs.length;
-   else if(e.key==='ArrowLeft')n=(i-1+tabs.length)%tabs.length;
-   else if(e.key==='Home')n=0;else if(e.key==='End')n=tabs.length-1;
-   if(n!==null){e.preventDefault();history.replaceState(null,'','#'+tabs[n].getAttribute('aria-controls'));show(tabs[n].getAttribute('aria-controls'),true)}
+ function parseHash(){
+  var h=(location.hash||'#').slice(1);
+  if(!h)return {top:'overview', nest:null};
+  if(h.indexOf('governance-')===0)return {top:'governance', nest:h};
+  if(h==='governance')return {top:'governance', nest:nests.governance.defaultId};
+  if(h.indexOf('bots-')===0)return {top:'bots', nest:h};
+  if(h==='bots')return {top:'bots', nest:nests.bots.defaultId};
+  return {top:h, nest:null};
+ }
+ function apply(focus){
+  var st=parseHash();
+  var topId=st.top;
+  var found=topTabs.some(function(t){return t.getAttribute('aria-controls')===topId});
+  if(!found)topId='overview';
+  topTabs.forEach(function(t){
+   var on=t.getAttribute('aria-controls')===topId;
+   t.setAttribute('aria-selected',on);t.tabIndex=on?0:-1;
+   var p=document.getElementById(t.getAttribute('aria-controls'));
+   if(p)p.hidden=!on;
+   if(on&&focus&&!st.nest)t.focus();
   });
- });
- window.addEventListener('hashchange',function(){show(location.hash.slice(1))});
- show(location.hash.slice(1));
+  Object.keys(nests).forEach(function(k){
+   if(k===topId){
+    var nid=st.nest||nests[k].defaultId;
+    showIn(nests[k].tabs, nid, focus);
+   }
+  });
+ }
+ function bind(tabs, nestKey){
+  tabs.forEach(function(t,i){
+   t.addEventListener('click',function(){
+    location.hash=t.getAttribute('aria-controls');
+   });
+   t.addEventListener('keydown',function(e){
+    var n=null;
+    if(e.key==='ArrowRight')n=(i+1)%tabs.length;
+    else if(e.key==='ArrowLeft')n=(i-1+tabs.length)%tabs.length;
+    else if(e.key==='Home')n=0;else if(e.key==='End')n=tabs.length-1;
+    if(n!==null){e.preventDefault();history.replaceState(null,'','#'+tabs[n].getAttribute('aria-controls'));apply(true)}
+   });
+  });
+ }
+ bind(topTabs,null);
+ Object.keys(nests).forEach(function(k){bind(nests[k].tabs,k)});
+ window.addEventListener('hashchange',function(){apply(false)});
+ apply(false);
 })();
 </script>
 

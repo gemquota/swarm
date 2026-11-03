@@ -77,3 +77,5 @@ As of 22 Oct 2026, about 10:15pm AEST (UTC+10). Companion to `in-force.md`. The 
 - 22 Oct 7:57pm: R-045 update. 8:00pm: R-046 update. 8:05pm: R-047 verified. 8:06pm: R-047a settled. 8:11pm: R-050 update.
 - 22 Oct 9:22pm: R-040 exception.
 - 22 Oct about 10:15pm: R-054 consolidates approval authority; `in-force.md` becomes the current reference.
+
+- R-021 (phases.md beats directory.md) was retired by R-055 on 22 Oct, after Gem's 10:47pm words. The dormancy clauses of R-013 and the phases.md wording of R-025 were superseded by R-055.
