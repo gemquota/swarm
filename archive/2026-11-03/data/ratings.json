@@ -1,0 +1,920 @@
+{
+  "allowed_bots": [
+    "Arbiter",
+    "Architect",
+    "Archivist",
+    "Emissary",
+    "Engineer",
+    "Explorer",
+    "Imitator",
+    "Inferer",
+    "Investigator",
+    "Mender",
+    "Safeguard",
+    "Scrutineer"
+  ],
+  "allowed_ratings": [
+    "Fair",
+    "Good",
+    "NotRated",
+    "Poor"
+  ],
+  "meta": {
+    "bot_count": 12,
+    "date_range": [
+      "2026-10-05",
+      "2026-11-03"
+    ],
+    "record_count": 79,
+    "sources": {
+      "assessments": [
+        "2026-10-05.md",
+        "2026-10-06.md",
+        "2026-10-09.md",
+        "2026-10-16.md",
+        "2026-10-22.md",
+        "2026-10-30.md",
+        "2026-11-02.md",
+        "2026-11-03.md"
+      ],
+      "audits_ledger": "audits/ and ledger/ inspected; no allowlisted rating/score fields; skipped",
+      "reviews": [
+        "2026-10-05.md",
+        "2026-10-06.md",
+        "2026-10-09.md",
+        "2026-10-16.md",
+        "2026-10-22.md",
+        "2026-10-30.md",
+        "2026-11-02.md",
+        "2026-11-03.md"
+      ]
+    }
+  },
+  "records": [
+    {
+      "bot": "Arbiter",
+      "date": "2026-10-05",
+      "rating": "NotRated",
+      "scores": [
+        5,
+        4,
+        5,
+        4,
+        5
+      ]
+    },
+    {
+      "bot": "Architect",
+      "date": "2026-10-05",
+      "rating": "NotRated",
+      "scores": [
+        4,
+        4,
+        5,
+        4,
+        5
+      ]
+    },
+    {
+      "bot": "Archivist",
+      "date": "2026-10-05",
+      "rating": "Fair",
+      "scores": [
+        3,
+        3,
+        5,
+        3,
+        4
+      ]
+    },
+    {
+      "bot": "Explorer",
+      "date": "2026-10-05",
+      "rating": "NotRated",
+      "scores": [
+        3,
+        3,
+        5,
+        4,
+        3
+      ]
+    },
+    {
+      "bot": "Inferer",
+      "date": "2026-10-05",
+      "rating": "NotRated",
+      "scores": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    },
+    {
+      "bot": "Mender",
+      "date": "2026-10-05",
+      "rating": "Fair",
+      "scores": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    },
+    {
+      "bot": "Safeguard",
+      "date": "2026-10-05",
+      "rating": "Fair",
+      "scores": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    },
+    {
+      "bot": "Scrutineer",
+      "date": "2026-10-05",
+      "rating": "Good",
+      "scores": [
+        5,
+        5,
+        5,
+        4,
+        5
+      ]
+    },
+    {
+      "bot": "Arbiter",
+      "date": "2026-10-06",
+      "rating": "NotRated",
+      "scores": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    },
+    {
+      "bot": "Architect",
+      "date": "2026-10-06",
+      "rating": "Good",
+      "scores": [
+        4,
+        4,
+        5,
+        5,
+        null
+      ]
+    },
+    {
+      "bot": "Archivist",
+      "date": "2026-10-06",
+      "rating": "Fair",
+      "scores": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    },
+    {
+      "bot": "Explorer",
+      "date": "2026-10-06",
+      "rating": "NotRated",
+      "scores": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    },
+    {
+      "bot": "Inferer",
+      "date": "2026-10-06",
+      "rating": "NotRated",
+      "scores": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    },
+    {
+      "bot": "Mender",
+      "date": "2026-10-06",
+      "rating": "Poor",
+      "scores": [
+        4,
+        4,
+        3,
+        4,
+        null
+      ]
+    },
+    {
+      "bot": "Safeguard",
+      "date": "2026-10-06",
+      "rating": "Fair",
+      "scores": [
+        5,
+        4,
+        5,
+        5,
+        null
+      ]
+    },
+    {
+      "bot": "Scrutineer",
+      "date": "2026-10-06",
+      "rating": "Good",
+      "scores": [
+        4,
+        5,
+        5,
+        4,
+        null
+      ]
+    },
+    {
+      "bot": "Arbiter",
+      "date": "2026-10-09",
+      "rating": "Good",
+      "scores": [
+        5,
+        5,
+        4,
+        5,
+        null
+      ]
+    },
+    {
+      "bot": "Architect",
+      "date": "2026-10-09",
+      "rating": "Good",
+      "scores": [
+        4,
+        5,
+        5,
+        5,
+        null
+      ]
+    },
+    {
+      "bot": "Archivist",
+      "date": "2026-10-09",
+      "rating": "Fair",
+      "scores": [
+        5,
+        4,
+        4,
+        5,
+        null
+      ]
+    },
+    {
+      "bot": "Explorer",
+      "date": "2026-10-09",
+      "rating": "Poor",
+      "scores": [
+        5,
+        4,
+        5,
+        5,
+        null
+      ]
+    },
+    {
+      "bot": "Inferer",
+      "date": "2026-10-09",
+      "rating": "NotRated",
+      "scores": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    },
+    {
+      "bot": "Mender",
+      "date": "2026-10-09",
+      "rating": "Good",
+      "scores": [
+        4,
+        4,
+        2,
+        3,
+        null
+      ]
+    },
+    {
+      "bot": "Safeguard",
+      "date": "2026-10-09",
+      "rating": "Fair",
+      "scores": [
+        4,
+        4,
+        3,
+        4,
+        null
+      ]
+    },
+    {
+      "bot": "Scrutineer",
+      "date": "2026-10-09",
+      "rating": "Good",
+      "scores": [
+        5,
+        5,
+        3,
+        4,
+        null
+      ]
+    },
+    {
+      "bot": "Arbiter",
+      "date": "2026-10-16",
+      "rating": "Good",
+      "scores": [
+        5,
+        5,
+        4,
+        5,
+        null
+      ]
+    },
+    {
+      "bot": "Architect",
+      "date": "2026-10-16",
+      "rating": "Good",
+      "scores": [
+        4,
+        5,
+        5,
+        5,
+        null
+      ]
+    },
+    {
+      "bot": "Archivist",
+      "date": "2026-10-16",
+      "rating": "Good",
+      "scores": [
+        5,
+        4,
+        5,
+        5,
+        null
+      ]
+    },
+    {
+      "bot": "Explorer",
+      "date": "2026-10-16",
+      "rating": "Fair",
+      "scores": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    },
+    {
+      "bot": "Imitator",
+      "date": "2026-10-16",
+      "rating": "Poor"
+    },
+    {
+      "bot": "Inferer",
+      "date": "2026-10-16",
+      "rating": "Fair",
+      "scores": [
+        4,
+        4,
+        3,
+        4,
+        null
+      ]
+    },
+    {
+      "bot": "Investigator",
+      "date": "2026-10-16",
+      "rating": "Good"
+    },
+    {
+      "bot": "Mender",
+      "date": "2026-10-16",
+      "rating": "Poor",
+      "scores": [
+        4,
+        4,
+        3,
+        4,
+        null
+      ]
+    },
+    {
+      "bot": "Safeguard",
+      "date": "2026-10-16",
+      "rating": "Fair",
+      "scores": [
+        5,
+        5,
+        3,
+        4,
+        null
+      ]
+    },
+    {
+      "bot": "Scrutineer",
+      "date": "2026-10-16",
+      "rating": "Fair",
+      "scores": [
+        5,
+        5,
+        2,
+        3,
+        null
+      ]
+    },
+    {
+      "bot": "Arbiter",
+      "date": "2026-10-22",
+      "rating": "Fair",
+      "scores": [
+        4,
+        4,
+        4,
+        4,
+        4
+      ]
+    },
+    {
+      "bot": "Architect",
+      "date": "2026-10-22",
+      "rating": "Good",
+      "scores": [
+        4,
+        4,
+        3,
+        4,
+        4
+      ]
+    },
+    {
+      "bot": "Archivist",
+      "date": "2026-10-22",
+      "rating": "Good",
+      "scores": [
+        5,
+        4,
+        5,
+        5,
+        4
+      ]
+    },
+    {
+      "bot": "Emissary",
+      "date": "2026-10-22",
+      "rating": "NotRated",
+      "scores": [
+        4,
+        4,
+        4,
+        4,
+        4
+      ]
+    },
+    {
+      "bot": "Engineer",
+      "date": "2026-10-22",
+      "rating": "Fair",
+      "scores": [
+        4,
+        4,
+        3,
+        3,
+        2
+      ]
+    },
+    {
+      "bot": "Explorer",
+      "date": "2026-10-22",
+      "rating": "Fair",
+      "scores": [
+        3,
+        4,
+        2,
+        3,
+        3
+      ]
+    },
+    {
+      "bot": "Imitator",
+      "date": "2026-10-22",
+      "rating": "Poor",
+      "scores": [
+        3,
+        2,
+        3,
+        3,
+        3
+      ]
+    },
+    {
+      "bot": "Inferer",
+      "date": "2026-10-22",
+      "rating": "Good",
+      "scores": [
+        3,
+        3,
+        3,
+        3,
+        4
+      ]
+    },
+    {
+      "bot": "Investigator",
+      "date": "2026-10-22",
+      "rating": "Good",
+      "scores": [
+        5,
+        5,
+        4,
+        4,
+        5
+      ]
+    },
+    {
+      "bot": "Mender",
+      "date": "2026-10-22",
+      "rating": "Fair",
+      "scores": [
+        4,
+        4,
+        4,
+        4,
+        4
+      ]
+    },
+    {
+      "bot": "Safeguard",
+      "date": "2026-10-22",
+      "rating": "Good",
+      "scores": [
+        4,
+        3,
+        4,
+        5,
+        5
+      ]
+    },
+    {
+      "bot": "Scrutineer",
+      "date": "2026-10-22",
+      "rating": "Fair",
+      "scores": [
+        5,
+        5,
+        4,
+        5,
+        4
+      ]
+    },
+    {
+      "bot": "Arbiter",
+      "date": "2026-10-30",
+      "rating": "Fair"
+    },
+    {
+      "bot": "Architect",
+      "date": "2026-10-30",
+      "rating": "Good",
+      "scores": [
+        5,
+        5,
+        5,
+        4,
+        5
+      ]
+    },
+    {
+      "bot": "Archivist",
+      "date": "2026-10-30",
+      "rating": "Fair",
+      "scores": [
+        4,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    {
+      "bot": "Emissary",
+      "date": "2026-10-30",
+      "rating": "Fair",
+      "scores": [
+        4,
+        4,
+        3,
+        3,
+        4
+      ]
+    },
+    {
+      "bot": "Engineer",
+      "date": "2026-10-30",
+      "rating": "Good",
+      "scores": [
+        5,
+        5,
+        4,
+        4,
+        5
+      ]
+    },
+    {
+      "bot": "Explorer",
+      "date": "2026-10-30",
+      "rating": "Good",
+      "scores": [
+        5,
+        5,
+        4,
+        4,
+        5
+      ]
+    },
+    {
+      "bot": "Imitator",
+      "date": "2026-10-30",
+      "rating": "Fair",
+      "scores": [
+        4,
+        4,
+        4,
+        4,
+        4
+      ]
+    },
+    {
+      "bot": "Inferer",
+      "date": "2026-10-30",
+      "rating": "Fair",
+      "scores": [
+        4,
+        4,
+        3,
+        3,
+        4
+      ]
+    },
+    {
+      "bot": "Investigator",
+      "date": "2026-10-30",
+      "rating": "Good",
+      "scores": [
+        5,
+        5,
+        5,
+        4,
+        5
+      ]
+    },
+    {
+      "bot": "Mender",
+      "date": "2026-10-30",
+      "rating": "Good",
+      "scores": [
+        5,
+        5,
+        5,
+        4,
+        5
+      ]
+    },
+    {
+      "bot": "Safeguard",
+      "date": "2026-10-30",
+      "rating": "Good",
+      "scores": [
+        5,
+        4,
+        4,
+        4,
+        5
+      ]
+    },
+    {
+      "bot": "Arbiter",
+      "date": "2026-11-02",
+      "rating": "Fair"
+    },
+    {
+      "bot": "Architect",
+      "date": "2026-11-02",
+      "rating": "Good",
+      "scores": [
+        4,
+        4,
+        5,
+        5,
+        5
+      ]
+    },
+    {
+      "bot": "Archivist",
+      "date": "2026-11-02",
+      "rating": "Poor",
+      "scores": [
+        3,
+        2,
+        3,
+        3,
+        2
+      ]
+    },
+    {
+      "bot": "Emissary",
+      "date": "2026-11-02",
+      "rating": "NotRated"
+    },
+    {
+      "bot": "Engineer",
+      "date": "2026-11-02",
+      "rating": "Good",
+      "scores": [
+        5,
+        5,
+        4,
+        4,
+        5
+      ]
+    },
+    {
+      "bot": "Explorer",
+      "date": "2026-11-02",
+      "rating": "Good",
+      "scores": [
+        5,
+        5,
+        5,
+        5,
+        5
+      ]
+    },
+    {
+      "bot": "Imitator",
+      "date": "2026-11-02",
+      "rating": "Fair",
+      "scores": [
+        4,
+        3,
+        4,
+        4,
+        3
+      ]
+    },
+    {
+      "bot": "Inferer",
+      "date": "2026-11-02",
+      "rating": "Good",
+      "scores": [
+        5,
+        5,
+        4,
+        4,
+        4
+      ]
+    },
+    {
+      "bot": "Investigator",
+      "date": "2026-11-02",
+      "rating": "Good",
+      "scores": [
+        5,
+        5,
+        5,
+        5,
+        5
+      ]
+    },
+    {
+      "bot": "Mender",
+      "date": "2026-11-02",
+      "rating": "Good",
+      "scores": [
+        5,
+        5,
+        5,
+        4,
+        5
+      ]
+    },
+    {
+      "bot": "Safeguard",
+      "date": "2026-11-02",
+      "rating": "Good",
+      "scores": [
+        5,
+        5,
+        5,
+        4,
+        5
+      ]
+    },
+    {
+      "bot": "Arbiter",
+      "date": "2026-11-03",
+      "rating": "Good"
+    },
+    {
+      "bot": "Architect",
+      "date": "2026-11-03",
+      "rating": "Good"
+    },
+    {
+      "bot": "Archivist",
+      "date": "2026-11-03",
+      "rating": "Fair",
+      "scores": [
+        4,
+        3,
+        3,
+        5,
+        5
+      ]
+    },
+    {
+      "bot": "Emissary",
+      "date": "2026-11-03",
+      "rating": "NotRated"
+    },
+    {
+      "bot": "Engineer",
+      "date": "2026-11-03",
+      "rating": "Fair",
+      "scores": [
+        4,
+        3,
+        4,
+        5,
+        5
+      ]
+    },
+    {
+      "bot": "Explorer",
+      "date": "2026-11-03",
+      "rating": "NotRated"
+    },
+    {
+      "bot": "Imitator",
+      "date": "2026-11-03",
+      "rating": "NotRated"
+    },
+    {
+      "bot": "Inferer",
+      "date": "2026-11-03",
+      "rating": "NotRated"
+    },
+    {
+      "bot": "Investigator",
+      "date": "2026-11-03",
+      "rating": "Good",
+      "scores": [
+        5,
+        5,
+        5,
+        5,
+        5
+      ]
+    },
+    {
+      "bot": "Mender",
+      "date": "2026-11-03",
+      "rating": "NotRated"
+    },
+    {
+      "bot": "Safeguard",
+      "date": "2026-11-03",
+      "rating": "Good",
+      "scores": [
+        4,
+        4,
+        4,
+        4,
+        5
+      ]
+    }
+  ],
+  "schema_version": 1
+}

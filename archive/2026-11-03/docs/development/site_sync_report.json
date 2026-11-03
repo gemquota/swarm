@@ -1,0 +1,45 @@
+{
+  "schema": 1,
+  "generated_at": "2026-11-03 17:58:50 AEST",
+  "generated_at_utc": "2026-11-03T07:58:50Z",
+  "source_root": "/workspace/governance",
+  "allowlist": [
+    "cartography/role-map-interactive.html",
+    "reviews/2026-10-15-governance-authority-responsibility.html",
+    "reviews/2026-10-10-governance-io-report.html",
+    "rulings/R-054-approval-authority.md",
+    "rulings/in-force.md",
+    "rulings/annex-history.md"
+  ],
+  "copied": [],
+  "unchanged": [
+    "reviews/2026-10-15-governance-authority-responsibility.html",
+    "rulings/annex-history.md"
+  ],
+  "missing_source": [],
+  "manual_required": [
+    {
+      "path": "cartography/role-map-interactive.html",
+      "reason": "content-gate",
+      "match": "[redacted-gate-hit]"
+    },
+    {
+      "path": "reviews/2026-10-10-governance-io-report.html",
+      "reason": "content-gate",
+      "match": "[redacted-gate-hit]"
+    },
+    {
+      "path": "rulings/R-054-approval-authority.md",
+      "reason": "content-gate",
+      "match": "[redacted-gate-hit]"
+    },
+    {
+      "path": "rulings/in-force.md",
+      "reason": "content-gate",
+      "match": "[redacted-gate-hit]"
+    }
+  ],
+  "errors": [],
+  "ok": true,
+  "auto_clean": false
+}

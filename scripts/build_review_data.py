@@ -6,6 +6,7 @@ name), rating from a fixed label set, numeric scores (1-5 or null), and
 outcome from a fixed label set. Fail closed: non-zero exit and write nothing
 if any field or value falls outside the schema after the build.
 """
+# Consumed by root index.html and v2/index.html via data/ and ../data/ respectively.
 from __future__ import annotations
 
 import json
