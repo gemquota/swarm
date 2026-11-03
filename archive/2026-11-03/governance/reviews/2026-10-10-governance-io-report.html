@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en-AU" class="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Governance inputs &amp; outputs — Gem Quota · 10 Oct 2026</title>
+<style>
+:root {
+  --bg: #0f1419;
+  --bg2: #1a222d;
+  --bg3: #243040;
+  --card: #1e2836;
+  --text: #e7ecf3;
+  --muted: #9aa8b8;
+  --accent: #5b9fd4;
+  --good: #3dba7a;
+  --warn: #e0a14a;
+  --bad: #e06a6a;
+  --line: #2c3a4d;
+  --chip: #2a3545;
+}
+@media (prefers-color-scheme: light) {
+  :root {
+    --bg: #f4f6f9;
+    --bg2: #ffffff;
+    --bg3: #e8eef5;
+    --card: #ffffff;
+    --text: #1a2330;
+    --muted: #5a6a7a;
+    --accent: #2a6fad;
+    --good: #1f8a54;
+    
+    --warn: #b5760b;
+    --bad: #c0392b;
+    --line: #d0d8e2;
+    --chip: #eef2f7;
+  }
+}
+html.light {
+  --bg: #f4f6f9; --bg2: #fff; --bg3: #e8eef5; --card: #fff;
+  --text: #1a2330; --muted: #5a6a7a; --accent: #2a6fad;
+  --good: #1f8a54; --warn: #b5760b; --bad: #c0392b;
+  --line: #d0d8e2; --chip: #eef2f7;
+}
+html.dark {
+  --bg: #0f1419; --bg2: #1a222d; --bg3: #243040; --card: #1e2836;
+  --text: #e7ecf3; --muted: #9aa8b8; --accent: #5b9fd4;
+  --good: #3dba7a; --warn: #e0a14a; --bad: #e06a6a;
+  --line: #2c3a4d; --chip: #2a3545;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0; font-family: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  background: var(--bg); color: var(--text); line-height: 1.45;
+  font-size: 15px;
+}
+header {
+  background: var(--bg2); border-bottom: 1px solid var(--line);
+  padding: 1.4rem 1.6rem; display: flex; flex-wrap: wrap;
+  align-items: flex-start; justify-content: space-between; gap: 1rem;
+}
+header h1 { margin: 0 0 .35rem; font-size: 1.45rem; font-weight: 650; }
+header .meta { color: var(--muted); font-size: .9rem; max-width: 52rem; }
+.theme-btn {
+  background: var(--chip); color: var(--text); border: 1px solid var(--line);
+  border-radius: 8px; padding: .45rem .8rem; cursor: pointer; font-size: .85rem;
+}
+main { max-width: 1100px; margin: 0 auto; padding: 1.4rem 1.2rem 3rem; }
+.cards {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: .75rem; margin-bottom: 1.5rem;
+}
+.card {
+  background: var(--card); border: 1px solid var(--line); border-radius: 12px;
+  padding: .9rem 1rem;
+}
+.card .n { font-size: 1.65rem; font-weight: 700; letter-spacing: -.02em; }
+.card .l { color: var(--muted); font-size: .78rem; margin-top: .15rem; }
+.card.accent .n { color: var(--accent); }
+.card.good .n { color: var(--good); }
+.card.warn .n { color: var(--warn); }
+.card.bad .n { color: var(--bad); }
+h2 {
+  font-size: 1.15rem; margin: 1.8rem 0 .7rem; padding-bottom: .35rem;
+  border-bottom: 1px solid var(--line);
+}
+h3 { font-size: 1rem; margin: 1.2rem 0 .5rem; }
+p, li { color: var(--text); }
+.muted { color: var(--muted); }
+table {
+  width: 100%; border-collapse: collapse; font-size: .88rem;
+  background: var(--card); border: 1px solid var(--line); border-radius: 10px;
+  overflow: hidden; margin: .5rem 0 1rem;
+}
+th, td { text-align: left; padding: .45rem .65rem; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { background: var(--bg3); color: var(--muted); font-weight: 600; font-size: .78rem; text-transform: uppercase; letter-spacing: .03em; }
+tr:last-child td { border-bottom: none; }
+.num { text-align: right; font-variant-numeric: tabular-nums; }
+blockquote {
+  margin: .6rem 0; padding: .55rem .9rem; border-left: 3px solid var(--accent);
+  background: var(--bg3); border-radius: 0 8px 8px 0; color: var(--text); font-size: .92rem;
+}
+.chip {
+  display: inline-block; background: var(--chip); border: 1px solid var(--line);
+  border-radius: 999px; padding: .1rem .55rem; font-size: .75rem; color: var(--muted);
+  margin-right: .25rem;
+}
+.flow-wrap {
+  background: var(--card); border: 1px solid var(--line); border-radius: 12px;
+  padding: 1rem; overflow-x: auto; margin: .8rem 0 1.2rem;
+}
+.chart-wrap {
+  background: var(--card); border: 1px solid var(--line); border-radius: 12px;
+  padding: 1rem; margin: .8rem 0 1.2rem;
+}
+.chart-wrap h3 { margin-top: 0; }
+.two { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+@media (max-width: 800px) { .two { grid-template-columns: 1fr; } }
+.rec {
+  background: var(--card); border: 1px solid var(--line); border-left: 4px solid var(--accent);
+  border-radius: 10px; padding: .75rem 1rem; margin: .5rem 0;
+}
+.rec strong { color: var(--accent); }
+.findings { display: grid; gap: .55rem; margin: .8rem 0 1.2rem; }
+.find {
+  background: var(--card); border: 1px solid var(--line); border-radius: 10px;
+  padding: .7rem .95rem;
+}
+.find b { color: var(--warn); }
+footer {
+  margin-top: 2rem; padding-top: 1rem; border-top: 1px solid var(--line);
+  color: var(--muted); font-size: .82rem;
+}
+svg text { font-family: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif; }
+</style>
+</head>
+<body>
+<header>
+  <div>
+    <h1>Governance inputs &amp; outputs</h1>
+    <div class="meta">
+      Gem Quota AI bot swarm · Brisbane AEST · Saturday 10 Oct 2026 · Read-only research.
+      Bare bot names. Suggestions at the end are for Gem to decide.
+    </div>
+  </div>
+  <button class="theme-btn" type="button" onclick="toggleTheme()" aria-label="Toggle colour theme">Dark / light</button>
+</header>
+<main>
+
+<section class="cards" aria-label="Summary">
+  <div class="card accent"><div class="n">~32</div><div class="l">Gem decision acts in approvals/</div></div>
+  <div class="card"><div class="n">89</div><div class="l">Proposal markdown files</div></div>
+  <div class="card good"><div class="n">39</div><div class="l">Profile deploys (manifests)</div></div>
+  <div class="card"><div class="n">20</div><div class="l">Rulings R-001…R-020</div></div>
+  <div class="card warn"><div class="n">2</div><div class="l">Incidents still open</div></div>
+  <div class="card"><div class="n">17</div><div class="l">Risks RR-001…RR-017</div></div>
+  <div class="card bad"><div class="n">252k</div><div class="l">Governance md words</div></div>
+  <div class="card warn"><div class="n">6</div><div class="l">Pending 9 Oct drafts</div></div>
+</section>
+
+<section class="findings">
+  <div class="find"><b>Finding 1.</b> Governance wrote ~252k words; Architect alone ~77k. Work bots produced the real outputs (Engineer 123 vepa commits 3–9 Oct; Extractor BIE; Emissary 22 MedB commits).</div>
+  <div class="find"><b>Finding 2.</b> The chain stalls at Gem (or dormant P4 Imitator) and again at Archivist deploy, which needs Gem in Archivist's own chat (R-010). Imitator cannot unlock deploy today.</div>
+  <div class="find"><b>Finding 3.</b> Safeguard / Scrutineer / Arbiter catches changed outcomes (snapshot delete, quarantine, R-014, R-020). Scorer daily scores and most Architect volume did not.</div>
+  <div class="find"><b>Finding 4.</b> 6 Oct PRIORITY sat ~3 days before 9 Oct record/deploy. explorer-v002 and five other 9 Oct drafts are still pending. open.md still lists a verification-rule row that is already recorded.</div>
+</section>
+
+<h2>1. Inputs</h2>
+
+<h3>1.1 Gem's decisions (approvals/)</h3>
+<table>
+  <thead><tr><th>Date</th><th>File</th><th>What</th><th class="num">Acts</th></tr></thead>
+  <tbody>
+    <tr><td>3 Oct</td><td>2026-10-03-batch1-review.md</td><td>Role Cartographer review — not Gem</td><td class="num">0</td></tr>
+    <tr><td>4 Oct</td><td>2026-10-04-gem-direct-words.md</td><td>Exact quotes in Explorer chat</td><td class="num">5</td></tr>
+    <tr><td>6 Oct</td><td>2026-10-06-gem-direct-words.md</td><td>Widget Approves (named drafts)</td><td class="num">16</td></tr>
+    <tr><td>9 Oct</td><td>both gem-direct files</td><td>Archivist direct + Explorer relay</td><td class="num">~10</td></tr>
+    <tr><td>10 Oct</td><td>in 9 Oct file</td><td>Scrape-cache delete</td><td class="num">1</td></tr>
+  </tbody>
+</table>
+<p class="muted">Extra Gem words live only in rulings.md (Imitator grant 4 Oct 5:43pm; both Inquirers verified 9 Oct 4:21pm; Imitator scope + voice 10 Oct ~11:54am).</p>
+
+<blockquote>"I approve All the changes but also veto merge 6"</blockquote>
+<blockquote>"Yes, I approve all 11. Record and deploy them, and leave the evasion-code clause out of Engineer."</blockquote>
+<blockquote>"Yes, delete the Facebook snapshots"</blockquote>
+<blockquote>"The new Inquirer (0314faa4) owns it"</blockquote>
+
+<h3>1.2 Proposals, incidents, audits, schedule</h3>
+<div class="two">
+  <div>
+    <table>
+      <thead><tr><th>Proposal batch</th><th class="num">md files</th></tr></thead>
+      <tbody>
+        <tr><td>Root / early</td><td class="num">54</td></tr>
+        <tr><td>2026-10-05/</td><td class="num">13</td></tr>
+        <tr><td>2026-10-06/</td><td class="num">11</td></tr>
+        <tr><td>2026-10-09/</td><td class="num">9</td></tr>
+        <tr><td>retire-merge + triage</td><td class="num">2</td></tr>
+        <tr><td><strong>Total</strong></td><td class="num"><strong>89</strong></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div>
+    <table>
+      <thead><tr><th>Incident</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td>INC-001 Set 5</td><td>Resolved</td></tr>
+        <tr><td>INC-002 Scrutineer delay</td><td>Closed</td></tr>
+        <tr><td>INC-003 state/ missing</td><td>Resolved</td></tr>
+        <tr><td>INC-004 missed 7–8 Oct</td><td><span class="chip">Open</span></td></tr>
+        <tr><td>INC-005 folders gone</td><td><span class="chip">Open</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<p>Chain files on disk: assessments <span class="chip">5, 6, 9 Oct</span> · reviews <span class="chip">5, 6, 9 Oct</span> (+ 4 Oct baseline). Missing 7–8 Oct = INC-004 (unpaid Cursor invoice). Schedule: Scorer 7:45am → Scrutineer → Architect → <strong>Gem</strong> → Archivist. P3–P5 dormant (no scheduled work). Messages: one digest sent 10 Oct; agent-to-agent volume not measurable (transcripts empty).</p>
+
+<div class="chart-wrap">
+  <h3>Governance words by owner (folder attribution)</h3>
+  <svg viewBox="0 0 720 280" width="100%" height="280" role="img" aria-label="Bar chart of governance words by bot">
+    <rect width="720" height="280" fill="transparent"/>
+    <!-- bars: max 86001 -> scale to 520px -->
+    <g font-size="11" fill="currentColor">
+      <text x="8" y="28" fill="#9aa8b8">Archivist</text>
+      <rect x="100" y="14" width="520" height="18" rx="3" fill="#5b9fd4"/>
+      <text x="628" y="28">86.0k</text>
+
+      <text x="8" y="58" fill="#9aa8b8">Architect</text>
+      <rect x="100" y="44" width="468" height="18" rx="3" fill="#e06a6a"/>
+      <text x="576" y="58">77.2k</text>
+
+      <text x="8" y="88" fill="#9aa8b8">Scrutineer</text>
+      <rect x="100" y="74" width="246" height="18" rx="3" fill="#e0a14a"/>
+      <text x="354" y="88">40.5k</text>
+
+      <text x="8" y="118" fill="#9aa8b8">Cartography</text>
+      <rect x="100" y="104" width="86" height="18" rx="3" fill="#7a8fa3"/>
+      <text x="194" y="118">14.2k</text>
+
+      <text x="8" y="148" fill="#9aa8b8">Explorer</text>
+      <rect x="100" y="134" width="52" height="18" rx="3" fill="#7a8fa3"/>
+      <text x="160" y="148">8.6k</text>
+
+      <text x="8" y="178" fill="#9aa8b8">Scorer</text>
+      <rect x="100" y="164" width="43" height="18" rx="3" fill="#7a8fa3"/>
+      <text x="151" y="178">7.1k</text>
+
+      <text x="8" y="208" fill="#9aa8b8">Mender</text>
+      <rect x="100" y="194" width="36" height="18" rx="3" fill="#7a8fa3"/>
+      <text x="144" y="208">5.9k</text>
+
+      <text x="8" y="238" fill="#9aa8b8">Safeguard+</text>
+      <rect x="100" y="224" width="46" height="18" rx="3" fill="#3dba7a"/>
+      <text x="154" y="238">7.5k</text>
+
+      <text x="8" y="268" fill="#9aa8b8">Arbiter</text>
+      <rect x="100" y="254" width="19" height="18" rx="3" fill="#3dba7a"/>
+      <text x="127" y="268">3.2k</text>
+    </g>
+  </svg>
+  <p class="muted" style="margin:0">Total governance markdown ≈ 251,700 words in 329 files (excl. _archive). Measured 10 Oct.</p>
+</div>
+
+<h2>2. Process flow</h2>
+<div class="flow-wrap">
+<svg viewBox="0 0 980 340" width="100%" height="340" role="img" aria-label="Change flow diagram">
+  <defs>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto">
+      <path d="M0,0 L7,3 L0,6 Z" fill="#5b9fd4"/>
+    </marker>
+  </defs>
+  <!-- boxes -->
+  <g font-size="12" font-family="system-ui,sans-serif">
+    <rect x="20" y="40" width="130" height="54" rx="8" fill="#1e2836" stroke="#5b9fd4" stroke-width="1.5"/>
+    <text x="85" y="62" text-anchor="middle" fill="#e7ecf3">Proposal</text>
+    <text x="85" y="80" text-anchor="middle" fill="#9aa8b8" font-size="10">Architect</text>
+
+    <rect x="190" y="40" width="130" height="54" rx="8" fill="#1e2836" stroke="#e0a14a" stroke-width="1.5"/>
+    <text x="255" y="62" text-anchor="middle" fill="#e7ecf3">Approval</text>
+    <text x="255" y="80" text-anchor="middle" fill="#9aa8b8" font-size="10">Gem (until P4)</text>
+
+    <rect x="360" y="40" width="130" height="54" rx="8" fill="#1e2836" stroke="#5b9fd4" stroke-width="1.5"/>
+    <text x="425" y="62" text-anchor="middle" fill="#e7ecf3">Codex record</text>
+    <text x="425" y="80" text-anchor="middle" fill="#9aa8b8" font-size="10">Archivist</text>
+
+    <rect x="530" y="40" width="130" height="54" rx="8" fill="#1e2836" stroke="#e06a6a" stroke-width="1.5"/>
+    <text x="595" y="62" text-anchor="middle" fill="#e7ecf3">Deploy</text>
+    <text x="595" y="80" text-anchor="middle" fill="#9aa8b8" font-size="10">Gem / Archivist*</text>
+
+    <rect x="700" y="40" width="120" height="54" rx="8" fill="#1e2836" stroke="#5b9fd4" stroke-width="1.5"/>
+    <text x="760" y="62" text-anchor="middle" fill="#e7ecf3">Verify</text>
+    <text x="760" y="80" text-anchor="middle" fill="#9aa8b8" font-size="10">Scrutineer</text>
+
+    <rect x="860" y="40" width="100" height="54" rx="8" fill="#1e2836" stroke="#3dba7a" stroke-width="1.5"/>
+    <text x="910" y="62" text-anchor="middle" fill="#e7ecf3">Score</text>
+    <text x="910" y="80" text-anchor="middle" fill="#9aa8b8" font-size="10">Scorer</text>
+
+    <!-- arrows -->
+    <line x1="150" y1="67" x2="188" y2="67" stroke="#5b9fd4" stroke-width="1.5" marker-end="url(#arrow)"/>
+    <line x1="320" y1="67" x2="358" y2="67" stroke="#5b9fd4" stroke-width="1.5" marker-end="url(#arrow)"/>
+    <line x1="490" y1="67" x2="528" y2="67" stroke="#5b9fd4" stroke-width="1.5" marker-end="url(#arrow)"/>
+    <line x1="660" y1="67" x2="698" y2="67" stroke="#5b9fd4" stroke-width="1.5" marker-end="url(#arrow)"/>
+    <line x1="820" y1="67" x2="858" y2="67" stroke="#5b9fd4" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+    <!-- stall callouts -->
+    <rect x="170" y="130" width="170" height="70" rx="8" fill="#2a2218" stroke="#e0a14a"/>
+    <text x="255" y="152" text-anchor="middle" fill="#e0a14a" font-size="11" font-weight="600">STALL: Gem queue</text>
+    <text x="255" y="170" text-anchor="middle" fill="#c8b89a" font-size="10">P4 Imitator dormant</text>
+    <text x="255" y="186" text-anchor="middle" fill="#c8b89a" font-size="10">R-015 / R-019</text>
+    <path d="M255,94 L255,128" stroke="#e0a14a" stroke-dasharray="3 2" fill="none"/>
+
+    <rect x="500" y="130" width="190" height="70" rx="8" fill="#2a1c1c" stroke="#e06a6a"/>
+    <text x="595" y="152" text-anchor="middle" fill="#e06a6a" font-size="11" font-weight="600">STALL: Archivist deploy</text>
+    <text x="595" y="170" text-anchor="middle" fill="#c8a0a0" font-size="10">Only on Gem's word in</text>
+    <text x="595" y="186" text-anchor="middle" fill="#c8a0a0" font-size="10">Archivist's own chat (R-010)</text>
+    <path d="M595,94 L595,128" stroke="#e06a6a" stroke-dasharray="3 2" fill="none"/>
+
+    <rect x="40" y="230" width="280" height="70" rx="8" fill="#1c2430" stroke="#7a8fa3"/>
+    <text x="180" y="252" text-anchor="middle" fill="#9aa8b8" font-size="11" font-weight="600">STALL: Explorer profile ban</text>
+    <text x="180" y="270" text-anchor="middle" fill="#9aa8b8" font-size="10">R-014 — explorer-v002 drafted,</text>
+    <text x="180" y="286" text-anchor="middle" fill="#9aa8b8" font-size="10">not deployed; second breach 9 Oct</text>
+
+    <rect x="360" y="230" width="280" height="70" rx="8" fill="#1c2430" stroke="#7a8fa3"/>
+    <text x="500" y="252" text-anchor="middle" fill="#9aa8b8" font-size="11" font-weight="600">STALL: missed chain 7–8 Oct</text>
+    <text x="500" y="270" text-anchor="middle" fill="#9aa8b8" font-size="10">INC-004 — unpaid Cursor invoice</text>
+    <text x="500" y="286" text-anchor="middle" fill="#9aa8b8" font-size="10">not a bot logic failure</text>
+
+    <rect x="680" y="230" width="270" height="70" rx="8" fill="#1c2430" stroke="#7a8fa3"/>
+    <text x="815" y="252" text-anchor="middle" fill="#9aa8b8" font-size="11" font-weight="600">STALL: relay rule R-008</text>
+    <text x="815" y="270" text-anchor="middle" fill="#9aa8b8" font-size="10">Explorer-relayed approvals need</text>
+    <text x="815" y="286" text-anchor="middle" fill="#9aa8b8" font-size="10">Archivist 1:1 confirm before record</text>
+  </g>
+  <text x="20" y="330" fill="#9aa8b8" font-size="10">* Archivist may deploy only when Gem asks in Archivist's chat. Imitator decisions do not unlock deploy while that rule stands.</text>
+</svg>
+</div>
+
+<p>Daily chain (weekdays): Scorer → Scrutineer → Architect → Gem → Archivist. After P4: Imitator approves every proposal except changes to Imitator or Investigator (always Gem). Assembler retired 9 Oct; role map sits with Archivist.</p>
+
+<h2>3. Outputs</h2>
+
+<div class="two">
+  <div class="chart-wrap">
+    <h3>Deploys by manifest</h3>
+    <svg viewBox="0 0 360 200" width="100%" height="200" aria-label="Deploy counts">
+      <g font-size="11">
+        <text x="10" y="30" fill="#9aa8b8">04 Oct</text>
+        <rect x="70" y="16" width="140" height="20" rx="3" fill="#5b9fd4"/>
+        <text x="218" y="30" fill="#e7ecf3">14</text>
+
+        <text x="10" y="65" fill="#9aa8b8">09.json</text>
+        <rect x="70" y="51" width="90" height="20" rx="3" fill="#5b9fd4"/>
+        <text x="168" y="65" fill="#e7ecf3">9</text>
+
+        <text x="10" y="100" fill="#9aa8b8">09b</text>
+        <rect x="70" y="86" width="50" height="20" rx="3" fill="#5b9fd4"/>
+        <text x="128" y="100" fill="#e7ecf3">5</text>
+
+        <text x="10" y="135" fill="#9aa8b8">09c merges</text>
+        <rect x="70" y="121" width="90" height="20" rx="3" fill="#e06a6a"/>
+        <text x="168" y="135" fill="#e7ecf3">9</text>
+
+        <text x="10" y="170" fill="#9aa8b8">09d</text>
+        <rect x="70" y="156" width="20" height="20" rx="3" fill="#3dba7a"/>
+        <text x="98" y="170" fill="#e7ecf3">2 · total 39</text>
+      </g>
+    </svg>
+    <p class="muted" style="margin:0">09c appliedBy=Explorer — process breach under R-014; Gem ratified 9:16am.</p>
+  </div>
+  <div class="chart-wrap">
+    <h3>Utility vs activity (9 Oct report)</h3>
+    <svg viewBox="0 0 360 200" width="100%" height="200" aria-label="Utility scatter simplified">
+      <g font-size="10" fill="#9aa8b8">
+        <text x="20" y="16">Utility (bar) · selected bots</text>
+        <!-- Engineer 9 -->
+        <text x="10" y="45">Engineer</text>
+        <rect x="80" y="32" width="180" height="14" rx="2" fill="#3dba7a"/>
+        <text x="268" y="43" fill="#e7ecf3">9</text>
+        <text x="10" y="70">Extractor</text>
+        <rect x="80" y="57" width="160" height="14" rx="2" fill="#3dba7a"/>
+        <text x="248" y="68" fill="#e7ecf3">8</text>
+        <text x="10" y="95">Safeguard</text>
+        <rect x="80" y="82" width="120" height="14" rx="2" fill="#5b9fd4"/>
+        <text x="208" y="93" fill="#e7ecf3">6</text>
+        <text x="10" y="120">Scrutineer</text>
+        <rect x="80" y="107" width="100" height="14" rx="2" fill="#5b9fd4"/>
+        <text x="188" y="118" fill="#e7ecf3">5</text>
+        <text x="10" y="145">Archivist</text>
+        <rect x="80" y="132" width="80" height="14" rx="2" fill="#e0a14a"/>
+        <text x="168" y="143" fill="#e7ecf3">4</text>
+        <text x="10" y="170">Architect</text>
+        <rect x="80" y="157" width="20" height="14" rx="2" fill="#e06a6a"/>
+        <text x="108" y="168" fill="#e7ecf3">1 · ratio 0.13</text>
+      </g>
+    </svg>
+    <p class="muted" style="margin:0">Source: reviews/2026-10-09-bot-activity-utility-report.md — not re-scored today.</p>
+  </div>
+</div>
+
+<table>
+  <thead><tr><th>Output class</th><th>Count</th><th>Notes</th></tr></thead>
+  <tbody>
+    <tr><td>Rulings</td><td class="num">R-001…R-020</td><td>Plus updates to R-004, R-011, R-012</td></tr>
+    <tr><td>Codex version files</td><td class="num">119</td><td>Across ~37 bot folders + shared</td></tr>
+    <tr><td>Manifest deploy entries</td><td class="num">39</td><td>4 Oct + four 9 Oct manifests</td></tr>
+    <tr><td>Incidents</td><td class="num">5</td><td>3 closed/resolved, 2 open</td></tr>
+    <tr><td>Risks</td><td class="num">17</td><td>RR-001…RR-016 in table; RR-017 in 10 Oct update</td></tr>
+    <tr><td>Threats</td><td class="num">9</td><td>T-001…T-009; T-002 closed</td></tr>
+    <tr><td>Secrets inventory rows</td><td class="num">42</td><td>Safekeeper, 5 Oct</td></tr>
+    <tr><td>Digests sent</td><td class="num">1</td><td>2026-10-10.md</td></tr>
+    <tr><td>Assessments (Scorer)</td><td class="num">3+1</td><td>Daily 5/6/9 + weekly 5 Oct</td></tr>
+  </tbody>
+</table>
+
+<h2>4. Throughput and lag</h2>
+<table>
+  <thead><tr><th>Item</th><th>Proposed</th><th>Approved</th><th>Deployed</th><th>Lag</th></tr></thead>
+  <tbody>
+    <tr><td>6 Oct PRIORITY drafts</td><td>6 Oct ~8:10am</td><td>6 Oct widgets; Archivist 9 Oct</td><td>9 Oct manifests</td><td>~3 days</td></tr>
+    <tr><td>Message-verification rule</td><td>3–4 Oct</td><td>Mender chat 5 Oct; Archivist 9 Oct</td><td>codex shared v001</td><td>~4–6 days</td></tr>
+    <tr><td>Retire/merge</td><td>9 Oct morning</td><td>9:04–9:16am</td><td>9:14am (Explorer)</td><td>hours (wrong deployer)</td></tr>
+    <tr><td>explorer-v002 (R-014 ban)</td><td>9 Oct</td><td>—</td><td>not deployed</td><td>open</td></tr>
+  </tbody>
+</table>
+<p><strong>Pending now:</strong> explorer-v002, scrutineer-v004, arbiter-v005, architect-v004, engineer-v006, emissary-v005. Mediator live name still "P4". Backlog triage A/B awaiting Imitator or Gem. <code>state/open.md</code>: INC-004, INC-005, verification-rule row (stale — already recorded 9 Oct 9:04am).</p>
+
+<h2>5. Overhead vs value</h2>
+<p>Governance ~<strong>252k</strong> words. Architect utility <strong>1</strong> / ratio <strong>0.13</strong>. Archivist utility 4 but ~86k words. Work side: Engineer utility 9, Extractor 8, Emissary 6.</p>
+<div class="two">
+  <div>
+    <h3>Changed something</h3>
+    <ul>
+      <li>Safeguard RR-001 → Gem deleted FB snapshots</li>
+      <li>Quarantine of Investigator factcheck</li>
+      <li>Scrutineer caught INC-005; deploy-check → R-014</li>
+      <li>Arbiter R-007/008/010/015/020 set who may approve/deploy/push</li>
+      <li>Archivist 39 deploys + versioned rollback</li>
+      <li>3 Oct Cartographer reject of scraper phone probing</li>
+    </ul>
+  </div>
+  <div>
+    <h3>Mostly paperwork</h3>
+    <ul>
+      <li>Architect ~77k words; 30-question 6 Oct batch</li>
+      <li>Scorer daily scores Gem does not act on</li>
+      <li>Role-map image v1–v5+ and stale Google Doc mirror</li>
+      <li>Stale open.md verification-rule row</li>
+      <li>Duplicate privacy write-ups (Safeguard ∩ Safekeeper)</li>
+    </ul>
+  </div>
+</div>
+<p class="muted">No dollar spend figures exist anywhere (Mediator ledger).</p>
+
+<h2>6. Recommendations</h2>
+<p class="muted">Suggestions for Gem to decide. Nothing below was applied.</p>
+<div class="rec"><strong>1. Cap Architect</strong> — about 3 short proposals a week, one plain question each (urgent safety exempt). Trial 2 weeks.</div>
+<div class="rec"><strong>2. Weekly Scorer</strong> — Mon 8:45am only; Scrutineer backup becomes daily step 1; Mender updates missed-run rule. Trial 2 weeks.</div>
+<div class="rec"><strong>3. Unlock Archivist on Imitator decisions</strong> — or start P4 in one line. Today R-010 blocks deploy after Imitator approve.</div>
+<div class="rec"><strong>4. Consolidate checkers</strong> — Scorer vs Scrutineer daily narrative; share one privacy intake for Safeguard/Safekeeper.</div>
+<div class="rec"><strong>5. Deploy explorer-v002</strong> — hard ban on Explorer writing live profiles (Gem one-word yes). Closes R-014 repeat risk.</div>
+<div class="rec"><strong>6. Close stale open rows</strong> — verification rule; INC-004/005 per 10 Oct triage A1–A2 — so Mender's board matches reality.</div>
+
+<h2>Data gaps</h2>
+<ul>
+  <li>No usable chat transcripts for message volume.</li>
+  <li>No dollar/token spend.</li>
+  <li>Mtimes after 9 Oct ~10:37am restore are unreliable; dates from headers/git/names.</li>
+  <li>Retired agent folders gone (INC-005).</li>
+  <li>RR-017 is in the risk update block, not yet a full table row.</li>
+  <li>Exact 9:04am retire/merge quote missing from the executor handoff.</li>
+</ul>
+
+
+<section class="findings" style="margin-top:1.5rem">
+  <div class="find"><b>Follow-up 15 Oct.</b> Authority and responsibility maps for all bots:
+  <a href="2026-10-15-governance-authority-responsibility.html" style="color:var(--accent)">2026-10-15-governance-authority-responsibility</a>
+  (.md / .html / .png). P3 and P4 are LIVE as of 11:30pm; Imitator decides within R-019 limits; deploy still needs Gem → Archivist (R-010).</div>
+</section>
+
+<footer>
+  Paths: <code>/workspace/governance/reviews/2026-10-10-governance-io-report.html</code> ·
+  <code>.md</code> · screenshot <code>.png</code> if rendered.<br>
+  Companion numbers: <code>2026-10-09-bot-activity-utility-report.md</code>,
+  <code>proposals/2026-10-10-backlog-triage.md</code>,
+  <code>codex/_tools/deploy_manifest_*.json</code>.
+</footer>
+</main>
+<script>
+function toggleTheme(){
+  const h=document.documentElement;
+  if(h.classList.contains('light')){h.classList.remove('light');h.classList.add('dark');}
+  else if(h.classList.contains('dark')){h.classList.remove('dark');h.classList.add('light');}
+  else {
+    const pref=matchMedia('(prefers-color-scheme: light)').matches;
+    h.classList.add(pref?'dark':'light');
+  }
+}
+</script>
+</body>
+</html>

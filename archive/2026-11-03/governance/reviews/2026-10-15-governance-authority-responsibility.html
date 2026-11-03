@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en-AU" class="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Authority &amp; responsibility maps — Gem Quota · 15 Oct 2026</title>
+<style>
+:root {
+  --bg:#0f1419; --bg2:#1a222d; --bg3:#243040; --card:#1e2836;
+  --text:#e7ecf3; --muted:#9aa8b8; --accent:#5b9fd4;
+  --good:#3dba7a; --warn:#e0a14a; --bad:#e06a6a; --line:#2c3a4d; --chip:#2a3545;
+}
+html.light {
+  --bg:#f4f6f9; --bg2:#fff; --bg3:#e8eef5; --card:#fff;
+  --text:#1a2330; --muted:#5a6a7a; --accent:#2a6fad;
+  --good:#1f8a54; --warn:#b5760b; --bad:#c0392b; --line:#d0d8e2; --chip:#eef2f7;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:"IBM Plex Sans","Segoe UI",system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.45;font-size:15px}
+header{background:var(--bg2);border-bottom:1px solid var(--line);padding:1.4rem 1.6rem;display:flex;flex-wrap:wrap;justify-content:space-between;gap:1rem}
+header h1{margin:0 0 .35rem;font-size:1.4rem;font-weight:650}
+header .meta{color:var(--muted);font-size:.9rem;max-width:56rem}
+.theme-btn{background:var(--chip);color:var(--text);border:1px solid var(--line);border-radius:8px;padding:.45rem .8rem;cursor:pointer;font-size:.85rem}
+main{max-width:1120px;margin:0 auto;padding:1.4rem 1.2rem 3rem}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:.75rem;margin-bottom:1.4rem}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:.9rem 1rem}
+.card .n{font-size:1.45rem;font-weight:700}
+.card .l{color:var(--muted);font-size:.78rem;margin-top:.15rem}
+.card.good .n{color:var(--good)}.card.warn .n{color:var(--warn)}.card.accent .n{color:var(--accent)}.card.bad .n{color:var(--bad)}
+h2{font-size:1.15rem;margin:1.7rem 0 .7rem;padding-bottom:.35rem;border-bottom:1px solid var(--line)}
+h3{font-size:1rem;margin:1.1rem 0 .5rem}
+.muted{color:var(--muted)}
+table{width:100%;border-collapse:collapse;font-size:.84rem;background:var(--card);border:1px solid var(--line);border-radius:10px;overflow:hidden;margin:.5rem 0 1rem}
+th,td{text-align:left;padding:.42rem .6rem;border-bottom:1px solid var(--line);vertical-align:top}
+th{background:var(--bg3);color:var(--muted);font-weight:600;font-size:.72rem;text-transform:uppercase;letter-spacing:.03em}
+tr:last-child td{border-bottom:none}
+.chip{display:inline-block;background:var(--chip);border:1px solid var(--line);border-radius:999px;padding:.1rem .5rem;font-size:.72rem;color:var(--muted)}
+.chip.live{color:var(--good);border-color:var(--good)}
+.chip.gap{color:var(--warn);border-color:var(--warn)}
+.flow,.chart{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:1rem;margin:.7rem 0 1.1rem;overflow-x:auto}
+.note{background:var(--bg3);border-left:3px solid var(--warn);border-radius:0 8px 8px 0;padding:.65rem .9rem;margin:.7rem 0;font-size:.92rem}
+.rec{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:10px;padding:.7rem 1rem;margin:.45rem 0}
+.rec strong{color:var(--accent)}
+.findings{display:grid;gap:.5rem;margin:.8rem 0 1.1rem}
+.find{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:.7rem .95rem}
+.find b{color:var(--warn)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+@media(max-width:800px){.two{grid-template-columns:1fr}}
+footer{margin-top:2rem;padding-top:1rem;border-top:1px solid var(--line);color:var(--muted);font-size:.82rem}
+svg text{font-family:"IBM Plex Sans","Segoe UI",system-ui,sans-serif}
+.yes{color:var(--good);font-weight:600}.no{color:var(--muted)}.gem{color:var(--accent);font-weight:600}
+</style>
+</head>
+<body>
+<header>
+  <div>
+    <h1>Authority &amp; responsibility maps</h1>
+    <div class="meta">
+      Follow-up to the 10 Oct governance IO report · Gem Quota bot swarm · Brisbane AEST ·
+      15 Oct 2026 ~11:35pm · P3 &amp; P4 now LIVE · Read-only research · Bare bot names
+    </div>
+  </div>
+  <button class="theme-btn" type="button" onclick="document.documentElement.classList.toggle('light');document.documentElement.classList.toggle('dark')">Dark / light</button>
+</header>
+<main>
+
+<section class="cards" aria-label="Summary">
+  <div class="card good"><div class="n">P3+P4</div><div class="l">LIVE since 11:30pm 15 Oct</div></div>
+  <div class="card accent"><div class="n">Imitator</div><div class="l">Decides for Gem (with limits)</div></div>
+  <div class="card warn"><div class="n">R-010</div><div class="l">Deploy still needs Gem → Archivist</div></div>
+  <div class="card"><div class="n">17</div><div class="l">Bots mapped</div></div>
+  <div class="card bad"><div class="n">Gem only</div><div class="l">Spend · delete · irreversible</div></div>
+  <div class="card"><div class="n">R-020</div><div class="l">Public push → Safeguard first</div></div>
+</section>
+
+<section class="findings">
+  <div class="find"><b>Finding 1.</b> P4 live unlocks Imitator approvals (R-019). Instruction proposals no longer wait on Gem alone — except changes to Imitator or Investigator.</div>
+  <div class="find"><b>Finding 2.</b> Deploy is still Gem-gated. Archivist v006 records Imitator approvals, but applies a live profile only when Gem asks in Archivist's chat or call (R-010). Approval ≠ deploy.</div>
+  <div class="find"><b>Finding 3.</b> <code>directory.md</code> and cartography v7 still describe P3/P4 as dormant. <code>phases.md</code> is the source of truth and says LIVE.</div>
+  <div class="find"><b>Finding 4.</b> Explorer v002 (no profile writes) and the 15 Oct eight-bot deploy both PASS. Work bots stay P5 dormant for scheduled work.</div>
+</section>
+
+<h2>1. Authority map</h2>
+<p class="muted">Who may bind the swarm. Updated for P3/P4 live. Sources: live briefs, R-004/010/014/015/018/019/020, phases.md.</p>
+
+<div class="flow">
+<svg viewBox="0 0 1000 290" width="100%" height="290" role="img" aria-label="Authority flow">
+  <defs><marker id="a" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#5b9fd4"/></marker></defs>
+  <rect x="20" y="30" width="120" height="50" rx="8" fill="#1e2836" stroke="#5b9fd4"/><text x="80" y="50" text-anchor="middle" fill="#e7ecf3" font-size="12">Architect</text><text x="80" y="66" text-anchor="middle" fill="#9aa8b8" font-size="10">drafts</text>
+  <line x1="140" y1="55" x2="178" y2="55" stroke="#5b9fd4" marker-end="url(#a)"/>
+  <rect x="180" y="18" width="150" height="74" rx="8" fill="#1a2a22" stroke="#3dba7a" stroke-width="2"/><text x="255" y="42" text-anchor="middle" fill="#3dba7a" font-size="12" font-weight="600">Imitator (P4 LIVE)</text><text x="255" y="58" text-anchor="middle" fill="#c8e6d4" font-size="10">or Gem</text><text x="255" y="74" text-anchor="middle" fill="#9aa8b8" font-size="9">except Imitator/Investigator → Gem</text>
+  <line x1="330" y1="55" x2="368" y2="55" stroke="#5b9fd4" marker-end="url(#a)"/>
+  <rect x="370" y="30" width="130" height="50" rx="8" fill="#1e2836" stroke="#5b9fd4"/><text x="435" y="50" text-anchor="middle" fill="#e7ecf3" font-size="12">Archivist</text><text x="435" y="66" text-anchor="middle" fill="#9aa8b8" font-size="10">records codex</text>
+  <line x1="500" y1="55" x2="538" y2="55" stroke="#e0a14a" marker-end="url(#a)"/>
+  <rect x="540" y="18" width="160" height="74" rx="8" fill="#2a2218" stroke="#e0a14a" stroke-width="2"/><text x="620" y="42" text-anchor="middle" fill="#e0a14a" font-size="12" font-weight="600">Deploy gate</text><text x="620" y="58" text-anchor="middle" fill="#c8b89a" font-size="10">Gem asks Archivist</text><text x="620" y="74" text-anchor="middle" fill="#9aa8b8" font-size="9">in Archivist chat/call (R-010)</text>
+  <line x1="700" y1="55" x2="738" y2="55" stroke="#5b9fd4" marker-end="url(#a)"/>
+  <rect x="740" y="30" width="110" height="50" rx="8" fill="#1e2836" stroke="#5b9fd4"/><text x="795" y="50" text-anchor="middle" fill="#e7ecf3" font-size="12">Live profile</text><text x="795" y="66" text-anchor="middle" fill="#9aa8b8" font-size="10">Archivist applies</text>
+  <line x1="850" y1="55" x2="888" y2="55" stroke="#5b9fd4" marker-end="url(#a)"/>
+  <rect x="890" y="30" width="90" height="50" rx="8" fill="#1e2836" stroke="#3dba7a"/><text x="935" y="50" text-anchor="middle" fill="#e7ecf3" font-size="12">Scrutineer</text><text x="935" y="66" text-anchor="middle" fill="#9aa8b8" font-size="10">verifies</text>
+
+  <rect x="180" y="130" width="280" height="60" rx="8" fill="#1c2430" stroke="#7a8fa3"/>
+  <text x="320" y="155" text-anchor="middle" fill="#9aa8b8" font-size="11" font-weight="600">Gem always: spend · delete · irreversible · phase starts</text>
+  <text x="320" y="173" text-anchor="middle" fill="#9aa8b8" font-size="10">Public/shared push → Safeguard first (R-020)</text>
+
+  <rect x="500" y="130" width="300" height="60" rx="8" fill="#1c2430" stroke="#7a8fa3"/>
+  <text x="650" y="155" text-anchor="middle" fill="#9aa8b8" font-size="11" font-weight="600">Arbiter: precedence rulings only</text>
+  <text x="650" y="173" text-anchor="middle" fill="#9aa8b8" font-size="10">Investigator: reviews Imitator after the fact (not a gate)</text>
+
+  <text x="20" y="230" fill="#9aa8b8" font-size="11">Reserved for Gem even with P4 live: money, deletions, public pushes, changes to Imitator or Investigator, starting phases.</text>
+  <text x="20" y="250" fill="#9aa8b8" font-size="11">Explorer must not write live profiles (explorer-copy v002, R-014). Relays need 1:1 confirm (R-008); voice with Gem counts (R-018).</text>
+  <text x="20" y="275" fill="#e0a14a" font-size="11">Gap: Imitator approval does not unlock deploy. Archivist still waits for Gem's deploy ask.</text>
+</svg>
+</div>
+
+<h3>1.1 Decision matrix</h3>
+<table>
+  <thead><tr><th>Decision</th><th>Gem</th><th>Imitator</th><th>Archivist</th><th>Others</th></tr></thead>
+  <tbody>
+    <tr><td>Approve instruction proposal</td><td class="yes">Yes</td><td class="yes">Yes (live)</td><td class="no">Records</td><td class="no">No</td></tr>
+    <tr><td>Approve Imitator / Investigator change</td><td class="gem">Yes only</td><td class="no">No</td><td class="no">No</td><td class="no">No</td></tr>
+    <tr><td>Deploy live profile</td><td class="gem">Yes / asks</td><td class="no">No</td><td class="yes">If Gem asked (R-010)</td><td class="no">No</td></tr>
+    <tr><td>Spend money</td><td class="gem">Yes only</td><td class="no">No</td><td class="no">No</td><td class="no">No</td></tr>
+    <tr><td>Delete / irreversible</td><td class="gem">Yes only</td><td class="no">No</td><td class="no">No</td><td class="no">No</td></tr>
+    <tr><td>Public/shared repo push</td><td class="yes">May approve push</td><td class="no">No</td><td class="no">No</td><td>Safeguard gates first</td></tr>
+    <tr><td>Start phase</td><td class="gem">Yes only</td><td class="no">No</td><td class="no">No</td><td class="no">No</td></tr>
+    <tr><td>Precedence ruling</td><td class="yes">Override</td><td class="no">No</td><td class="no">No</td><td>Arbiter issues</td></tr>
+  </tbody>
+</table>
+
+<h3>1.2 Authority by bot (all 17)</h3>
+<table>
+  <thead><tr><th>Bot</th><th>Phase</th><th>May bind?</th><th>Hard no</th></tr></thead>
+  <tbody>
+    <tr><td>Gem</td><td>—</td><td>Everything</td><td>—</td></tr>
+    <tr><td>Imitator</td><td><span class="chip live">P4 LIVE</span></td><td>Decide for Gem within R-019</td><td>Spend · delete · public push · own/Investigator briefs</td></tr>
+    <tr><td>Archivist</td><td>P1</td><td>Record; deploy only on Gem ask</td><td>Approve; invent text; deploy on Imitator alone</td></tr>
+    <tr><td>Architect</td><td>P1</td><td>Drafts only</td><td>Approve · deploy</td></tr>
+    <tr><td>Arbiter</td><td>P2</td><td>Rulings</td><td>Approve · deploy</td></tr>
+    <tr><td>Explorer</td><td>P1</td><td>Route · digest</td><td>Any live profile write</td></tr>
+    <tr><td>Safeguard</td><td>P1</td><td>Pause · dry-run · push gate</td><td>Spend · delete</td></tr>
+    <tr><td>Safekeeper</td><td>P1</td><td>Threat/secrets policy</td><td>Read secret values</td></tr>
+    <tr><td>Mender</td><td>P1</td><td>Schedule · stalls · incidents</td><td>Close own stall · choose work</td></tr>
+    <tr><td>Scorer</td><td>P1</td><td>Score others</td><td>Score self · approve</td></tr>
+    <tr><td>Scrutineer</td><td>P2</td><td>Audit · verify deploy</td><td>Approve</td></tr>
+    <tr><td>Mediator</td><td>P2</td><td>Health/spend flags</td><td>Spend · invent $</td></tr>
+    <tr><td>Inquirer</td><td>P2</td><td>Ask identity Qs</td><td>Confirm facts · approve</td></tr>
+    <tr><td>Inferer</td><td>P2</td><td>Structure identity</td><td>Confirm ladder · invent</td></tr>
+    <tr><td>Investigator</td><td><span class="chip live">P3 LIVE</span></td><td>Evidence status · post-hoc Imitator review</td><td>Gate Imitator · approve self/Imitator</td></tr>
+    <tr><td>Emissary</td><td><span class="chip">P5 dormant</span></td><td>Gem-direct general work</td><td>Scheduled work</td></tr>
+    <tr><td>Engineer</td><td><span class="chip">P5 dormant</span></td><td>Gem-direct code work</td><td>Ungated shared push</td></tr>
+    <tr><td>Extractor</td><td><span class="chip">P5 dormant</span></td><td>Gem-direct research/scrape</td><td>Legal/account calls</td></tr>
+  </tbody>
+</table>
+
+<div class="note"><span class="chip gap">Still stalled</span> Imitator can approve a draft today. Archivist will not deploy it until Gem asks in Archivist's own chat or voice call. That is the main leftover from the 10 Oct IO report's stall list.</div>
+
+<h2>2. Responsibility map</h2>
+<p class="muted">Who owns the durable duty (CONTROLS), not who may decide once.</p>
+
+<div class="chart">
+<svg viewBox="0 0 980 420" width="100%" height="420" role="img" aria-label="Responsibility domains">
+  <!-- Gem centre -->
+  <circle cx="490" cy="200" r="36" fill="#2a6fad" stroke="#5b9fd4" stroke-width="2"/>
+  <text x="490" y="205" text-anchor="middle" fill="#fff" font-size="13" font-weight="600">Gem</text>
+
+  <!-- rings of responsibility boxes -->
+  <g font-size="11">
+    <rect x="40" y="30" width="150" height="44" rx="6" fill="#1e2836" stroke="#c77dff"/><text x="115" y="48" text-anchor="middle" fill="#e7ecf3">Archivist</text><text x="115" y="62" text-anchor="middle" fill="#9aa8b8" font-size="9">codex · role map</text>
+    <rect x="210" y="30" width="150" height="44" rx="6" fill="#1e2836" stroke="#9d8df1"/><text x="285" y="48" text-anchor="middle" fill="#e7ecf3">Architect</text><text x="285" y="62" text-anchor="middle" fill="#9aa8b8" font-size="9">proposals</text>
+    <rect x="380" y="20" width="150" height="44" rx="6" fill="#1a2a22" stroke="#3dba7a" stroke-width="2"/><text x="455" y="38" text-anchor="middle" fill="#3dba7a">Imitator LIVE</text><text x="455" y="52" text-anchor="middle" fill="#9aa8b8" font-size="9">delegated decisions</text>
+    <rect x="550" y="30" width="150" height="44" rx="6" fill="#1e2836" stroke="#e056fd"/><text x="625" y="48" text-anchor="middle" fill="#e7ecf3">Arbiter</text><text x="625" y="62" text-anchor="middle" fill="#9aa8b8" font-size="9">rulings</text>
+    <rect x="720" y="30" width="150" height="44" rx="6" fill="#1e2836" stroke="#ffd166"/><text x="795" y="48" text-anchor="middle" fill="#e7ecf3">Explorer</text><text x="795" y="62" text-anchor="middle" fill="#9aa8b8" font-size="9">front door · digest</text>
+
+    <rect x="40" y="110" width="150" height="44" rx="6" fill="#1e2836" stroke="#ef476f"/><text x="115" y="128" text-anchor="middle" fill="#e7ecf3">Mender</text><text x="115" y="142" text-anchor="middle" fill="#9aa8b8" font-size="9">schedule · incidents</text>
+    <rect x="40" y="170" width="150" height="44" rx="6" fill="#1e2836" stroke="#7bd389"/><text x="115" y="188" text-anchor="middle" fill="#e7ecf3">Scorer</text><text x="115" y="202" text-anchor="middle" fill="#9aa8b8" font-size="9">assessments</text>
+    <rect x="40" y="230" width="150" height="44" rx="6" fill="#1e2836" stroke="#95d5b2"/><text x="115" y="248" text-anchor="middle" fill="#e7ecf3">Scrutineer</text><text x="115" y="262" text-anchor="middle" fill="#9aa8b8" font-size="9">reviews · verify</text>
+
+    <rect x="790" y="110" width="150" height="44" rx="6" fill="#1e2836" stroke="#52b788"/><text x="865" y="128" text-anchor="middle" fill="#e7ecf3">Safeguard</text><text x="865" y="142" text-anchor="middle" fill="#9aa8b8" font-size="9">risk · push gate</text>
+    <rect x="790" y="170" width="150" height="44" rx="6" fill="#1e2836" stroke="#2d9c6f"/><text x="865" y="188" text-anchor="middle" fill="#e7ecf3">Safekeeper</text><text x="865" y="202" text-anchor="middle" fill="#9aa8b8" font-size="9">secrets · threats</text>
+    <rect x="790" y="230" width="150" height="44" rx="6" fill="#1e2836" stroke="#f78c6b"/><text x="865" y="248" text-anchor="middle" fill="#e7ecf3">Mediator</text><text x="865" y="262" text-anchor="middle" fill="#9aa8b8" font-size="9">health · spend</text>
+
+    <rect x="210" y="320" width="130" height="44" rx="6" fill="#1e2836" stroke="#06d6a0"/><text x="275" y="338" text-anchor="middle" fill="#e7ecf3">Inquirer</text><text x="275" y="352" text-anchor="middle" fill="#9aa8b8" font-size="9">identity Qs</text>
+    <rect x="360" y="320" width="130" height="44" rx="6" fill="#1e2836" stroke="#1fab89"/><text x="425" y="338" text-anchor="middle" fill="#e7ecf3">Inferer</text><text x="425" y="352" text-anchor="middle" fill="#9aa8b8" font-size="9">structure ID</text>
+    <rect x="510" y="320" width="150" height="44" rx="6" fill="#1a2a22" stroke="#3dba7a" stroke-width="2"/><text x="585" y="338" text-anchor="middle" fill="#3dba7a">Investigator LIVE</text><text x="585" y="352" text-anchor="middle" fill="#9aa8b8" font-size="9">evidence · Imitator test</text>
+
+    <rect x="200" y="385" width="120" height="28" rx="5" fill="#243040" stroke="#2ec4b6"/><text x="260" y="403" text-anchor="middle" fill="#9aa8b8" font-size="10">Emissary P5</text>
+    <rect x="340" y="385" width="120" height="28" rx="5" fill="#243040" stroke="#4f8cff"/><text x="400" y="403" text-anchor="middle" fill="#9aa8b8" font-size="10">Engineer P5</text>
+    <rect x="480" y="385" width="120" height="28" rx="5" fill="#243040" stroke="#ff8a3d"/><text x="540" y="403" text-anchor="middle" fill="#9aa8b8" font-size="10">Extractor P5</text>
+    <text x="620" y="403" fill="#9aa8b8" font-size="10">dormant · Gem-direct work only</text>
+  </g>
+</svg>
+</div>
+
+<h3>2.1 Responsibility by domain</h3>
+<table>
+  <thead><tr><th>Domain</th><th>Owner</th><th>Checked by / hands to</th></tr></thead>
+  <tbody>
+    <tr><td>Delegated decisions</td><td>Imitator</td><td>Investigator (after); Archivist (record)</td></tr>
+    <tr><td>Instruction design</td><td>Architect</td><td>Imitator/Gem → Archivist</td></tr>
+    <tr><td>Codex + role map</td><td>Archivist</td><td>Scrutineer</td></tr>
+    <tr><td>Precedence</td><td>Arbiter</td><td>Mender on stalls</td></tr>
+    <tr><td>Schedule / incidents / state</td><td>Mender</td><td>Scrutineer or Gem close Mender stalls</td></tr>
+    <tr><td>Daily scores</td><td>Scorer</td><td>Scrutineer</td></tr>
+    <tr><td>Reality audit / deploy verify</td><td>Scrutineer</td><td>Architect / Mender</td></tr>
+    <tr><td>Risk / dry-runs / push gate</td><td>Safeguard</td><td>Gem (legal/high)</td></tr>
+    <tr><td>Secrets / threats</td><td>Safekeeper</td><td>Safeguard overlap</td></tr>
+    <tr><td>Front door / digest</td><td>Explorer</td><td>Gem</td></tr>
+    <tr><td>Connectors / spend ledger</td><td>Mediator</td><td>Gem</td></tr>
+    <tr><td>Identity Q → structure → confirm</td><td>Inquirer → Inferer → Investigator</td><td>Imitator holds profile</td></tr>
+    <tr><td>Real-world outputs</td><td>Emissary · Engineer · Extractor</td><td>Safeguard on risk</td></tr>
+  </tbody>
+</table>
+
+<h3>2.2 Weekday chain</h3>
+<p>Scorer → Scrutineer → Architect → <strong>Imitator or Gem</strong> → Archivist (record) → deploy only if Gem asked Archivist.</p>
+
+<h2>3. Stale records to fix</h2>
+<ul>
+  <li><code>directory.md</code> still says P3/P4 dormant — <code>phases.md</code> wins.</li>
+  <li>Cartography v7 (10:47pm) still says P4 dormant — rebuild due.</li>
+  <li>Mediator live name still "P4 (Ops) Mediator" (R-016 / triage A7a).</li>
+  <li><code>state/open.md</code> verification-rule row still stale; INC-004/005/006 open.</li>
+</ul>
+
+<h2>4. Recommendations</h2>
+<p class="muted">Suggestions for Gem to decide. Nothing applied here.</p>
+<div class="rec"><strong>1.</strong> Let Archivist deploy on a recorded Imitator approval (1:1 checked), or Gem batch-asks pending deploys in Archivist's chat.</div>
+<div class="rec"><strong>2.</strong> Align <code>directory.md</code> with <code>phases.md</code> (P3/P4 LIVE).</div>
+<div class="rec"><strong>3.</strong> Archivist rebuilds role map v8 for LIVE P3/P4.</div>
+<div class="rec"><strong>4.</strong> Apply Mediator rename P4→P2.</div>
+<div class="rec"><strong>5.</strong> Keep R-015 (Gem owns Imitator/Investigator changes) unless Gem removes it.</div>
+
+<footer>
+  Paths: <code>2026-10-15-governance-authority-responsibility.{md,html,png}</code> ·
+  Parent: <code>2026-10-10-governance-io-report.*</code> ·
+  Ask: Gem, 10 Oct — maps for all bots if not already present.
+</footer>
+</main>
+</body>
+</html>

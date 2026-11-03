@@ -1,0 +1,181 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://gemquota.github.io/swarm/docs/schemas/event.schema.json",
+  "title": "Swarm Event Envelope",
+  "description": "Event schema for a future trusted runtime feed. The current static hub has no connected live event feed.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "type",
+    "eventTime",
+    "producer",
+    "source",
+    "status"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "type": {
+      "enum": [
+        "PROPOSAL",
+        "APPROVAL",
+        "REJECTION",
+        "RULING",
+        "PREFLIGHT",
+        "ACTION_ATTEMPT",
+        "EXECUTION",
+        "VERIFICATION",
+        "INCIDENT",
+        "REVOCATION",
+        "RESTORE",
+        "PUBLICATION",
+        "UNKNOWN"
+      ]
+    },
+    "eventTime": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "observedAt": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "producer": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "principalId",
+        "identityStatus"
+      ],
+      "properties": {
+        "principalId": {
+          "type": "string"
+        },
+        "identityStatus": {
+          "enum": [
+            "AUTHENTICATED",
+            "UNVERIFIED",
+            "UNKNOWN"
+          ]
+        }
+      }
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "uri"
+      ],
+      "properties": {
+        "uri": {
+          "type": "string"
+        },
+        "revision": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "method": {
+          "type": "string"
+        }
+      }
+    },
+    "taskId": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "approvalIds": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "evidenceIds": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "action": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "verb": {
+          "type": "string"
+        },
+        "target": {
+          "type": "string"
+        },
+        "canonicalHash": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "result": {
+      "enum": [
+        "SUCCEEDED",
+        "FAILED",
+        "DENIED",
+        "PARTIAL",
+        "UNKNOWN",
+        null
+      ]
+    },
+    "verifier": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "principalId": {
+          "type": "string"
+        },
+        "method": {
+          "type": "string"
+        },
+        "evidenceId": {
+          "type": "string"
+        }
+      }
+    },
+    "previousEventHash": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "eventHash": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "status": {
+      "enum": [
+        "OBSERVED",
+        "INDEPENDENTLY_VERIFIED",
+        "DOCUMENTED",
+        "DERIVED",
+        "INFERRED",
+        "CONTRADICTED",
+        "STALE",
+        "UNKNOWN",
+        "EXCLUDED_FROM_SNAPSHOT"
+      ]
+    }
+  }
+}
