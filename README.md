@@ -29,7 +29,7 @@ The repository and workspace map are snapshots, not a complete record of every f
 - `docs/schemas/` — JSON Schema contracts for entities, approvals, and future event envelopes.
 - `scripts/validate_observatory.py` — dependency-free structural and link checks.
 - `scripts/build_review_data.py` / `scripts/refresh_and_push.sh` — allowlist rebuild of `data/` ratings and reviews from `/workspace/governance` (fail-closed; data/ only).
-- `scripts/build_site_sync.py` — allowlist sync of selected governance HTML/MD into `governance/` (fail-closed: no secrets, personal data, BIE, or gambling). Files that trip the gate are listed as `manual_required` in `docs/development/site_sync_report.json` and must be curated by hand.
+- `scripts/build_site_sync.py` — copies **only** an explicit allowlist of governance HTML/MD into `governance/`. On those paths it applies a content gate (emails, common token prefixes, phone-like numbers, and the words casino/pokies/gambling/BIE); hits go to `manual_required` in `docs/development/site_sync_report.json` and need hand curation. That gate is **not** a site-wide fail-closed guarantee: paths outside the allowlist are not scanned by this script, and already-published `governance/master/**` (plus `archive/**/governance/master`) stay in the repo but are **excluded from the sync allowlist** under Arbiter R-058 until Gem's direct words name them and Safeguard re-checks. This script does not delete published files or rewrite history.
 
 ## Data and provenance model
 

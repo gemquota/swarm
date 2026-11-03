@@ -1,0 +1,40 @@
+{
+  "overall": "PASS",
+  "results": [
+    {
+      "ac": "AC-1",
+      "status": "PASS",
+      "evidence": "EXCLUDE_PATTERNS=['master', 'master/**', '**/governance/master', '**/governance/master/**', 'archive/**/governance/master', 'archive/**/governance/master/**']; allowlist master hits=[]; is_excluded checks=[True, True, True, True]"
+    },
+    {
+      "ac": "AC-2",
+      "status": "PASS",
+      "evidence": "README corrected; old fail-closed personal-data/BIE claim removed; R-058 noted"
+    },
+    {
+      "ac": "AC-3",
+      "status": "PASS",
+      "evidence": "published master files kept; freeze archive/2026-11-03 diff empty"
+    },
+    {
+      "ac": "AC-4",
+      "status": "PASS",
+      "evidence": "refresh_and_push.sh sha256=c04704226516a121be1be2071b5df24d3facd56210247a155a55cf970249da3d"
+    },
+    {
+      "ac": "AC-5",
+      "status": "PASS",
+      "evidence": "gitleaks detect --no-git: no leaks"
+    },
+    {
+      "ac": "AC-6",
+      "status": "PASS",
+      "evidence": "branch=engineer/r058-exclude-master-allowlist; report exclude_note present; patterns=['master', 'master/**', '**/governance/master', '**/governance/master/**', 'archive/**/governance/master', 'archive/**/governance/master/**']"
+    },
+    {
+      "ac": "AC-7",
+      "status": "PASS",
+      "evidence": "poisoned allowlist raises SystemExit=True"
+    }
+  ]
+}
