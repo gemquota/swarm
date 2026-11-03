@@ -6,7 +6,7 @@ As of 22 Oct 2026, about 10:15pm AEST (UTC+10). This file lists every ruling in 
 - **R-nnn**: an Arbiter ruling number in `rulings.md`.
 - **RR-nnn**: a row in Safeguard's risk register (`risk/register.md`).
 - **INC-nnn**: an incident record.
-- **P1 to P5**: rollout phases in `phases.md`. All five are live (P3 and P4 since 15 Oct 11:30pm, P5 since 16 Oct 11:47am).
+- **P1 to P5**: labels in bot names, left over from the finished rollout. They carry no rules (R-055).
 - **BIE**: material from the bie_tools bonus-data project (gambling-related data).
 - **Codex**: `/workspace/governance/codex/`, where each bot's approved versions are kept. **CHANGELOG** is each bot's deploy record there.
 - **Dry run**: Safeguard predicting what an action will do. It informs and never approves.
@@ -39,12 +39,11 @@ As of 22 Oct 2026, about 10:15pm AEST (UTC+10). This file lists every ruling in 
 - **R-006** Mender detects and logs every stall. Arbiter only escalates an Architect stall to Gem (and tells Mender).
 - **R-011** (as amended) Stall reports in `schedule.md` step 2 go to Mender, which owns `schedule.md`.
 - **R-012** (as updated twice) Inquirer 0314faa4 owns Inquirer's duties; output from e613112b is verified too. (Inquirer and Inferer merging is approved under R-051.)
-- **R-013** Gem may chat with any bot, dormant or not. Dormancy stops scheduled and bot-routed work. Safeguard review applies to all bots.
+- **R-013** (amended by R-055) Gem may chat with any bot. A retired bot gets no scheduled or bot-routed work. Safeguard review applies to all bots.
 - **R-016** Mediator is live in P2 despite its "P4" title. The rename waits for Gem or Archivist on Gem's request.
 - **R-017** "Assembler's role map" in any brief means Archivist.
-- **R-021** `phases.md` wins over `directory.md` on phases and live bots. Explorer keeps `directory.md` in step until an owner is named.
 - **R-024** Imitator's decision log is `/workspace/governance/approvals.md`.
-- **R-025** `phases.md` sets the live set for Scorer's sampling.
+- **R-025** (amended by R-055) Scrutineer samples every bot that `directory.md` lists as live.
 - **R-026** "Messenger's digest" means Explorer's combined digest inbox.
 - **R-039** A task Gem gives a named bot directly authorises it, with all safety rules applying. Routine repo work belongs to Engineer.
 - **R-044 routing split / R-046** Explorer assigns new work; Mender keeps operational routing (run order, recovery, rerouting, stalls). The six redundancy versions are deployed on Gem's 7:54pm words. The "fold" option isn't approved.

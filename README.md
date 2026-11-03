@@ -4,11 +4,12 @@ Public, static reference hub for the Gem Quota bot swarm. The site documents the
 
 ## Pages
 
-- **[Swarm hub](index.html)** — overview, governance, bot directory, and reference documents.
-- **[Swarm Observatory](observatory.html)** — source-linked documentary records, epistemic labels, policy requirements lookup, event-ledger contract, semantic relationships, and explicitly unresolved source questions.
-- **[Workspace map](workspace-map.html)** — curated map of the workspace snapshot.
-- **[Governance master](governance/master/governance-master-latest-2026-10-22.html)** — published governance reference.
+- **[Swarm hub](index.html)** — nested current-state hub. Top tabs: Overview, Governance, Bots, Observatory, Assistant, Workspace. Governance nests Summary, Master, Authority, Inputs & outputs, R-054, In force, and Annex. Bots nests Directory and interactive Role map. Large documents load in-panel; standalone URLs remain for deep links and the Pages validator.
+- **[Swarm Observatory](observatory.html)** — source-linked documentary records, epistemic labels, policy requirements lookup, event-ledger contract, semantic relationships, and explicitly unresolved source questions (also an Observatory tab).
+- **[Workspace map](workspace-map.html)** — curated map of the workspace snapshot (also a Workspace tab).
+- **[Governance master](governance/master/governance-master.html)** — single unified published governance reference (dated filenames redirect here; prior editions under `governance/master/_archive-editions/`).
 - **[Rulings in force](governance/rulings/in-force.html)** and [R-054 approval authority](governance/rulings/R-054-approval-authority.html) — current documentary policy references.
+- **[Interactive role map](governance/cartography/role-map-interactive.html)** — bot role cartography (also a Bots → Role map tab).
 
 ## Important limitation
 
@@ -27,6 +28,8 @@ The repository and workspace map are snapshots, not a complete record of every f
 - `docs/development/` — phased plan, threat model, provenance contract, traceability matrix, and acceptance criteria.
 - `docs/schemas/` — JSON Schema contracts for entities, approvals, and future event envelopes.
 - `scripts/validate_observatory.py` — dependency-free structural and link checks.
+- `scripts/build_review_data.py` / `scripts/refresh_and_push.sh` — allowlist rebuild of `data/` ratings and reviews from `/workspace/governance` (fail-closed; data/ only).
+- `scripts/build_site_sync.py` — allowlist sync of selected governance HTML/MD into `governance/` (fail-closed: no secrets, personal data, BIE, or gambling). Files that trip the gate are listed as `manual_required` in `docs/development/site_sync_report.json` and must be curated by hand.
 
 ## Data and provenance model
 
