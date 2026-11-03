@@ -94,8 +94,33 @@ blockquote{border-left:4px solid #3b7;margin:1em 0;padding:.2em 1em;color:#355;b
 table{border-collapse:collapse;font-size:.85em}td,th{border:1px solid #ccc;padding:.25em .5em}
 nav#TOC{background:#fafafa;border:1px solid #ddd;padding:1em}h1{border-bottom:2px solid #333}h2{border-bottom:1px solid #aaa}
 </style>
+<link rel="stylesheet" href="../../assets/hub-theme.css">
+<style>
+body.hub-themed{background:var(--bg)!important;color:var(--ink)!important;max-width:none!important;margin:0!important;padding:0!important}
+body.hub-themed > h1:first-of-type,
+body.hub-themed > header,
+body.hub-themed > main,
+body.hub-themed > article,
+body.hub-themed > section,
+body.hub-themed > div#TOC,
+body.hub-themed > div.container{max-width:960px;margin-left:auto;margin-right:auto;padding-left:1.25rem;padding-right:1.25rem}
+body.hub-themed #TOC{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:1rem;margin:1rem auto}
+body.hub-themed title, body.hub-themed .title{color:var(--ink)}
+/* Keep code highlighting readable on themed bg */
+body.hub-themed pre{background:var(--card)!important;border:1px solid var(--line);border-radius:14px}
+body.hub-themed code{color:inherit}
+body.hub-themed a{color:var(--accent)}
+body.hub-themed table{background:var(--card)}
+body.hub-themed th{background:var(--accent-soft)!important;color:var(--ink)!important}
+</style>
 </head>
-<body>
+<body class="hub-themed">
+<nav class="doc-nav" aria-label="Document">
+  <a href="../../index.html">Hub</a><span class="sep">·</span>
+  <a href="../../index.html#governance/master">Governance</a><span class="sep">·</span>
+  <a href="governance-master.md">Markdown source</a>
+</nav>
+
 <header id="title-block-header">
 <h1 class="title">Gem Quota bot-swarm governance — master document</h1>
 <p><strong>Unified edition (3 Nov 2026, AEST).</strong> This single master replaces the former full and latest-only dated companions published on 22 Oct 2026. Active-bot instructions and shared rules are the current (highest) versions only; overlapping historical version stacks from the former full edition were removed as duplication. Part 8 preserves the retired-bot register from the former full edition so that content is not lost. Interactive maps listed in Part 0 are also hub tabs on <a href="../../index.html">the swarm hub</a>.</p>

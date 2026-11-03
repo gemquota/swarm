@@ -66,6 +66,59 @@ code{background:var(--accent-soft);padding:.05rem .35rem;border-radius:5px;font-
 .frame-wrap iframe{display:block;width:100%;height:75vh;border:0;background:var(--card)}
 .nest-panel{margin:0}
 footer{color:var(--muted);text-align:center;font-size:.85rem;padding:1rem}
+
+/* Icon tabs: collapse to icon; expand label when selected */
+.tab-icon{width:1.15rem;height:1.15rem;flex-shrink:0;display:block}
+.tab-label{max-width:0;opacity:0;overflow:hidden;white-space:nowrap;transition:max-width .22s ease,opacity .18s ease,margin .18s ease;margin-left:0;font-size:.95rem}
+[role=tab][aria-selected=true] .tab-label{max-width:9rem;opacity:1;margin-left:.45rem}
+[role=tab]{display:inline-flex;align-items:center;gap:0;position:relative}
+#top-tabs [role=tab]{padding:.7rem .85rem}
+.subtablist [role=tab]{padding:.5rem .7rem}
+.subtablist [role=tab][aria-selected=true] .tab-label{max-width:11rem}
+@media (max-width:600px){
+  [role=tab][aria-selected=true] .tab-label{max-width:7.5rem}
+  #top-tabs [role=tab]{padding:.65rem .7rem}
+}
+
+/* Multi-tier tab tooltip */
+.tab-tip{
+  position:absolute;z-index:40;left:50%;bottom:calc(100% + 10px);transform:translateX(-50%);
+  min-width:220px;max-width:min(320px,92vw);padding:.75rem .85rem;
+  background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:12px;
+  box-shadow:0 12px 28px #17213a22;font-weight:400;font-size:.82rem;line-height:1.45;
+  text-align:left;white-space:normal;pointer-events:none;opacity:0;visibility:hidden;
+  transition:opacity .15s ease,visibility .15s ease;
+}
+.tab-tip::after{
+  content:"";position:absolute;top:100%;left:50%;transform:translateX(-50%);
+  border:7px solid transparent;border-top-color:var(--card);filter:drop-shadow(0 1px 0 var(--line));
+}
+.tab-tip[data-open=true]{opacity:1;visibility:visible}
+.tab-tip .tip-title{font-weight:700;font-size:.9rem;margin:0 0 .35rem;color:var(--ink)}
+.tab-tip .tip-purpose{margin:0 0 .55rem;color:var(--muted)}
+.tab-tip .tip-subs{margin:0;padding-left:1.05rem;color:var(--ink)}
+.tab-tip .tip-subs li{margin:.2rem 0}
+.tab-tip .tip-subs strong{font-weight:700}
+#top-tabs .tab-tip{bottom:auto;top:calc(100% + 10px)}
+#top-tabs .tab-tip::after{top:auto;bottom:100%;border-top-color:transparent;border-bottom-color:var(--card)}
+@media (max-width:600px){
+  .tab-tip{left:0;transform:none;min-width:200px}
+  #top-tabs .tab-tip{left:0}
+}
+
+/* Assistant mobile */
+.assistant-grid{display:grid;gap:1rem;grid-template-columns:repeat(12,minmax(0,1fr))}
+.assistant-grid > .card{min-width:0}
+.assistant-span-7{grid-column:span 7}
+.assistant-span-5{grid-column:span 5}
+.assistant-span-12{grid-column:span 12}
+@media (max-width:700px){
+  .assistant-span-7,.assistant-span-5,.assistant-span-12{grid-column:1 / -1}
+  #assistant textarea,#assistant select,#assistant .btn{max-width:100%}
+  #assistant .card{padding:.85rem .9rem}
+  #assistant h2{font-size:1.25rem}
+  #assistant pre{font-size:.75rem}
+}
 </style>
 <style media="(prefers-color-scheme: dark)">:root{--bg:#10131c;--card:#181c28;--ink:#e6e9f2;--muted:#9aa3b8;--line:#2a3042;--accent:#7b93ff;--accent-soft:#232b4a}</style>
 <style media="(max-width: 600px)">th,td{padding:.5rem}</style>
@@ -77,13 +130,13 @@ footer{color:var(--muted);text-align:center;font-size:.85rem;padding:1rem}
  <div class="wrap">
   <h1>Gem Quota's Bot Swarm</h1>
   <p>A governed team of AI bots that works for Gem: who they are, how work moves between them, and who approves what.</p>
-  <div role="tablist" aria-label="Sections" id="top-tabs">
-   <button role="tab" id="tab-overview" aria-controls="overview" aria-selected="true">Overview</button>
-   <button role="tab" id="tab-governance" aria-controls="governance" aria-selected="false" tabindex="-1">Governance</button>
-   <button role="tab" id="tab-bots" aria-controls="bots" aria-selected="false" tabindex="-1">Bots</button>
-   <button role="tab" id="tab-observatory" aria-controls="observatory" aria-selected="false" tabindex="-1">Observatory</button>
-   <button role="tab" id="tab-assistant" aria-controls="assistant" aria-selected="false" tabindex="-1">Assistant</button>
-   <button role="tab" id="tab-workspace" aria-controls="workspace" aria-selected="false" tabindex="-1">Workspace</button>
+    <div role="tablist" aria-label="Sections" id="top-tabs">
+   <button role="tab" id="tab-overview" aria-controls="overview" aria-selected="true" aria-label="Overview" aria-describedby="tab-overview-tip" data-tab-name="Overview"><svg class="tab-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 11l8-7 8 7"/><path d="M6 10v9h12v-9"/></svg><span class="tab-label">Overview</span><span class="tab-tip" role="tooltip" id="tab-overview-tip"><p class="tip-title">Overview</p><p class="tip-purpose">How the swarm is organised and how work moves.</p><ul class="tip-subs"><li><strong>Operating model</strong> — High-level flow and layers</li><li><strong>Charts</strong> — Ratings and review outcomes when data is present</li></ul></span></button>
+   <button role="tab" id="tab-governance" aria-controls="governance" aria-selected="false" tabindex="-1" aria-label="Governance" aria-describedby="tab-governance-tip" data-tab-name="Governance"><svg class="tab-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7l8-4z"/></svg><span class="tab-label">Governance</span><span class="tab-tip" role="tooltip" id="tab-governance-tip"><p class="tip-title">Governance</p><p class="tip-purpose">Rulings, approval authority, and the shared rules every bot follows.</p><ul class="tip-subs"><li><strong>Summary</strong> — R-054 digest and in-force highlights</li><li><strong>Master</strong> — Unified governance master document</li><li><strong>Authority</strong> — Authority and responsibility review</li><li><strong>Inputs & outputs</strong> — Governance I/O report</li><li><strong>R-054</strong> — Full approval-authority ruling</li><li><strong>In force</strong> — Current rulings list</li><li><strong>Annex</strong> — Historical annex of rulings</li></ul></span></button>
+   <button role="tab" id="tab-bots" aria-controls="bots" aria-selected="false" tabindex="-1" aria-label="Bots" aria-describedby="tab-bots-tip" data-tab-name="Bots"><svg class="tab-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="7" width="14" height="12" rx="3"/><circle cx="9" cy="13" r="1.2" fill="currentColor" stroke="none"/><circle cx="15" cy="13" r="1.2" fill="currentColor" stroke="none"/><path d="M12 3v4M9 19v2M15 19v2"/></svg><span class="tab-label">Bots</span><span class="tab-tip" role="tooltip" id="tab-bots-tip"><p class="tip-title">Bots</p><p class="tip-purpose">The twelve active bots, grouped by job, plus the interactive role map.</p><ul class="tip-subs"><li><strong>Directory</strong> — Live roster cards and duties</li><li><strong>Role map</strong> — Interactive collaboration map</li></ul></span></button>
+   <button role="tab" id="tab-observatory" aria-controls="observatory" aria-selected="false" tabindex="-1" aria-label="Observatory" aria-describedby="tab-observatory-tip" data-tab-name="Observatory"><svg class="tab-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/></svg><span class="tab-label">Observatory</span><span class="tab-tip" role="tooltip" id="tab-observatory-tip"><p class="tip-title">Observatory</p><p class="tip-purpose">Evidence-grounded documentary catalogue. Not a live runtime feed.</p><ul class="tip-subs"><li><strong>Overview</strong> — Metrics and caveats</li><li><strong>Evidence</strong> — Catalogue of documented entities</li><li><strong>Authority</strong> — Documented approval chain model</li><li><strong>Ledger</strong> — Future event-feed contract (not connected)</li><li><strong>Relationships</strong> — Source-backed semantic edges</li><li><strong>Open questions</strong> — Unresolved consistency checks</li></ul></span></button>
+   <button role="tab" id="tab-assistant" aria-controls="assistant" aria-selected="false" tabindex="-1" aria-label="Assistant" aria-describedby="tab-assistant-tip" data-tab-name="Assistant"><svg class="tab-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 6h14a2 2 0 012 2v7a2 2 0 01-2 2H9l-4 3v-3H5a2 2 0 01-2-2V8a2 2 0 012-2z"/></svg><span class="tab-label">Assistant</span><span class="tab-tip" role="tooltip" id="tab-assistant-tip"><p class="tip-title">Assistant</p><p class="tip-purpose">Package a task for an external LLM, validate its JSON response, and stage proposals locally. This page does not call an LLM or hold credentials.</p><ul class="tip-subs"><li><strong>Request</strong> — Describe the task and copy a package</li><li><strong>Validate</strong> — Paste and check a swarm-assistant.v1 response</li><li><strong>Staged</strong> — Browser-local change sets pending human review</li></ul></span></button>
+   <button role="tab" id="tab-workspace" aria-controls="workspace" aria-selected="false" tabindex="-1" aria-label="Workspace" aria-describedby="tab-workspace-tip" data-tab-name="Workspace"><svg class="tab-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7h7v5H3zM14 7h7v10h-7zM3 14h7v3H3z"/></svg><span class="tab-label">Workspace</span><span class="tab-tip" role="tooltip" id="tab-workspace-tip"><p class="tip-title">Workspace</p><p class="tip-purpose">Curated map of the shared workspace snapshot. Private files are named only.</p><ul class="tip-subs"><li><strong>Map</strong> — Standalone workspace map document</li></ul></span></button>
   </div>
  </div>
 </header>
@@ -157,13 +210,13 @@ footer{color:var(--muted);text-align:center;font-size:.85rem;padding:1rem}
 <p>Rulings are issued by Arbiter and numbered <code>R-nnn</code>. Below: who approves what (R-054), the other rulings in force, and the shared rules every bot follows.</p>
 <p class="muted">Current rules and reference documents. Nested tabs stay on this page; large documents open inside the panel.</p>
 <div class="subtablist" role="tablist" aria-label="Governance sections" data-nest="governance">
- <button role="tab" id="tab-governance-summary" aria-controls="governance-summary" aria-selected="true">Summary</button>
- <button role="tab" id="tab-governance-master" aria-controls="governance-master" aria-selected="false" tabindex="-1">Master</button>
- <button role="tab" id="tab-governance-authority" aria-controls="governance-authority" aria-selected="false" tabindex="-1">Authority</button>
- <button role="tab" id="tab-governance-io" aria-controls="governance-io" aria-selected="false" tabindex="-1">Inputs &amp; outputs</button>
- <button role="tab" id="tab-governance-r054" aria-controls="governance-r054" aria-selected="false" tabindex="-1">R-054</button>
- <button role="tab" id="tab-governance-rulings" aria-controls="governance-rulings" aria-selected="false" tabindex="-1">In force</button>
- <button role="tab" id="tab-governance-annex" aria-controls="governance-annex" aria-selected="false" tabindex="-1">Annex</button>
+ <button role="tab" id="tab-governance-summary" aria-controls="governance-summary" aria-selected="true" aria-label="Summary" aria-describedby="tab-governance-summary-tip" data-tab-name="Summary"><svg class="tab-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 6h12M8 12h12M8 18h8"/><circle cx="4" cy="6" r="1.2" fill="currentColor" stroke="none"/><circle cx="4" cy="12" r="1.2" fill="currentColor" stroke="none"/><circle cx="4" cy="18" r="1.2" fill="currentColor" stroke="none"/></svg><span class="tab-label">Summary</span><span class="tab-tip" role="tooltip" id="tab-governance-summary-tip"><p class="tip-title">Summary</p><p class="tip-purpose">Compact digest of R-054 and other rulings in force, plus shared rules.</p></span></button>
+ <button role="tab" id="tab-governance-master" aria-controls="governance-master" aria-selected="false" tabindex="-1" aria-label="Master" aria-describedby="tab-governance-master-tip" data-tab-name="Master"><svg class="tab-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 4h10l4 4v12H5z"/><path d="M15 4v4h4"/></svg><span class="tab-label">Master</span><span class="tab-tip" role="tooltip" id="tab-governance-master-tip"><p class="tip-title">Master</p><p class="tip-purpose">Unified governance master compiled from active-bot versions.</p></span></button>
+ <button role="tab" id="tab-governance-authority" aria-controls="governance-authority" aria-selected="false" tabindex="-1" aria-label="Authority" aria-describedby="tab-governance-authority-tip" data-tab-name="Authority"><svg class="tab-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l7 3v5c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z"/><path d="M9 12l2 2 4-4"/></svg><span class="tab-label">Authority</span><span class="tab-tip" role="tooltip" id="tab-governance-authority-tip"><p class="tip-title">Authority review</p><p class="tip-purpose">Documentary authority and responsibility snapshot (may be superseded by later rulings).</p></span></button>
+ <button role="tab" id="tab-governance-io" aria-controls="governance-io" aria-selected="false" tabindex="-1" aria-label="Inputs &amp; outputs" aria-describedby="tab-governance-io-tip" data-tab-name="Inputs &amp; outputs"><svg class="tab-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 8H3v8h4M17 8h4v8h-4M10 12h4M14 9l3 3-3 3M10 9L7 12l3 3"/></svg><span class="tab-label">Inputs &amp; outputs</span><span class="tab-tip" role="tooltip" id="tab-governance-io-tip"><p class="tip-title">Inputs &amp; outputs</p><p class="tip-purpose">Governance inputs and outputs report snapshot.</p></span></button>
+ <button role="tab" id="tab-governance-r054" aria-controls="governance-r054" aria-selected="false" tabindex="-1" aria-label="R-054" aria-describedby="tab-governance-r054-tip" data-tab-name="R-054"><svg class="tab-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/></svg><span class="tab-label">R-054</span><span class="tab-tip" role="tooltip" id="tab-governance-r054-tip"><p class="tip-title">R-054</p><p class="tip-purpose">Full text of the approval-authority ruling.</p></span></button>
+ <button role="tab" id="tab-governance-rulings" aria-controls="governance-rulings" aria-selected="false" tabindex="-1" aria-label="In force" aria-describedby="tab-governance-rulings-tip" data-tab-name="In force"><svg class="tab-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg><span class="tab-label">In force</span><span class="tab-tip" role="tooltip" id="tab-governance-rulings-tip"><p class="tip-title">In force</p><p class="tip-purpose">Catalogue of rulings currently in force.</p></span></button>
+ <button role="tab" id="tab-governance-annex" aria-controls="governance-annex" aria-selected="false" tabindex="-1" aria-label="Annex" aria-describedby="tab-governance-annex-tip" data-tab-name="Annex"><svg class="tab-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 3h9l3 3v15H6z"/><path d="M14 3v4h4M8 13h8M8 17h6"/></svg><span class="tab-label">Annex</span><span class="tab-tip" role="tooltip" id="tab-governance-annex-tip"><p class="tip-title">Annex</p><p class="tip-purpose">Historical annex of rulings and superseded material.</p></span></button>
 </div>
 <section role="tabpanel" class="nest-panel" id="governance-summary" aria-labelledby="tab-governance-summary" tabindex="0">
 <h3>Who approves what (R-054)</h3>
@@ -273,8 +326,8 @@ footer{color:var(--muted);text-align:center;font-size:.85rem;padding:1rem}
 <h2>Bots</h2>
 <p>The twelve active bots, grouped by job.</p>
 <div class="subtablist" role="tablist" aria-label="Bots sections" data-nest="bots">
- <button role="tab" id="tab-bots-directory" aria-controls="bots-directory" aria-selected="true">Directory</button>
- <button role="tab" id="tab-bots-rolemap" aria-controls="bots-rolemap" aria-selected="false" tabindex="-1">Role map</button>
+ <button role="tab" id="tab-bots-directory" aria-controls="bots-directory" aria-selected="true" aria-label="Directory" aria-describedby="tab-bots-directory-tip" data-tab-name="Directory"><svg class="tab-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.5"/><path d="M3 19c1.5-3 4-4.5 6-4.5S13.5 16 15 19M14 14.5c1.2 0 2.6.6 3.8 2"/></svg><span class="tab-label">Directory</span><span class="tab-tip" role="tooltip" id="tab-bots-directory-tip"><p class="tip-title">Directory</p><p class="tip-purpose">Cards for the twelve active bots and their duties.</p></span></button>
+ <button role="tab" id="tab-bots-rolemap" aria-controls="bots-rolemap" aria-selected="false" tabindex="-1" aria-label="Role map" aria-describedby="tab-bots-rolemap-tip" data-tab-name="Role map"><svg class="tab-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2"><circle cx="6" cy="7" r="2.5"/><circle cx="18" cy="7" r="2.5"/><circle cx="12" cy="17" r="2.5"/><path d="M8 8.5l3 6.5M16 8.5l-3 6.5M8.5 7h7"/></svg><span class="tab-label">Role map</span><span class="tab-tip" role="tooltip" id="tab-bots-rolemap-tip"><p class="tip-title">Role map</p><p class="tip-purpose">Interactive collaboration map of bot relationships.</p></span></button>
 </div>
 <section role="tabpanel" class="nest-panel" id="bots-directory" aria-labelledby="tab-bots-directory" tabindex="0">
 <div class="grid" id="botgrid">
@@ -378,8 +431,8 @@ footer{color:var(--muted);text-align:center;font-size:.85rem;padding:1rem}
 <section role="tabpanel" id="assistant" aria-labelledby="tab-assistant" tabindex="0" hidden>
 <h2>Swarm assistant</h2>
 <p class="muted">Prepare a context-aware task for an external LLM, bring its structured response back, and stage the resulting data changes for review. This static page does not call an LLM API or hold credentials.</p>
-<div class="grid">
- <div class="card" style="grid-column:span 7">
+<div class="assistant-grid">
+ <div class="card assistant-span-7">
   <h3>1 · Describe what you want the swarm to do</h3>
   <label for="swarm-request"><strong>Request</strong></label>
   <textarea id="swarm-request" rows="7" style="display:block;width:100%;margin:.5rem 0;padding:.8rem;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink)" placeholder="e.g. Review the current authority rules for contradictions, identify the source records involved, and propose precise changes."></textarea>
@@ -393,7 +446,7 @@ footer{color:var(--muted);text-align:center;font-size:.85rem;padding:1rem}
   <button class="btn primary" id="package-request" type="button">Copy LLM task package</button>
   <p class="muted" id="package-status" aria-live="polite" style="font-size:.85rem">The package includes task instructions, relevant page context and the required response contract.</p>
  </div>
- <div class="card" style="grid-column:span 5">
+ <div class="card assistant-span-5">
   <h3>Structured response contract</h3>
   <p>The LLM must return one JSON object using <code>swarm-assistant.v1</code>. Markdown fences, commentary outside JSON, unknown fields, and unsupported operations are rejected.</p>
   <ul>
@@ -404,7 +457,7 @@ footer{color:var(--muted);text-align:center;font-size:.85rem;padding:1rem}
    <li>Uncertain or underspecified work must return questions, not guesses.</li>
   </ul>
  </div>
- <div class="card" id="response-card" style="grid-column:span 12" hidden>
+ <div class="card assistant-span-12" id="response-card" hidden>
   <h3>2 · Paste the LLM response</h3>
   <p class="muted">Paste the complete JSON response below. The page checks its structure and safety constraints before showing any proposed changes.</p>
   <textarea id="swarm-response" rows="12" spellcheck="false" style="display:block;width:100%;padding:.8rem;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink);font:13px/1.5 ui-monospace,monospace" placeholder='{"protocol":"swarm-assistant.v1", ...}'></textarea>
@@ -415,7 +468,7 @@ footer{color:var(--muted);text-align:center;font-size:.85rem;padding:1rem}
   <div id="response-status" aria-live="polite" class="callout" style="margin-top:1rem">Waiting for a response.</div>
   <div id="response-preview"></div>
  </div>
- <div class="card" id="staged-card" style="grid-column:span 12">
+ <div class="card assistant-span-12" id="staged-card">
   <div style="display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap">
    <div><h3 style="margin:0">Staged change sets</h3><p class="muted" style="margin:.25rem 0">Accepted proposals are stored in this browser only until exported and reviewed.</p></div>
    <button class="btn" id="export-changes" type="button">Export staged JSON</button>
@@ -430,7 +483,32 @@ footer{color:var(--muted);text-align:center;font-size:.85rem;padding:1rem}
 <section role="tabpanel" id="observatory" aria-labelledby="tab-observatory" tabindex="0" hidden>
 <h2>Observatory</h2>
 <p class="muted">Source-linked documentary view. Not live monitoring. A missing record is not proof that an event did not happen. <a href="observatory.html">Open as a standalone page</a>.</p>
-<div class="frame-wrap"><iframe title="Swarm Observatory" src="observatory.html" loading="lazy"></iframe></div>
+<div class="subtablist" role="tablist" aria-label="Observatory views" data-nest="observatory">
+ <button role="tab" id="tab-observatory-overview" aria-controls="observatory-overview" aria-selected="true" aria-label="Overview" aria-describedby="tab-observatory-overview-tip" data-tab-name="Overview"><svg class="tab-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 11l8-7 8 7"/><path d="M6 10v9h12v-9"/></svg><span class="tab-label">Overview</span><span class="tab-tip" role="tooltip" id="tab-observatory-overview-tip"><p class="tip-title">Overview</p><p class="tip-purpose">Metrics, caveats, and documentary posture of the observatory.</p></span></button>
+ <button role="tab" id="tab-observatory-evidence" aria-controls="observatory-evidence" aria-selected="false" tabindex="-1" aria-label="Evidence" aria-describedby="tab-observatory-evidence-tip" data-tab-name="Evidence"><svg class="tab-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 3h6v4H9zM5 7h14v14H5z"/><path d="M9 12h6M9 16h4"/></svg><span class="tab-label">Evidence</span><span class="tab-tip" role="tooltip" id="tab-observatory-evidence-tip"><p class="tip-title">Evidence</p><p class="tip-purpose">Catalogue of documented entities with epistemic status.</p></span></button>
+ <button role="tab" id="tab-observatory-authority" aria-controls="observatory-authority" aria-selected="false" tabindex="-1" aria-label="Authority" aria-describedby="tab-observatory-authority-tip" data-tab-name="Authority"><svg class="tab-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l7 3v5c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z"/><path d="M9 12l2 2 4-4"/></svg><span class="tab-label">Authority</span><span class="tab-tip" role="tooltip" id="tab-observatory-authority-tip"><p class="tip-title">Authority</p><p class="tip-purpose">Documented approval-chain model (not a live authoriser).</p></span></button>
+ <button role="tab" id="tab-observatory-ledger" aria-controls="observatory-ledger" aria-selected="false" tabindex="-1" aria-label="Ledger" aria-describedby="tab-observatory-ledger-tip" data-tab-name="Ledger"><svg class="tab-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 5h16v14H4z"/><path d="M8 9h8M8 13h8M8 17h5"/></svg><span class="tab-label">Ledger</span><span class="tab-tip" role="tooltip" id="tab-observatory-ledger-tip"><p class="tip-title">Ledger</p><p class="tip-purpose">Future event-feed contract. No live runtime ledger is connected.</p></span></button>
+ <button role="tab" id="tab-observatory-graph" aria-controls="observatory-graph" aria-selected="false" tabindex="-1" aria-label="Relationships" aria-describedby="tab-observatory-graph-tip" data-tab-name="Relationships"><svg class="tab-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2"><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="6" r="2.5"/><circle cx="18" cy="18" r="2.5"/><path d="M8.2 10.8l7-3.6M8.2 13.2l7 3.6"/></svg><span class="tab-label">Relationships</span><span class="tab-tip" role="tooltip" id="tab-observatory-graph-tip"><p class="tip-title">Relationships</p><p class="tip-purpose">Small source-backed semantic graph of documented edges.</p></span></button>
+ <button role="tab" id="tab-observatory-conflicts" aria-controls="observatory-conflicts" aria-selected="false" tabindex="-1" aria-label="Open questions" aria-describedby="tab-observatory-conflicts-tip" data-tab-name="Open questions"><svg class="tab-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 014 2c0 1.5-2 2-2 3.5"/><circle cx="12" cy="17" r="1" fill="currentColor" stroke="none"/></svg><span class="tab-label">Open questions</span><span class="tab-tip" role="tooltip" id="tab-observatory-conflicts-tip"><p class="tip-title">Open questions</p><p class="tip-purpose">Explicit unresolved questions kept separate from automated integrity checks.</p></span></button>
+</div>
+<section role="tabpanel" class="nest-panel" id="observatory-overview" aria-labelledby="tab-observatory-overview" tabindex="0">
+<div class="frame-wrap"><iframe title="Observatory overview" src="observatory.html?embed=1&amp;view=overview" loading="lazy"></iframe></div>
+</section>
+<section role="tabpanel" class="nest-panel" id="observatory-evidence" aria-labelledby="tab-observatory-evidence" tabindex="0" hidden>
+<div class="frame-wrap"><iframe title="Observatory evidence" src="observatory.html?embed=1&amp;view=evidence" loading="lazy"></iframe></div>
+</section>
+<section role="tabpanel" class="nest-panel" id="observatory-authority" aria-labelledby="tab-observatory-authority" tabindex="0" hidden>
+<div class="frame-wrap"><iframe title="Observatory authority" src="observatory.html?embed=1&amp;view=authority" loading="lazy"></iframe></div>
+</section>
+<section role="tabpanel" class="nest-panel" id="observatory-ledger" aria-labelledby="tab-observatory-ledger" tabindex="0" hidden>
+<div class="frame-wrap"><iframe title="Observatory ledger" src="observatory.html?embed=1&amp;view=ledger" loading="lazy"></iframe></div>
+</section>
+<section role="tabpanel" class="nest-panel" id="observatory-graph" aria-labelledby="tab-observatory-graph" tabindex="0" hidden>
+<div class="frame-wrap"><iframe title="Observatory relationships" src="observatory.html?embed=1&amp;view=graph" loading="lazy"></iframe></div>
+</section>
+<section role="tabpanel" class="nest-panel" id="observatory-conflicts" aria-labelledby="tab-observatory-conflicts" tabindex="0" hidden>
+<div class="frame-wrap"><iframe title="Observatory open questions" src="observatory.html?embed=1&amp;view=conflicts" loading="lazy"></iframe></div>
+</section>
 </section>
 
 <!-- WORKSPACE -->
@@ -447,7 +525,8 @@ footer{color:var(--muted);text-align:center;font-size:.85rem;padding:1rem}
  var topTabs=[].slice.call(topList.querySelectorAll(':scope > [role=tab]'));
  var nests={
   governance:{list:document.querySelector('[data-nest=governance]'), defaultId:'governance-summary'},
-  bots:{list:document.querySelector('[data-nest=bots]'), defaultId:'bots-directory'}
+  bots:{list:document.querySelector('[data-nest=bots]'), defaultId:'bots-directory'},
+  observatory:{list:document.querySelector('[data-nest=observatory]'), defaultId:'observatory-overview'}
  };
  Object.keys(nests).forEach(function(k){
   nests[k].tabs=[].slice.call(nests[k].list.querySelectorAll(':scope > [role=tab]'));
@@ -472,6 +551,8 @@ footer{color:var(--muted);text-align:center;font-size:.85rem;padding:1rem}
   if(h==='governance')return {top:'governance', nest:nests.governance.defaultId};
   if(h.indexOf('bots-')===0)return {top:'bots', nest:h};
   if(h==='bots')return {top:'bots', nest:nests.bots.defaultId};
+  if(h.indexOf('observatory-')===0)return {top:'observatory', nest:h};
+  if(h==='observatory')return {top:'observatory', nest:nests.observatory.defaultId};
   return {top:h, nest:null};
  }
  function apply(focus){
@@ -511,6 +592,42 @@ footer{color:var(--muted);text-align:center;font-size:.85rem;padding:1rem}
  Object.keys(nests).forEach(function(k){bind(nests[k].tabs,k)});
  window.addEventListener('hashchange',function(){apply(false)});
  apply(false);
+})();
+</script>
+
+<script>
+(function(){
+  var LONG_MS=480;
+  function closeAll(except){
+    document.querySelectorAll('.tab-tip[data-open=true]').forEach(function(tip){
+      if(tip!==except){tip.removeAttribute('data-open');}
+    });
+  }
+  function openTip(tip){closeAll(tip); if(tip) tip.setAttribute('data-open','true');}
+  function bindTab(tab){
+    var tip=tab.querySelector('.tab-tip');
+    if(!tip)return;
+    var timer=null;
+    tab.addEventListener('mouseenter',function(){openTip(tip)});
+    tab.addEventListener('mouseleave',function(){tip.removeAttribute('data-open')});
+    tab.addEventListener('focus',function(){openTip(tip)});
+    tab.addEventListener('blur',function(){tip.removeAttribute('data-open')});
+    tab.addEventListener('keydown',function(e){
+      if(e.key==='Escape') tip.removeAttribute('data-open');
+    });
+    tab.addEventListener('touchstart',function(){
+      timer=setTimeout(function(){openTip(tip)}, LONG_MS);
+    },{passive:true});
+    tab.addEventListener('touchend',function(){clearTimeout(timer)});
+    tab.addEventListener('touchmove',function(){clearTimeout(timer)},{passive:true});
+    tab.addEventListener('contextmenu',function(e){
+      if(tip.getAttribute('data-open')==='true'){e.preventDefault()}
+    });
+  }
+  document.querySelectorAll('[role=tablist] [role=tab]').forEach(bindTab);
+  document.addEventListener('click',function(e){
+    if(!e.target.closest('[role=tab]')) closeAll(null);
+  });
 })();
 </script>
 
