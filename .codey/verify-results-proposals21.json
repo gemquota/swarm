@@ -1,0 +1,45 @@
+{
+  "overall": "UNVERIFIED",
+  "results": [
+    {
+      "ac": "AC-1",
+      "status": "PASS",
+      "evidence": "Assistant stepper/sticky/meter/intake/staged/a11y/cheat-sheet present; no LLM API/cred patterns; safety_boundary in package builder"
+    },
+    {
+      "ac": "AC-2",
+      "status": "PASS",
+      "evidence": "labels preference, tip dialog, coach CSS, title updater, ResizeObserver present"
+    },
+    {
+      "ac": "AC-3",
+      "status": "PASS",
+      "evidence": "print shell=True apply_doc_shell=True locators=True as-of JS=True"
+    },
+    {
+      "ac": "AC-4",
+      "status": "PASS",
+      "evidence": "moved 2 reviews to archive/reviews/; redirects OK; freeze diff empty; root nav current-only"
+    },
+    {
+      "ac": "AC-5",
+      "status": "PASS",
+      "evidence": "dual-hub PASS; manifest 38 entries outside freeze; sample hash mismatches=0; empty-states present"
+    },
+    {
+      "ac": "AC-6",
+      "status": "PASS",
+      "evidence": "summary=True v2 nest=True lazy=True"
+    },
+    {
+      "ac": "AC-7",
+      "status": "PASS",
+      "evidence": "diagram keys=['bots', 'governance', 'hierarchy', 'pipelines']; mount points root/v2; interactive JS present=True"
+    },
+    {
+      "ac": "AC-8",
+      "status": "UNVERIFIED",
+      "evidence": "PR https://github.com/gemquota/swarm/pull/7 open; gitleaks clean; refresh untouched; live main/v2/archive 200={'https://gemquota.github.io/swarm/': 200, 'https://gemquota.github.io/swarm/v2/': 200, 'https://gemquota.github.io/swarm/archive/2026-11-03/': 200}; merge commit and post-merge new URLs not yet verified"
+    }
+  ]
+}

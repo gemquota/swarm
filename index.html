@@ -505,7 +505,8 @@ footer{color:var(--muted);text-align:center;font-size:.85rem;padding:1rem}
     <p class="muted" style="margin:0">Browser-local only until exported. Never a repository write.</p>
     <button class="btn" id="export-changes" type="button">Export staged JSON</button>
    </div>
-   <div id="staged-list" class="muted" style="margin-top:.75rem">No staged changes.</div>
+   <template id="staged-set-template"><details class="staged-set"><summary></summary></details></template>
+   <div id="staged-list" class="muted staged-list" data-staged-set-class="staged-set" style="margin-top:.75rem">No staged changes.</div>
   </div>
  </div>
 </div>
