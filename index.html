@@ -536,7 +536,7 @@ function contextFor(scope){
  var governance=document.getElementById('governance');
  var bots=document.getElementById('bots');
  var parts=[];
- function collect(el){return el?el.innerText.slice(0,12000):''}
+ function collect(el){return el?el.textContent.replace(/\s+/g,' ').trim().slice(0,12000):''}
  if(scope==='overview'||scope==='all')parts.push('OVERVIEW AND OPERATING MODEL\n'+collect(overview));
  if(scope==='governance'||scope==='all')parts.push('GOVERNANCE AND APPROVAL POLICY\n'+collect(governance));
  if(scope==='operations'||scope==='all')parts.push('BOT ROLES AND OPERATING RESPONSIBILITIES\n'+collect(bots));
