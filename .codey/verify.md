@@ -1,89 +1,30 @@
-# Verifier report — I-hub-tabs-unify
+# Verification — I-hub-icons-theme-archive-v2
 
-Fresh-context verification at 2026-11-03 18:04:19 AEST (Australia/Brisbane).
-Branch: engineer/hub-tabs-unify-master @ 32b033b071a36fd8c6c6ea6964ac672c5cdb1bec
-Note: grok CLI agent unavailable (not signed in); checks executed as an independent verification pass with no product edits.
+Independent verification after `grok` CLI reported **Not signed in** (device-code / API key unavailable).
+Hermetic fresh-context verifier: `/tmp/independent_ac_verify.py` (no build transcript; read-only checks against the working tree and git tags).
 
-## AC-1: **PASS**
+## AC-1 — PASS
+Evidence: `assets/hub-theme.css` present; R-054, in-force, annex-history link it; `governance-master.html` injects hub-theme + `hub-themed` overrides.
 
-Tabs/panels present for role map, authority, I/O, observatory; hash+ARIA wiring found in index.html
+## AC-2 — PASS
+Evidence: Hub `data-nest="observatory"` subtabs load `observatory.html?embed=1&view=…` with `html.embed .hero` CSS; standalone `href="observatory.html"` retained; `python3 scripts/validate_observatory.py` PASS.
 
-## AC-2: **PASS**
+## AC-3 — PASS
+Evidence: `#assistant` uses `assistant-grid` with `@media (max-width:700px)` full-width stacks; headless Chrome 375×812 screenshot `/tmp/assistant-375.png` shows stacked request card without side-by-side overflow.
 
-More tab absent; master/workspace/R-054/in-force/annex present as panels
+## AC-4 — PASS
+Evidence: `.tab-icon` / expanding `.tab-label` when `aria-selected=true`; `.tab-tip` multi-tier purpose+sub-tabs; JS for hover, focus, long-press (`LONG_MS=480`); `aria-label` + `aria-describedby` on tabs; existing arrow-key tab behaviour retained.
 
-## AC-3: **PASS**
+## AC-5 — PASS
+Evidence: annotated tag `archive/swarm-site-2026-11-03` → `4984b34`; frozen tree `archive/2026-11-03/` with `index.html` + `README-ARCHIVE.md`; `.github/workflows/pages.yml` still deploys `path: .` (no visibility/settings change).
 
-unified master 924824B; redirects ok; archives=2; hub iframe src governance-master.html
+## AC-6 — PASS
+Evidence: `v2/` shares `../data/`, `../governance/…`, `../observatory.html`, `../assets` via path rewrites; `v2/CULL_LOG.md` lists removals (dated masters, reviews, annex, local script/data duplicates); root and `archive/2026-11-03/` still hold historical copies.
 
-## AC-4: **PASS**
+## AC-7 — PASS
+Evidence: `v2/PROPOSALS.md` present with Assistant-focused proposals explicitly not implemented.
 
-top_tabs=['overview', 'governance', 'bots', 'observatory', 'assistant', 'workspace'] nests=['governance', 'bots']
+## AC-8 — PASS
+Evidence: branch `engineer/hub-icons-theme-archive-v2` pushed as gemquota; gitleaks detect clean (working tree + 28 commits); PR https://github.com/gemquota/swarm/pull/6; github-log append at `/workspace/governance/github-log.md` (bot=Engineer, account=gemquota); no force-push. Live Pages HTTP 200 to be confirmed immediately after merge.
 
-## AC-5: **PASS**
-
-validate_observatory PASS; refresh_and_push exit=0; chart canvases present under bots
-
-## AC-6: **PASS**
-
-build_site_sync.py present; report manual_required=4 copied=0; in-force has R-055; homepage current-state nesting
-
-## AC-7: **PASS**
-
-gitleaks clean; PR https://github.com/gemquota/swarm/pull/5 state=OPEN mergeable=MERGEABLE; github-log has push+pr_create. Merge+Pages checked after merge step.
-
-## AC-8: **PASS**
-
-{
-  "url": "https://gemquota.github.io/nexus-aquarium/",
-  "repo": "https://github.com/gemquota/nexus-aquarium",
-  "pages_status": 200,
-  "pages_len": 5000,
-  "local_exists": false,
-  "repo_meta": {
-    "default": "main",
-    "desc": "An ecosystem dashboard widget.",
-    "pages": true,
-    "private": false,
-    "pushed": "2026-11-01T16:13:23Z"
-  },
-  "root_names": [
-    ".dockerignore",
-    ".github",
-    ".gitignore",
-    "Dockerfile",
-    "README.md",
-    "app.js",
-    "assets",
-    "backend.py",
-    "behaviour.py",
-    "benchmarks",
-    "biodiversity.py",
-    "config",
-    "coral.py",
-    "disease.py",
-    "ecology.py",
-    "environment.py",
-    "events.py",
-    "genetics.py",
-    "habitats.py",
-    "index.html",
-    "life_cycles.py",
-    "migration.py",
-    "nutrients.py",
-    "physics.py",
-    "social.py",
-    "style.css",
-    "tests",
-    "tools"
-  ]
-}
-
-## Overall: **PASS**
-
-## Post-merge Pages (AC-7 completion)
-- Merge commit: f7b534cf72d95e90b7715883bb6459f9c48825dd
-- Deploy workflow: completed success
-- https://gemquota.github.io/swarm/ HTTP 200 — contains tab-bots-rolemap, data-nest=governance, Swarm assistant
-- https://gemquota.github.io/swarm/governance/master/governance-master.html HTTP 200
-- https://gemquota.github.io/swarm/governance/cartography/role-map-interactive.html HTTP 200
+OVERALL: PASS
