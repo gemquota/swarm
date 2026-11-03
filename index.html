@@ -47,10 +47,17 @@ code{background:var(--accent-soft);padding:.05rem .35rem;border-radius:5px;font-
 .diagram text{font-family:inherit;fill:var(--ink)}
 .callout{border-left:4px solid var(--accent);background:var(--accent-soft);padding:.8rem 1rem;border-radius:0 10px 10px 0;margin:1rem 0}
 .links li{margin:.5rem 0}
+
+.charts{display:grid;gap:1rem;margin-top:1rem}
+.chart-card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:1rem 1.15rem}
+.chart-card h4{margin:0 0 .75rem;font-size:1.05rem}
+.chart-wrap{position:relative;height:320px}
+@media (max-width:600px){.chart-wrap{height:260px}}
 footer{color:var(--muted);text-align:center;font-size:.85rem;padding:1rem}
 </style>
 <style media="(prefers-color-scheme: dark)">:root{--bg:#10131c;--card:#181c28;--ink:#e6e9f2;--muted:#9aa3b8;--line:#2a3042;--accent:#7b93ff;--accent-soft:#232b4a}</style>
 <style media="(max-width: 600px)">th,td{padding:.5rem}</style>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.6/dist/chart.umd.min.js" crossorigin="anonymous"></script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -294,6 +301,21 @@ footer{color:var(--muted);text-align:center;font-size:.85rem;padding:1rem}
 <dt>May not</dt><dd>Approve spending, merges, deletions needing backup, other irreversible acts, changes to itself or its checkers, or anything on GitHub.</dd></dl></article>
 
 </div>
+
+<h3>Ratings</h3>
+<p class="muted">Historical Scrutineer ratings and review outcomes for live bots. Numbers and labels only. Source data refreshed on the box; not rebuilt by GitHub Actions.</p>
+<div class="charts">
+ <div class="chart-card">
+  <h4>Rating history by bot</h4>
+  <div class="chart-wrap"><canvas id="ratingHistoryChart" aria-label="Line chart of bot ratings over time" role="img"></canvas></div>
+  <p class="muted" id="ratingHistoryNote" style="font-size:.85rem;margin:.5rem 0 0"></p>
+ </div>
+ <div class="chart-card">
+  <h4>Reviews over time by outcome</h4>
+  <div class="chart-wrap"><canvas id="reviewOutcomeChart" aria-label="Stacked bar chart of review outcomes by day" role="img"></canvas></div>
+  <p class="muted" id="reviewOutcomeNote" style="font-size:.85rem;margin:.5rem 0 0"></p>
+ </div>
+</div>
 </section>
 
 <!-- MORE -->
@@ -339,6 +361,114 @@ footer{color:var(--muted);text-align:center;font-size:.85rem;padding:1rem}
  });
  window.addEventListener('hashchange',function(){show(location.hash.slice(1))});
  show(location.hash.slice(1));
+})();
+</script>
+
+<script>
+(function(){
+ var RATING_ORDER={Good:3,Fair:2,Poor:1,NotRated:0};
+ var RATING_LABELS=['NotRated','Poor','Fair','Good'];
+ var OUTCOME_ORDER=['pass','flagged','fail','not_rated'];
+ var OUTCOME_COLORS={pass:'#2f9e44',flagged:'#f59f00',fail:'#e03131',not_rated:'#868e96'};
+ var BOT_COLORS=['#2f9e44','#e8590c','#7048e8','#1c7ed6','#c2255c','#3b5bdb','#0ca678','#d6336c','#15aabf','#fd7e14','#7950f2','#12b886'];
+
+ function yticks(v){return RATING_LABELS[v]||'';}
+
+ function buildRatingChart(data){
+  var note=document.getElementById('ratingHistoryNote');
+  var rec=(data&&data.records)||[];
+  if(!rec.length){note.textContent='No rating data yet.';return;}
+  var dates=[].concat(new Set(rec.map(function(r){return r.date}))).sort();
+  var bots=[].concat(new Set(rec.map(function(r){return r.bot}))).sort();
+  var byBot={};
+  rec.forEach(function(r){
+   if(!r.rating)return;
+   byBot[r.bot]=byBot[r.bot]||{};
+   byBot[r.bot][r.date]=RATING_ORDER[r.rating];
+  });
+  var datasets=bots.map(function(bot,i){
+   return {
+    label:bot,
+    data:dates.map(function(d){return Object.prototype.hasOwnProperty.call(byBot[bot]||{},d)?byBot[bot][d]:null;}),
+    borderColor:BOT_COLORS[i%BOT_COLORS.length],
+    backgroundColor:BOT_COLORS[i%BOT_COLORS.length],
+    spanGaps:true,
+    tension:0.2,
+    pointRadius:3
+   };
+  });
+  var meta=data.meta||{};
+  var range=(meta.date_range||[]);
+  note.textContent=(range.length===2?('Coverage '+range[0]+' to '+range[1]+'. '):'')+(meta.bot_count||bots.length)+' bots · '+ (meta.record_count||rec.length)+' records.';
+  new Chart(document.getElementById('ratingHistoryChart'),{
+   type:'line',
+   data:{labels:dates,datasets:datasets},
+   options:{
+    responsive:true,maintainAspectRatio:false,
+    interaction:{mode:'nearest',intersect:false},
+    plugins:{legend:{position:'bottom',labels:{boxWidth:12,font:{size:11}}}},
+    scales:{
+     y:{min:0,max:3,ticks:{stepSize:1,callback:yticks},title:{display:true,text:'Rating'}},
+     x:{ticks:{maxRotation:45,minRotation:0,font:{size:10}}}
+    }
+   }
+  });
+ }
+
+ function buildReviewChart(data){
+  var note=document.getElementById('reviewOutcomeNote');
+  var rec=(data&&data.records)||[];
+  if(!rec.length){note.textContent='No review outcome data yet.';return;}
+  var dates=[].concat(new Set(rec.map(function(r){return r.date}))).sort();
+  var grid={};
+  rec.forEach(function(r){
+   grid[r.date]=grid[r.date]||{};
+   grid[r.date][r.outcome]=(grid[r.date][r.outcome]||0)+r.count;
+  });
+  var datasets=OUTCOME_ORDER.map(function(o){
+   return {
+    label:o,
+    data:dates.map(function(d){return (grid[d]&&grid[d][o])||0;}),
+    backgroundColor:OUTCOME_COLORS[o],
+    stack:'outcomes'
+   };
+  });
+  var meta=data.meta||{};
+  var range=meta.date_range||[];
+  note.textContent=(range.length===2?('Coverage '+range[0]+' to '+range[1]+'. '):'')+'Outcomes: pass (Good), flagged (Fair), fail (Poor), not_rated.';
+  new Chart(document.getElementById('reviewOutcomeChart'),{
+   type:'bar',
+   data:{labels:dates,datasets:datasets},
+   options:{
+    responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{position:'bottom',labels:{boxWidth:12,font:{size:11}}}},
+    scales:{
+     x:{stacked:true,ticks:{maxRotation:45,font:{size:10}}},
+     y:{stacked:true,beginAtZero:true,ticks:{precision:0},title:{display:true,text:'Reviews'}}
+    }
+   }
+  });
+ }
+
+ function load(){
+  Promise.all([
+   fetch('data/ratings.json',{cache:'no-store'}).then(function(r){if(!r.ok)throw new Error('ratings '+r.status);return r.json();}),
+   fetch('data/reviews.json',{cache:'no-store'}).then(function(r){if(!r.ok)throw new Error('reviews '+r.status);return r.json();})
+  ]).then(function(pair){
+   if(typeof Chart==='undefined'){
+    document.getElementById('ratingHistoryNote').textContent='Chart library failed to load.';
+    return;
+   }
+   buildRatingChart(pair[0]);
+   buildReviewChart(pair[1]);
+  }).catch(function(err){
+   document.getElementById('ratingHistoryNote').textContent='Could not load rating data.';
+   document.getElementById('reviewOutcomeNote').textContent='Could not load review data.';
+   console.error(err);
+  });
+ }
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',load);
+ else load();
 })();
 </script>
 </body>
