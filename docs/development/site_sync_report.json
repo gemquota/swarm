@@ -1,7 +1,7 @@
 {
-  "schema": 1,
-  "generated_at": "2026-11-03 17:58:50 AEST",
-  "generated_at_utc": "2026-11-03T07:58:50Z",
+  "schema": 2,
+  "generated_at": "2026-11-04 07:55:07 AEST",
+  "generated_at_utc": "2026-11-03T21:55:07Z",
   "source_root": "/workspace/governance",
   "allowlist": [
     "cartography/role-map-interactive.html",
@@ -41,5 +41,15 @@
   ],
   "errors": [],
   "ok": true,
-  "auto_clean": false
+  "auto_clean": false,
+  "exclude_patterns": [
+    "master",
+    "master/**",
+    "**/governance/master",
+    "**/governance/master/**",
+    "archive/**/governance/master",
+    "archive/**/governance/master/**"
+  ],
+  "exclude_note": "R-058: governance/master/** and archive/**/governance/master are out of the public sync allowlist pending Gem direct words + Safeguard re-check. Already-published copies are not deleted by this script.",
+  "r058": true
 }
