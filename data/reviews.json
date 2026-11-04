@@ -11,9 +11,9 @@
   "meta": {
     "date_range": [
       "2026-10-05",
-      "2026-11-03"
+      "2026-11-04"
     ],
-    "record_count": 27
+    "record_count": 30
   },
   "outcome_map": {
     "Fair": "flagged",
@@ -181,6 +181,24 @@
     {
       "count": 4,
       "date": "2026-11-03",
+      "outcome": "pass",
+      "reviewer": "Scrutineer"
+    },
+    {
+      "count": 1,
+      "date": "2026-11-04",
+      "outcome": "fail",
+      "reviewer": "Scrutineer"
+    },
+    {
+      "count": 2,
+      "date": "2026-11-04",
+      "outcome": "not_rated",
+      "reviewer": "Scrutineer"
+    },
+    {
+      "count": 8,
+      "date": "2026-11-04",
       "outcome": "pass",
       "reviewer": "Scrutineer"
     }
