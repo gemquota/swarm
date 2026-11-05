@@ -23,9 +23,9 @@
     "bot_count": 12,
     "date_range": [
       "2026-10-05",
-      "2026-11-04"
+      "2026-11-05"
     ],
-    "record_count": 90,
+    "record_count": 101,
     "sources": {
       "assessments": [
         "2026-10-05.md",
@@ -36,7 +36,8 @@
         "2026-10-30.md",
         "2026-11-02.md",
         "2026-11-03.md",
-        "2026-11-04.md"
+        "2026-11-04.md",
+        "2026-11-05.md"
       ],
       "audits_ledger": "audits/ and ledger/ inspected; no allowlisted rating/score fields; skipped",
       "reviews": [
@@ -48,7 +49,8 @@
         "2026-10-30.md",
         "2026-11-02.md",
         "2026-11-03.md",
-        "2026-11-04.md"
+        "2026-11-04.md",
+        "2026-11-05.md"
       ]
     }
   },
@@ -984,6 +986,75 @@
     {
       "bot": "Safeguard",
       "date": "2026-11-04",
+      "rating": "Good"
+    },
+    {
+      "bot": "Arbiter",
+      "date": "2026-11-05",
+      "rating": "Good"
+    },
+    {
+      "bot": "Architect",
+      "date": "2026-11-05",
+      "rating": "Good"
+    },
+    {
+      "bot": "Archivist",
+      "date": "2026-11-05",
+      "rating": "Good"
+    },
+    {
+      "bot": "Emissary",
+      "date": "2026-11-05",
+      "rating": "NotRated"
+    },
+    {
+      "bot": "Engineer",
+      "date": "2026-11-05",
+      "rating": "Fair",
+      "scores": [
+        4,
+        3,
+        4,
+        4,
+        4
+      ]
+    },
+    {
+      "bot": "Explorer",
+      "date": "2026-11-05",
+      "rating": "NotRated"
+    },
+    {
+      "bot": "Imitator",
+      "date": "2026-11-05",
+      "rating": "Good",
+      "scores": [
+        4,
+        4,
+        5,
+        5,
+        5
+      ]
+    },
+    {
+      "bot": "Inferer",
+      "date": "2026-11-05",
+      "rating": "NotRated"
+    },
+    {
+      "bot": "Investigator",
+      "date": "2026-11-05",
+      "rating": "Good"
+    },
+    {
+      "bot": "Mender",
+      "date": "2026-11-05",
+      "rating": "Good"
+    },
+    {
+      "bot": "Safeguard",
+      "date": "2026-11-05",
       "rating": "Good"
     }
   ],
